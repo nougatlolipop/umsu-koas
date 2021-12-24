@@ -1,7 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
+import '../../../components/defaultButton.dart';
+import 'package:umsukoas/constants.dart';
+import '../../../size_config.dart';
 import 'welcomeContent.dart';
 
 class Body extends StatefulWidget {
@@ -17,15 +17,15 @@ class _BodyState extends State<Body> {
       "image": "asset/lotties/welcome.json"
     },
     {
-      "title": "Selamat datang di aplikasi KOAS UMSU",
+      "title": "Melakukan presensi cepat dan mudah",
       "image": "asset/lotties/absen.json"
     },
     {
-      "title": "Selamat datang di aplikasi KOAS UMSU",
+      "title": "Pencatatan log book lebih efisien",
       "image": "asset/lotties/doctor.json"
     },
     {
-      "title": "Selamat datang di aplikasi KOAS UMSU",
+      "title": "Penjadwalan kegiatan dengan notifikasi",
       "image": "asset/lotties/schedule.json"
     },
   ];
@@ -54,7 +54,9 @@ class _BodyState extends State<Body> {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
                 child: Column(
                   children: <Widget>[
                     Spacer(),
@@ -66,10 +68,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(flex: 3),
-                    DefaultButton(
-                      press: () {},
-                      text: "Lanjutkan",
-                    ),
+                    DefaultButton(press: () {}, text: "Lanjutkan"),
                     Spacer(),
                   ],
                 ),
@@ -83,42 +82,13 @@ class _BodyState extends State<Body> {
 
   AnimatedContainer buildDot({int index}) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: kAnimationDuration,
       margin: EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? Colors.amber : Color(0xFFD8D8D8),
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
-      ),
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    this.text,
-    this.press,
-  }) : super(key: key);
-  final String text;
-  final Function press;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        color: Colors.amber,
-        onPressed: press,
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 18, color: Colors.white),
-        ),
       ),
     );
   }
