@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../components/sectionTile.dart';
+import 'homeHeader.dart';
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,6 +11,17 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Text("Home"));
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          HomeHeader(),
+          SizedBox(height: getProportionateScreenHeight(60)),
+          SectionTile(
+            title: "Menu Utama",
+            press: () {},
+          ),
+        ],
+      ),
+    );
   }
 }

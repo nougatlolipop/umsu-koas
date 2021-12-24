@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'size_config.dart';
 
+const kBackgroundColor = Color(0xFFF8F8F8);
+const kActiveIconColor = Color(0xFFE68342);
+const kTextColorHome = Color(0xFF222B45);
+const kBlueLightColor = Color(0xFFC7B8F5);
+const kBlueColor = Color(0xFF817DC0);
+const kShadowColor = Color(0xFFE6E6E6);
+
+const kDefaultPadding = 20.0;
+
+final kDefualtShadow = BoxShadow(
+  offset: Offset(5, 5),
+  blurRadius: 10,
+  color: Color(0xFFE9E9E9).withOpacity(0.56),
+);
+
 const kPrimaryColor = Color(0xFF6777EF);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(

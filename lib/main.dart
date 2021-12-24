@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 import 'routes.dart';
 
 void main() {
@@ -6,15 +7,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'UMSU Work',
+      title: 'KOAS UMSU',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'ubuntu',
+        fontFamily: "Cairo",
+        scaffoldBackgroundColor: kBackgroundColor,
+        textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/welcomeScreen',
@@ -22,4 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
