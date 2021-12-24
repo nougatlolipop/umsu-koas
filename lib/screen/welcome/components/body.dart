@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
                     Spacer(flex: 3),
                     DefaultButton(
                         press: () {
-                          Navigator.pushNamed(context, "/homeScreen");
+                          Navigator.pushNamed(context, "/loginScreen");
                         },
                         text: "Lanjutkan"),
                     Spacer(),
