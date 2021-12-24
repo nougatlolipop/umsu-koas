@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:umsukoas/constants.dart';
+import '../../../size_config.dart';
 
 class WelcomeContent extends StatelessWidget {
   const WelcomeContent({
@@ -17,7 +19,8 @@ class WelcomeContent extends StatelessWidget {
         Text(
           "KOAS UMSU",
           style: TextStyle(
-            fontSize: 36,
+            fontSize: getProportionateScreenWidth(36),
+            color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -28,7 +31,7 @@ class WelcomeContent extends StatelessWidget {
         Spacer(flex: 2),
         Lottie.asset(
           image,
-          width: 250,
+          width: getProportionateScreenWidth(235),
         ),
       ],
     );

@@ -44,6 +44,7 @@ class _BodyState extends State<Body> {
                     currentPage = value;
                   });
                 },
+                itemCount: contentData.length,
                 itemBuilder: (context, index) => WelcomeContent(
                   title: contentData[index]["title"],
                   image: contentData[index]["image"],

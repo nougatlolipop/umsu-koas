@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'size_config.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
+const kPrimaryColor = Color(0xFF303F9F);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -18,9 +19,6 @@ final headingStyle = TextStyle(
   color: Colors.black,
   height: 1.5,
 );
-
-getProportionateScreenWidth(int i) {
-}
 
 const defaultDuration = Duration(milliseconds: 250);
 
