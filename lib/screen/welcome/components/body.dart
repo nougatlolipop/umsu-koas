@@ -14,19 +14,19 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> contentData = [
     {
       "title": "Selamat datang di aplikasi KOAS UMSU",
-      "image": "asset/lotties/absent.json"
+      "image": "asset/lotties/welcome.json"
     },
     {
       "title": "Selamat datang di aplikasi KOAS UMSU",
-      "image": "asset/lotties/absent.json"
+      "image": "asset/lotties/absen.json"
     },
     {
       "title": "Selamat datang di aplikasi KOAS UMSU",
-      "image": "asset/lotties/absent.json"
+      "image": "asset/lotties/doctor.json"
     },
     {
       "title": "Selamat datang di aplikasi KOAS UMSU",
-      "image": "asset/lotties/absent.json"
+      "image": "asset/lotties/schedule.json"
     },
   ];
   @override
