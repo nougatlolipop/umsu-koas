@@ -8,6 +8,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Text("Home"));
+    return Text("login");
   }
 }

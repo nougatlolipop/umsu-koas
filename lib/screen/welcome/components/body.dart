@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../components/defaultButton.dart';
 import 'package:umsukoas/constants.dart';
-import '../../../size_config.dart';
 import 'welcomeContent.dart';
 
 class Body extends StatefulWidget {
@@ -21,11 +20,11 @@ class _BodyState extends State<Body> {
       "image": "asset/lotties/absen.json"
     },
     {
-      "title": "Pencatatan log book lebih efisien",
+      "title": "Pencatatan log book lebih efektif & efisien",
       "image": "asset/lotties/doctor.json"
     },
     {
-      "title": "Penjadwalan kegiatan dengan notifikasi",
+      "title": "Penjadwalan kegiatan dengan notifikasi instan",
       "image": "asset/lotties/schedule.json"
     },
   ];
@@ -68,7 +67,11 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(flex: 3),
-                    DefaultButton(press: () {}, text: "Lanjutkan"),
+                    DefaultButton(
+                        press: () {
+                          Navigator.pushNamed(context, "/homeScreen");
+                        },
+                        text: "Lanjutkan"),
                     Spacer(),
                   ],
                 ),
