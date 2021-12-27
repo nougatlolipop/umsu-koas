@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umsukoas/size_config.dart';
 import '../../../components/defaultButton.dart';
 import 'package:umsukoas/constants.dart';
 import 'welcomeContent.dart';
@@ -12,19 +13,23 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> contentData = [
     {
-      "title": "Selamat datang di aplikasi KOAS UMSU",
+      "title": "KOAS UMSU",
+      "deskripsi": "Selamat datang di aplikasi KOAS UMSU",
       "image": "asset/lotties/welcome.json"
     },
     {
-      "title": "Melakukan presensi cepat dan mudah",
+      "title": "PRESENSI",
+      "deskripsi": "Melakukan presensi cepat dan mudah",
       "image": "asset/lotties/absen.json"
     },
     {
-      "title": "Pencatatan log book lebih efektif & efisien",
+      "title": "LOG BOOK",
+      "deskripsi": "Pencatatan log book lebih efektif & efisien",
       "image": "asset/lotties/doctor.json"
     },
     {
-      "title": "Penjadwalan kegiatan dengan notifikasi instan",
+      "title": "PENJADWALAN",
+      "deskripsi": "Penjadwalan kegiatan dengan notifikasi instan",
       "image": "asset/lotties/schedule.json"
     },
   ];
@@ -46,6 +51,7 @@ class _BodyState extends State<Body> {
                 itemCount: contentData.length,
                 itemBuilder: (context, index) => WelcomeContent(
                   title: contentData[index]["title"],
+                  deskripsi: contentData[index]["deskripsi"],
                   image: contentData[index]["image"],
                 ),
               ),
@@ -53,8 +59,8 @@ class _BodyState extends State<Body> {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(20),
                 ),
                 child: Column(
                   children: <Widget>[

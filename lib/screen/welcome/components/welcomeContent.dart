@@ -8,8 +8,9 @@ class WelcomeContent extends StatelessWidget {
     Key key,
     this.title,
     this.image,
+    this.deskripsi,
   }) : super(key: key);
-  final String title, image;
+  final String title, deskripsi, image;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class WelcomeContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
-          "KOAS UMSU",
+          title,
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,
@@ -25,7 +26,7 @@ class WelcomeContent extends StatelessWidget {
           ),
         ),
         Text(
-          title,
+          deskripsi,
           textAlign: TextAlign.center,
         ),
         Spacer(flex: 2),

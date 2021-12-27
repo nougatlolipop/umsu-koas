@@ -16,7 +16,7 @@ class HomeHeader extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(315),
+          height: getProportionateScreenHeight(SizeConfig.screenHeight / 2),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
