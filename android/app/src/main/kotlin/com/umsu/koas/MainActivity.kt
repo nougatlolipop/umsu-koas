@@ -1,4 +1,4 @@
-package com.example.umsukoas
+package com.umsu.koas
 
 import io.flutter.embedding.android.FlutterActivity
 
