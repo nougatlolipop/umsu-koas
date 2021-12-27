@@ -36,9 +36,13 @@ class WelcomeContent extends StatelessWidget {
           width: getProportionateScreenWidth(235),
         ),
         Spacer(),
-        Text(
-          penjelasan,
-          textAlign: TextAlign.center,
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: Text(
+            penjelasan,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

@@ -60,6 +60,7 @@ class _BodyState extends State<Body> {
                   title: contentData[index]["title"],
                   deskripsi: contentData[index]["deskripsi"],
                   image: contentData[index]["image"],
+                  penjelasan: contentData[index]["penjelasan"],
                 ),
               ),
             ),
