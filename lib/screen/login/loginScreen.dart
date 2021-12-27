@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'components/body.dart';
 
-class HomeScreen extends StatelessWidget {
-  static String routeName = "/homeScreen";
+class LoginScreen extends StatelessWidget {
+  static String routeName = "/loginScreen";
 
   @override
   Widget build(BuildContext context) {
