@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
         textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/homeScreen',
+      initialRoute: '/welcomeScreen',
       routes: routes,
     );
   }
