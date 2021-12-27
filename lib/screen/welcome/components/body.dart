@@ -15,21 +15,28 @@ class _BodyState extends State<Body> {
     {
       "title": "KOAS UMSU",
       "deskripsi": "Selamat datang di aplikasi KOAS UMSU",
+      "penjelasan": "Aplikasi ini diperuntukan kepada pada dokter muda di UMSU",
       "image": "asset/lotties/welcome.json"
     },
     {
       "title": "PRESENSI",
       "deskripsi": "Melakukan presensi cepat dan mudah",
+      "penjelasan":
+          "Kini melakukan absensi bisa dilakukan hanya dengan satu kali klik didalam aplikasi",
       "image": "asset/lotties/absen.json"
     },
     {
       "title": "LOG BOOK",
       "deskripsi": "Pencatatan log book lebih efektif & efisien",
+      "penjelasan":
+          "Kini pencatatan logbook juga bisa dilakukan dimana saja melalui ponsel masing masing",
       "image": "asset/lotties/doctor.json"
     },
     {
       "title": "PENJADWALAN",
       "deskripsi": "Penjadwalan kegiatan dengan notifikasi instan",
+      "penjelasan":
+          "Dan penjadwalan bisa dilihat langsung melalui ponsel peserta",
       "image": "asset/lotties/schedule.json"
     },
   ];
@@ -72,7 +79,7 @@ class _BodyState extends State<Body> {
                         (index) => buildDot(index: index),
                       ),
                     ),
-                    Spacer(flex: 3),
+                    Spacer(),
                     DefaultButton(
                         press: () {
                           Navigator.pushNamed(context, "/loginScreen");

@@ -9,8 +9,9 @@ class WelcomeContent extends StatelessWidget {
     this.title,
     this.image,
     this.deskripsi,
+    this.penjelasan,
   }) : super(key: key);
-  final String title, deskripsi, image;
+  final String title, deskripsi, image, penjelasan;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,11 @@ class WelcomeContent extends StatelessWidget {
         Lottie.asset(
           image,
           width: getProportionateScreenWidth(235),
+        ),
+        Spacer(),
+        Text(
+          penjelasan,
+          textAlign: TextAlign.center,
         ),
       ],
     );
