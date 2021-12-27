@@ -4,7 +4,26 @@ import '../../../size_config.dart';
 
 import 'announcement.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends StatefulWidget {
+  @override
+  State<HomeHeader> createState() => _HomeHeaderState();
+}
+
+String greeting() {
+  var hour = DateTime.now().hour;
+  if (hour < 10) {
+    return 'Pagi';
+  }
+  if (hour < 14) {
+    return 'Siang';
+  }
+  if (hour < 18) {
+    return 'Siang';
+  }
+  return 'Malam';
+}
+
+class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -37,7 +56,7 @@ class HomeHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                "Assalamualaikum wr. wb., Selamat Sore Sukrianto irvan fikri ansari atika umaya",
+                "Assalamualaikum wr. wb., Selamat ${greeting()} Sukrianto irvan fikri ansari atika umaya",
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -46,7 +65,7 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: getProportionateScreenWidth(-40),
+          bottom: getProportionateScreenWidth(-50),
           child: Announcement(),
         )
       ],
