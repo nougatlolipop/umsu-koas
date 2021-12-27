@@ -28,7 +28,7 @@ class HomeHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: getProportionateScreenHeight(80)),
+            SizedBox(height: getProportionateScreenHeight(160)),
             Text(
               "Login",
               style: TextStyle(
@@ -38,6 +38,7 @@ class HomeHeader extends StatelessWidget {
                 height: 0.5,
               ),
             ),
+            SizedBox(height: getProportionateScreenHeight(10)),
             Text(
               "Silahkan Login Menggunakan Credential Portal UMSU",
               style: TextStyle(
