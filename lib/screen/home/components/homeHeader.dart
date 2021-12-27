@@ -21,26 +21,28 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: getProportionateScreenHeight(80)),
-            Text(
-              "Login",
-              style: TextStyle(
-                fontSize: getProportionateScreenWidth(73),
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                height: 0.5,
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: getProportionateScreenHeight(80)),
+              Text(
+                "KOAS UMSU",
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(55),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  height: 0.5,
+                ),
               ),
-            ),
-            Text(
-              "Silahkan Login Menggunakan Credential Portal UMSU",
-              style: TextStyle(
-                color: Colors.white,
+              Text(
+                "Selamat Sore, Sukrianto",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         Positioned(
           bottom: getProportionateScreenWidth(-40),

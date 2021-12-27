@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:umsukoas/screen/home/homeScreen.dart';
 
 const users = const {
   'mrivan@umsu.ac.id': 'allahuakbar1213',
@@ -47,7 +48,9 @@ class Body extends StatelessWidget {
       onLogin: _authUser,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
-        Navigator.pushReplacementNamed(context, '/homeScreen');
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ));
       },
       onRecoverPassword: _recoverPassword,
     );
