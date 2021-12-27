@@ -16,7 +16,8 @@ class HomeHeader extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(SizeConfig.screenHeight / 2),
+          height:
+              getProportionateScreenHeight((SizeConfig.screenHeight / 2) + 50),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
@@ -28,7 +29,17 @@ class HomeHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: getProportionateScreenHeight(160)),
+            Container(
+              height: 150,
+              width: 150,
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                  image: new AssetImage('asset/images/logoumsu.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: getProportionateScreenHeight(50)),
             Text(
               "Login",
               style: TextStyle(
@@ -48,7 +59,7 @@ class HomeHeader extends StatelessWidget {
           ],
         ),
         Positioned(
-          bottom: getProportionateScreenWidth(-100),
+          bottom: getProportionateScreenWidth(-80),
           child: FormLogin(),
         )
       ],
