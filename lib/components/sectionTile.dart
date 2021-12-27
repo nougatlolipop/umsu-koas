@@ -20,7 +20,7 @@ class SectionTile extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "Menu Utama",
+            title,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -29,7 +29,7 @@ class SectionTile extends StatelessWidget {
           Spacer(),
           GestureDetector(
             onTap: press,
-            child: Text(title),
+            child: Text("See All"),
           ),
         ],
       ),
