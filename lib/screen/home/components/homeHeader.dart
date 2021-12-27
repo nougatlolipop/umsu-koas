@@ -21,7 +21,8 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
         ),
-        Container(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,7 +37,7 @@ class HomeHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                "Selamat Sore, Sukrianto",
+                "Assalamualaikum wr. wb., Selamat Sore Sukrianto irvan fikri ansari atika umaya",
                 style: TextStyle(
                   color: Colors.white,
                 ),
