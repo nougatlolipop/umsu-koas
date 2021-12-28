@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:umsukoas/restapi/api_services.dart';
+import '/components/loadingWidget.dart';
+import '/restapi/api_services.dart';
 import '../../../size_config.dart';
 import '../../../models/model_menu.dart' as menuModel;
 
@@ -40,10 +41,8 @@ class _MenuGridState extends State<MenuGrid> {
         }
 
         return Container(
-          height: 120,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+          height: 350,
+          child: LodingWidget(),
         );
       },
     );
@@ -59,7 +58,7 @@ class _MenuGridState extends State<MenuGrid> {
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 120,
-                childAspectRatio: 3 / 3,
+                childAspectRatio: 1.5,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20),
             itemCount: menus.length,
@@ -119,8 +118,8 @@ class MenuUtamaItem extends StatelessWidget {
             // Navigator.pushNamed(context, press);
           },
           child: Container(
-            height: 75.0,
-            width: 75.0,
+            height: 50.0,
+            width: 50.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border:

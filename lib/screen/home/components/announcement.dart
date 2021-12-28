@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../constants.dart';
@@ -39,10 +40,8 @@ class _AnnouncementState extends State<Announcement> {
         }
 
         return Container(
-          height: 120,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+          height: 50,
+          child: LodingWidget(),
         );
       },
     );

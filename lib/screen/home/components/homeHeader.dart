@@ -43,28 +43,30 @@ class _HomeHeaderState extends State<HomeHeader> {
               fit: BoxFit.fill,
             ),
           ),
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: getProportionateScreenHeight(50)),
-                Text(
-                  "KOAS UMSU",
-                  style: TextStyle(
-                    fontSize: getProportionateScreenWidth(55),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 0.5,
-                  ),
+        ),
+        Positioned(
+          left: getProportionateScreenWidth(35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: getProportionateScreenHeight(180)),
+              Text(
+                "KOAS UMSU",
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(35),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  height: 0.5,
                 ),
-                Text(
-                  "Assalamualaikum wr. wb., Selamat ${greeting()} Sukrianto irvan fikri ansari atika umaya",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+              ),
+              Text(
+                "Assalamualaikum wr. wb., Selamat ${greeting()} irvan",
+                style: TextStyle(
+                  color: Colors.white,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Positioned(
