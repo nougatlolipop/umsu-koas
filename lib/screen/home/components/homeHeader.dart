@@ -31,37 +31,40 @@ class _HomeHeaderState extends State<HomeHeader> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(350),
+          height: getProportionateScreenHeight(370),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
             ),
+            image: new DecorationImage(
+              image: ExactAssetImage('asset/images/circle.png'),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: getProportionateScreenHeight(80)),
-              Text(
-                "KOAS UMSU",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(55),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  height: 0.5,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: getProportionateScreenHeight(50)),
+                Text(
+                  "KOAS UMSU",
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(55),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    height: 0.5,
+                  ),
                 ),
-              ),
-              Text(
-                "Assalamualaikum wr. wb., Selamat ${greeting()} Sukrianto irvan fikri ansari atika umaya",
-                style: TextStyle(
-                  color: Colors.white,
+                Text(
+                  "Assalamualaikum wr. wb., Selamat ${greeting()} Sukrianto irvan fikri ansari atika umaya",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Positioned(

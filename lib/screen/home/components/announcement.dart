@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'contentAnnouncement.dart';
+import '../../../models/model_announcement.dart' as announcementModel;
 
 class Announcement extends StatefulWidget {
   @override
@@ -12,26 +14,42 @@ class Announcement extends StatefulWidget {
 
 class _AnnouncementState extends State<Announcement> {
   int currentPage = 0;
-  List<Map<String, String>> contentData = [
-    {
-      "title": "HILIH",
-      "announcement":
-          "Kini melakukan absensi bisa dilakukan hanya dengan satu kali klik didalam aplikasi, kini melakukan absensi bisa dilakukan hanya dengan satu kali klik didalam aplikasi",
-    },
-    {
-      "title": "KOAS UMSU",
-      "announcement":
-          "Aplikasi ini diperuntukan kepada pada dokter muda di UMSU",
-    },
-    {
-      "title": "PRESENSI",
-      "announcement":
-          "Kini melakukan absensi bisa dilakukan hanya dengan satu kali klik didalam aplikasi, kini melakukan absensi bisa dilakukan hanya dengan satu kali klik didalam aplikasi",
-    }
-  ];
+  APIService apiService;
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return _announcementsList();
+  }
+
+  Widget _announcementsList() {
+    return new FutureBuilder(
+      future: apiService.getAnnouncements(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<announcementModel.Announcement>> model,
+      ) {
+        if (model.hasData) {
+          return _buildAnouncementsList(model.data);
+        }
+
+        return Container(
+          height: 120,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAnouncementsList(
+      List<announcementModel.Announcement> announcements) {
     return Container(
       width: getProportionateScreenWidth(313),
       height: getProportionateScreenWidth(100),
@@ -61,12 +79,12 @@ class _AnnouncementState extends State<Announcement> {
                   });
                 },
               ),
-              items: contentData.map((i) {
+              items: announcements.map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return ContentAnnouncement(
-                      title: i['title'],
-                      announcement: i['announcement'],
+                      title: i.pengumumanJudul,
+                      announcement: i.pengumumanIsi,
                     );
                   },
                 );
@@ -75,7 +93,7 @@ class _AnnouncementState extends State<Announcement> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                contentData.length,
+                announcements.length,
                 (index) => buildDot(index: index),
               ),
             ),
