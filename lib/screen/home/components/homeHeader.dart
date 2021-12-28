@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -42,6 +43,19 @@ class _HomeHeaderState extends State<HomeHeader> {
               image: ExactAssetImage('asset/images/circle.png'),
               fit: BoxFit.fill,
             ),
+          ),
+        ),
+        Positioned(
+          right: getProportionateScreenWidth(5),
+          top: getProportionateScreenHeight(35),
+          child: IconButton(
+            icon: Icon(
+              MdiIcons.accountCircleOutline,
+            ),
+            iconSize: 35,
+            color: Colors.white,
+            splashColor: Colors.purple,
+            onPressed: () {},
           ),
         ),
         Positioned(

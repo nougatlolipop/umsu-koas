@@ -54,6 +54,7 @@ class _MenuGridState extends State<MenuGrid> {
       child: ScrollConfiguration(
         behavior: MyBehavior(),
         child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
