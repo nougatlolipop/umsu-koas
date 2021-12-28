@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../size_config.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,7 +7,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Body(
+    SizeConfig().init(context);
+    return Scaffold(
+      body: Body(),
     );
   }
 }
