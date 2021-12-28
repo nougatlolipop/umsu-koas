@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../components/sectionTile.dart';
 import 'homeHeader.dart';
 import '../../../size_config.dart';
+import 'menuGrid.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _BodyState extends State<Body> {
             title: "Menu Utama",
             press: () {},
           ),
+          MenuGrid(),
         ],
       ),
     );
