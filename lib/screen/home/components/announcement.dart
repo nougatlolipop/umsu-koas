@@ -1,17 +1,58 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:umsukoas/restapi/api_services.dart';
 
+import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'contentAnnouncement.dart';
+import '../../../models/model_announcement.dart' as announcementModel;
 
-class Announcement extends StatelessWidget {
-  const Announcement({
-    Key key,
-  }) : super(key: key);
+class Announcement extends StatefulWidget {
+  @override
+  State<Announcement> createState() => _AnnouncementState();
+}
+
+class _AnnouncementState extends State<Announcement> {
+  int currentPage = 0;
+  APIService apiService;
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return _announcementsList();
+  }
+
+  Widget _announcementsList() {
+    return new FutureBuilder(
+      future: apiService.getAnnouncements(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<announcementModel.Announcement>> model,
+      ) {
+        if (model.hasData) {
+          return _buildAnouncementsList(model.data);
+        }
+
+        return Container(
+          height: 120,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAnouncementsList(
+      List<announcementModel.Announcement> announcements) {
     return Container(
       width: getProportionateScreenWidth(313),
-      height: getProportionateScreenWidth(80),
+      height: getProportionateScreenWidth(100),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -24,28 +65,53 @@ class Announcement extends StatelessWidget {
           )
         ],
       ),
-      child: Container(
-        margin: EdgeInsets.all(10),
+      child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Annoucement 1",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                viewportFraction: 1,
+                height: getProportionateScreenWidth(80),
+                onPageChanged: (value, reason) {
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
               ),
+              items: announcements.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return ContentAnnouncement(
+                      title: i.pengumumanJudul,
+                      announcement: i.pengumumanIsi,
+                    );
+                  },
+                );
+              }).toList(),
             ),
-            SizedBox(height: 5),
-            Flexible(
-              child: Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(fontSize: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                announcements.length,
+                (index) => buildDot(index: index),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AnimatedContainer buildDot({int index}) {
+    return AnimatedContainer(
+      duration: kAnimationDuration,
+      margin: EdgeInsets.only(right: 5),
+      height: 6,
+      width: currentPage == index ? 20 : 6,
+      decoration: BoxDecoration(
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }
