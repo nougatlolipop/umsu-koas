@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../components/sectionTile.dart';
+import 'package:umsukoas/size_config.dart';
 import 'homeHeader.dart';
-import '../../../size_config.dart';
 import 'menuGrid.dart';
 
 class Body extends StatefulWidget {
@@ -12,18 +11,14 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          HomeHeader(),
-          SizedBox(height: getProportionateScreenHeight(60)),
-          SectionTile(
-            title: "Menu Utama",
-            press: () {},
-          ),
-          MenuGrid(),
-        ],
-      ),
+    return Column(
+      children: [
+        HomeHeader(),
+        SizedBox(
+          height: getProportionateScreenHeight(20),
+        ),
+        MenuGrid(),
+      ],
     );
   }
 }

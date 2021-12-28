@@ -31,7 +31,7 @@ class _HomeHeaderState extends State<HomeHeader> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(315),
+          height: getProportionateScreenHeight(350),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(

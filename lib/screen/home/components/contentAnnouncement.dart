@@ -27,7 +27,7 @@ class ContentAnnouncement extends StatelessWidget {
               announcement,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: TextStyle(fontSize: 10),
+              style: TextStyle(fontSize: 12),
             ),
           ),
         ],

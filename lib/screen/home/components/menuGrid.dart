@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:umsukoas/constants.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 import '../../../size_config.dart';
 import '../../../models/model_menu.dart' as menuModel;
@@ -51,29 +50,40 @@ class _MenuGridState extends State<MenuGrid> {
   }
 
   Widget _buildMenusList(List<menuModel.Menu> menus) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 150,
-              childAspectRatio: 2 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          itemCount: menus.length,
-          itemBuilder: (context, index) {
-            var data = menus[index];
-            return MenuUtamaItem(
-              title: data.title,
-              icon: data.icon,
-              colorBox: data.colorBox,
-              iconColor: data.iconColor,
-              press: data.press,
-              isSelected: false,
-            );
-          }),
+      child: ScrollConfiguration(
+        behavior: MyBehavior(),
+        child: GridView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 120,
+                childAspectRatio: 3 / 3,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            itemCount: menus.length,
+            itemBuilder: (context, index) {
+              var data = menus[index];
+              return MenuUtamaItem(
+                title: data.title,
+                icon: data.icon,
+                colorBox: data.colorBox,
+                iconColor: data.iconColor,
+                press: data.press,
+                isSelected: false,
+              );
+            }),
+      ),
     );
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
 
@@ -102,14 +112,15 @@ class MenuUtamaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, press);
+            // Navigator.pushNamed(context, press);
           },
           child: Container(
-            height: 60.0,
-            width: 60.0,
+            height: 75.0,
+            width: 75.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border:
@@ -117,6 +128,7 @@ class MenuUtamaItem extends StatelessWidget {
             child: new Icon(
               MdiIcons.fromString(icon),
               color: _getColorFromHex(colorBox),
+              size: 35,
             ),
           ),
         ),
