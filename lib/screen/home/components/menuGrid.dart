@@ -58,10 +58,11 @@ class _MenuGridState extends State<MenuGrid> {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 120,
-                childAspectRatio: 1.5,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
+              maxCrossAxisExtent: 130.0,
+              childAspectRatio: 1.5,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 5,
+            ),
             itemCount: menus.length,
             itemBuilder: (context, index) {
               var data = menus[index];
