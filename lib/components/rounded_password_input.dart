@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../constants.dart';
 import 'input_container.dart';
 
@@ -14,7 +15,10 @@ class RoundedPasswordInput extends StatelessWidget {
       cursorColor: kPrimaryColor,
       obscureText: true,
       decoration: InputDecoration(
-          icon: Icon(Icons.lock, color: kPrimaryColor),
+          icon: Icon(
+            MdiIcons.lockOutline,
+            color: kPrimaryColor,
+          ),
           hintText: hint,
           border: InputBorder.none),
     ));

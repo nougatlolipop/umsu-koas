@@ -35,15 +35,17 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       body: Stack(
         children: [
           Positioned(
-              top: 100,
-              right: -50,
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: kPrimaryColor),
-              )),
+            top: 100,
+            right: -50,
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: kPrimaryColor,
+              ),
+            ),
+          ),
           Positioned(
             top: -50,
             left: -50,
@@ -51,15 +53,17 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               width: 200,
               height: 200,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: kPrimaryColor),
+                borderRadius: BorderRadius.circular(100),
+                color: kPrimaryColor,
+              ),
             ),
           ),
           LoginForm(
-              isLogin: isLogin,
-              animationDuration: animationDuration,
-              size: SizeConfig.size,
-              defaultLoginSize: defaultLoginSize),
+            isLogin: isLogin,
+            animationDuration: animationDuration,
+            size: SizeConfig.size,
+            defaultLoginSize: defaultLoginSize,
+          ),
         ],
       ),
     );

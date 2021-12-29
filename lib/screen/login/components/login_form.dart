@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:umsukoas/components/rounded_button.dart';
 import 'package:umsukoas/components/rounded_input.dart';
 import 'package:umsukoas/components/rounded_password_input.dart';
@@ -36,10 +37,10 @@ class LoginForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Welcome Back',
+                  'KOAS UMSU',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 30,
                     color: kTextColorHome,
                   ),
                 ),
@@ -47,7 +48,10 @@ class LoginForm extends StatelessWidget {
                 Lottie.asset('asset/lotties/login.json',
                     width: getProportionateScreenWidth(250)),
                 SizedBox(height: 40),
-                RoundedInput(icon: Icons.mail, hint: 'Username'),
+                RoundedInput(
+                  icon: MdiIcons.accountCircleOutline,
+                  hint: 'Username',
+                ),
                 RoundedPasswordInput(hint: 'Password'),
                 SizedBox(height: 10),
                 RoundedButton(title: 'LOGIN'),
