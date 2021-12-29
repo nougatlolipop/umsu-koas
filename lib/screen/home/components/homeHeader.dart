@@ -113,7 +113,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           ),
         ),
         Positioned(
-          bottom: getProportionateScreenWidth(-60),
+          bottom: getProportionateScreenWidth(-50),
           child: Announcement(),
         )
       ],

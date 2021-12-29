@@ -51,7 +51,7 @@ class _AnnouncementState extends State<Announcement> {
       List<announcementModel.Announcement> announcements) {
     return Container(
       width: getProportionateScreenWidth(313),
-      height: getProportionateScreenWidth(120),
+      height: getProportionateScreenWidth(100),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -66,12 +66,13 @@ class _AnnouncementState extends State<Announcement> {
       ),
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CarouselSlider(
               options: CarouselOptions(
                 autoPlay: true,
                 viewportFraction: 1,
-                height: getProportionateScreenWidth(100),
+                height: getProportionateScreenWidth(85),
                 onPageChanged: (value, reason) {
                   setState(() {
                     currentPage = value;
