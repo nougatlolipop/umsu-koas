@@ -46,7 +46,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           ),
         ),
         Positioned(
-          right: getProportionateScreenWidth(5),
+          right: getProportionateScreenWidth(10),
           top: getProportionateScreenHeight(35),
           child: IconButton(
             icon: Icon(
@@ -55,7 +55,9 @@ class _HomeHeaderState extends State<HomeHeader> {
             iconSize: 35,
             color: Colors.white,
             splashColor: Colors.purple,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/profileScreen');
+            },
           ),
         ),
         Positioned(
