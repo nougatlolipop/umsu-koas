@@ -62,7 +62,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             isLogin: isLogin,
             animationDuration: animationDuration,
             size: SizeConfig.size,
-            defaultLoginSize: defaultLoginSize,
+            defaultLoginSize: SizeConfig.screenHeight,
           ),
         ],
       ),
