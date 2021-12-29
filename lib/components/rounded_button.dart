@@ -6,16 +6,18 @@ class RoundedButton extends StatelessWidget {
   const RoundedButton({
     Key key,
     @required this.title,
+    this.press,
   }) : super(key: key);
 
   final String title;
+  final Function press;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () {},
+      onTap: press,
       borderRadius: BorderRadius.circular(30),
       child: Container(
         width: size.width * 0.8,

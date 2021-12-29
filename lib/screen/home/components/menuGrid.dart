@@ -60,8 +60,8 @@ class _MenuGridState extends State<MenuGrid> {
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 130.0,
               childAspectRatio: 1.5,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 5,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
             ),
             itemCount: menus.length,
             itemBuilder: (context, index) {

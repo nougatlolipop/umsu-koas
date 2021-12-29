@@ -33,51 +33,51 @@ class LoginModel {
 }
 
 class Data {
-  String Register_Number;
-  int Student_Id;
-  String NPM;
-  String FULLNAME;
-  String EMAIL;
-  String PHONE;
-  String PRODI;
-  String PASSWORD;
-  String ALAMAT;
+  String registerNumber;
+  String studentId;
+  String npm;
+  String fullname;
+  String email;
+  String phone;
+  String prodi;
+  String password;
+  String alamat;
 
   Data({
-    this.Register_Number,
-    this.Student_Id,
-    this.NPM,
-    this.FULLNAME,
-    this.EMAIL,
-    this.PHONE,
-    this.PRODI,
-    this.PASSWORD,
-    this.ALAMAT,
+    this.registerNumber,
+    this.studentId,
+    this.npm,
+    this.fullname,
+    this.email,
+    this.phone,
+    this.prodi,
+    this.password,
+    this.alamat,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
-    Register_Number = json['Register_Number'];
-    Student_Id = json['Student_Id'];
-    NPM = json['NPM'];
-    FULLNAME = json['FULLNAME'];
-    EMAIL = json['EMAIL'];
-    PHONE = json['PHONE'];
-    PRODI = json['PRODI'];
-    PASSWORD = json['PASSWORD'];
-    ALAMAT = json['ALAMAT'];
+    registerNumber = json['Register_Number'];
+    studentId = json['Student_Id'];
+    npm = json['NPM'];
+    fullname = json['FULLNAME'];
+    email = json['EMAIL'];
+    phone = json['PHONE'];
+    prodi = json['PRODI'];
+    password = json['PASSWORD'];
+    alamat = json['ALAMAT'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Register_Number'] = this.Register_Number;
-    data['Student_Id'] = this.Student_Id;
-    data['NPM'] = this.NPM;
-    data['FULLNAME'] = this.FULLNAME;
-    data['EMAIL'] = this.EMAIL;
-    data['PHONE'] = this.PHONE;
-    data['PRODI'] = this.PRODI;
-    data['PASSWORD'] = this.PASSWORD;
-    data['ALAMAT'] = this.ALAMAT;
+    data['Register_Number'] = this.registerNumber;
+    data['Student_Id'] = this.studentId;
+    data['NPM'] = this.npm;
+    data['FULLNAME'] = this.fullname;
+    data['EMAIL'] = this.email;
+    data['PHONE'] = this.phone;
+    data['PRODI'] = this.prodi;
+    data['PASSWORD'] = this.password;
+    data['ALAMAT'] = this.alamat;
     return data;
   }
 }

@@ -80,6 +80,7 @@ class APIService {
         model = LoginModel.fromJson(response.data);
       }
     } on DioError catch (e) {
+      print('irvan');
       print(e);
     }
 
