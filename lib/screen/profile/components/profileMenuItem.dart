@@ -20,7 +20,7 @@ class ProfileMenuItem extends StatelessWidget {
       onTap: press,
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: defaultSize * 2, vertical: defaultSize * 3),
+            horizontal: defaultSize * 2, vertical: defaultSize * 1.5),
         child: SafeArea(
           child: Row(
             children: <Widget>[

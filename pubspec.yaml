@@ -26,6 +26,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   sweetalert: ^0.0.1
   flutter_progress_hud: ^2.0.0
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

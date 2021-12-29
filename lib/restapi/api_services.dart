@@ -51,7 +51,7 @@ class APIService {
             .map((i) => Announcement.fromJson(i))
             .toList();
       }
-      print(data);
+      // print(data);
     } on DioError catch (e) {
       print(e.response);
     }

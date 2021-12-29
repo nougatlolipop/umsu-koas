@@ -8,6 +8,7 @@ import 'package:umsukoas/components/rounded_input.dart';
 import 'package:umsukoas/components/rounded_password_input.dart';
 import 'package:umsukoas/constants.dart';
 import 'package:umsukoas/restapi/api_services.dart';
+import 'package:umsukoas/services/shared_service.dart';
 import 'package:umsukoas/size_config.dart';
 
 class LoginForm extends StatefulWidget {
@@ -44,6 +45,7 @@ class _LoginFormState extends State<LoginForm> {
       (ret) {
         print(ret.toJson());
         if (ret.status) {
+          SharedService.setLogindetails(ret);
           Navigator.pushNamed(context, "/homeScreen");
         } else {
           SweetAlert.show(

@@ -14,15 +14,14 @@ class Info extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double defaultSize = SizeConfig.defaultSize;
     return SizedBox(
-      height: defaultSize * 24, // 240
+      height: SizeConfig.defaultSize * 24, // 240
       child: Stack(
         children: <Widget>[
           ClipPath(
             clipper: CustomShape(),
             child: Container(
-              height: defaultSize * 15, //150
+              height: SizeConfig.defaultSize * 15, //150
               color: kPrimaryColor,
             ),
           ),
@@ -31,29 +30,29 @@ class Info extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(bottom: defaultSize), //10
-                  height: defaultSize * 14, //140
-                  width: defaultSize * 14,
+                  margin: EdgeInsets.only(bottom: SizeConfig.defaultSize), //10
+                  height: SizeConfig.defaultSize * 14, //140
+                  width: SizeConfig.defaultSize * 14,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: Colors.white,
-                      width: defaultSize * 0.8, //8
+                      width: SizeConfig.defaultSize * 0.8, //8
                     ),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage(image),
+                      image: NetworkImage(image),
                     ),
                   ),
                 ),
                 Text(
                   name,
                   style: TextStyle(
-                    fontSize: defaultSize * 2.2, // 22
+                    fontSize: SizeConfig.defaultSize * 2.2, // 22
                     color: kTextColor,
                   ),
                 ),
-                SizedBox(height: defaultSize / 2), //5
+                SizedBox(height: SizeConfig.defaultSize / 2), //5
                 Text(
                   email,
                   style: TextStyle(

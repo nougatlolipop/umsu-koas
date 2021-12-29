@@ -42,18 +42,19 @@ class Data {
   String prodi;
   String password;
   String alamat;
+  String angkatan;
 
-  Data({
-    this.registerNumber,
-    this.studentId,
-    this.npm,
-    this.fullname,
-    this.email,
-    this.phone,
-    this.prodi,
-    this.password,
-    this.alamat,
-  });
+  Data(
+      {this.registerNumber,
+      this.studentId,
+      this.npm,
+      this.fullname,
+      this.email,
+      this.phone,
+      this.prodi,
+      this.password,
+      this.alamat,
+      this.angkatan});
 
   Data.fromJson(Map<String, dynamic> json) {
     registerNumber = json['Register_Number'];
@@ -65,6 +66,7 @@ class Data {
     prodi = json['PRODI'];
     password = json['PASSWORD'];
     alamat = json['ALAMAT'];
+    angkatan = json['ANGKATAN'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -78,6 +80,7 @@ class Data {
     data['PRODI'] = this.prodi;
     data['PASSWORD'] = this.password;
     data['ALAMAT'] = this.alamat;
+    data['ANGKATAN'] = this.angkatan;
     return data;
   }
 }

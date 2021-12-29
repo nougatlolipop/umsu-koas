@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
+import 'package:umsukoas/models/model_login.dart';
+import 'package:umsukoas/services/shared_service.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -25,6 +31,25 @@ String greeting() {
 }
 
 class _HomeHeaderState extends State<HomeHeader> {
+  LoginModel loginModel;
+  String nama;
+  @override
+  void initState() {
+    getUserLogin();
+    super.initState();
+  }
+
+  Future<void> getUserLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getString("login_details");
+
+    loginModel =
+        LoginModel.fromJson(jsonDecode(prefs.getString("login_details")));
+    setState(() {
+      nama = loginModel.data[0].fullname;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -61,6 +86,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           ),
         ),
         Positioned(
+          top: getProportionateScreenHeight(45),
           left: getProportionateScreenWidth(35),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,16 +103,17 @@ class _HomeHeaderState extends State<HomeHeader> {
                 ),
               ),
               Text(
-                "Assalamualaikum wr. wb., Selamat ${greeting()} irvan",
+                "Assalamualaikum wr. wb., Selamat ${greeting()} \n${nama}",
                 style: TextStyle(
                   color: Colors.white,
                 ),
+                overflow: TextOverflow.clip,
               ),
             ],
           ),
         ),
         Positioned(
-          bottom: getProportionateScreenWidth(-50),
+          bottom: getProportionateScreenWidth(-60),
           child: Announcement(),
         )
       ],
