@@ -117,7 +117,7 @@ class MenuUtamaItem extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            // Navigator.pushNamed(context, press);
+            Navigator.pushNamed(context, press);
           },
           child: Container(
             height: 50.0,

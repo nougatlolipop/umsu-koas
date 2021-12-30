@@ -15,7 +15,7 @@ class _BodyState extends State<Body> {
       children: [
         HomeHeader(),
         SizedBox(
-          height: getProportionateScreenHeight(30),
+          height: getProportionateScreenHeight(50),
         ),
         MenuGrid(),
       ],
