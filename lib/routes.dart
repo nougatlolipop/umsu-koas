@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'screen/rekammedis/rekammedisScreen.dart';
 import 'package:umsukoas/screen/pembimbing/pembimbingScreen.dart';
 import 'screen/pembayaran/pembayaranSreen.dart';
 import 'screen/absen/absenScreen.dart';
@@ -7,7 +8,6 @@ import 'screen/logbook/logbookScreen.dart';
 import 'screen/nilai/nilaiAcreen.dart';
 import 'screen/panduan/panduanScreen.dart';
 import 'screen/profile/profileScreen.dart';
-import 'screen/rekammedis/rekammedisScreen.dart';
 import 'screen/berita/beritaScreen.dart';
 import 'screen/login/loginScreen.dart';
 import 'screen/home/homeScreen.dart';
