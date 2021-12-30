@@ -83,7 +83,7 @@ class _LoginFormState extends State<LoginForm> {
                 //   ),
                 // ),
                 SizedBox(height: 120),
-                Lottie.asset('asset/lotties/login.json',
+                Lottie.asset('asset/lotties/log.json',
                     width: getProportionateScreenWidth(250)),
                 SizedBox(height: 40),
                 RoundedInput(
