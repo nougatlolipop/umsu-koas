@@ -7,11 +7,6 @@ class JadwalScreen extends StatelessWidget {
   static String routeName = '/jadwalScreen';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        title: Text("Jadwal"),
-      ),
-      body: Body(),
-    );
+    return Body();
   }
 }

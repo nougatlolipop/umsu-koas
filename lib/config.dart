@@ -3,4 +3,5 @@ class Config {
   static String urlMenu = "Koas/menu";
   static String urlAnnouncements = "Koas/pengumuman";
   static String urlLogin = 'Koas/login';
+  static String urlJadwal = 'Koas/jadwal';
 }

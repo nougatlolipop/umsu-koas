@@ -5,12 +5,13 @@ class MyAppBar extends AppBar {
   MyAppBar({
     Key key,
     Widget title,
+    List<Widget> action,
   }) : super(
           key: key,
           elevation: 0.0,
           backgroundColor: Colors.transparent,
           title: title,
-          actions: [],
+          actions: action,
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(

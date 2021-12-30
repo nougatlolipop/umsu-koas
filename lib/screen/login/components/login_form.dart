@@ -74,17 +74,9 @@ class _LoginFormState extends State<LoginForm> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Text(
-                //   'KOAS UMSU',
-                //   style: TextStyle(
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 30,
-                //     color: kTextColorHome,
-                //   ),
-                // ),
                 SizedBox(height: 120),
                 Lottie.asset('asset/lotties/log.json',
-                    width: getProportionateScreenWidth(250)),
+                    width: getProportionateScreenWidth(220)),
                 SizedBox(height: 40),
                 RoundedInput(
                   name: npm,
