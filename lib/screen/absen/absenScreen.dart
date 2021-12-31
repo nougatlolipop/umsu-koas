@@ -7,6 +7,10 @@ class AbsenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(
+        title: Text("Kehadiran"),
+        border: false,
+      ),
       body: Body(),
     );
   }

@@ -40,7 +40,7 @@ class _AbsenHeaderState extends State<AbsenHeader> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(250),
+          height: getProportionateScreenHeight(200),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
@@ -51,21 +51,6 @@ class _AbsenHeaderState extends State<AbsenHeader> {
               image: ExactAssetImage('asset/images/circle.png'),
               fit: BoxFit.fill,
             ),
-          ),
-        ),
-        Positioned(
-          right: getProportionateScreenWidth(10),
-          top: getProportionateScreenHeight(35),
-          child: IconButton(
-            icon: Icon(
-              MdiIcons.accountCircleOutline,
-            ),
-            iconSize: 35,
-            color: Colors.white,
-            splashColor: Colors.purple,
-            onPressed: () {
-              Navigator.pushNamed(context, '/profileScreen');
-            },
           ),
         ),
         Positioned(
