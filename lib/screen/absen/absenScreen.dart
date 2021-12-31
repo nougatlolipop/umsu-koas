@@ -9,6 +9,7 @@ class AbsenScreen extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         title: Text("Kehadiran"),
+        border: false,
       ),
       body: Body(),
     );

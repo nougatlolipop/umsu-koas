@@ -51,7 +51,7 @@ class _AnnouncementState extends State<Announcement> {
       List<announcementModel.Announcement> announcements) {
     return Container(
       width: getProportionateScreenWidth(313),
-      height: getProportionateScreenWidth(100),
+      height: getProportionateScreenWidth(105),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
