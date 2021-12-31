@@ -6,6 +6,7 @@ class MyAppBar extends AppBar {
     Key key,
     Widget title,
     List<Widget> action,
+    bool border = true,
   }) : super(
           key: key,
           elevation: 0.0,
@@ -15,9 +16,11 @@ class MyAppBar extends AppBar {
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+              borderRadius: border
+                  ? BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))
+                  : null,
               color: kPrimaryColor,
             ),
           ),

@@ -3,34 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/models/model_login.dart';
-import 'package:umsukoas/services/shared_service.dart';
+import 'jamAbsen.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-import 'announcement.dart';
-
-class HomeHeader extends StatefulWidget {
+class AbsenHeader extends StatefulWidget {
   @override
-  State<HomeHeader> createState() => _HomeHeaderState();
+  State<AbsenHeader> createState() => _AbsenHeaderState();
 }
 
-String greeting() {
-  var hour = DateTime.now().hour;
-  if (hour < 10) {
-    return 'Pagi';
-  }
-  if (hour < 14) {
-    return 'Siang';
-  }
-  if (hour < 18) {
-    return 'Siang';
-  }
-  return 'Malam';
-}
-
-class _HomeHeaderState extends State<HomeHeader> {
+class _AbsenHeaderState extends State<AbsenHeader> {
   LoginModel loginModel;
   String nama;
   @override
@@ -57,7 +40,7 @@ class _HomeHeaderState extends State<HomeHeader> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(370),
+          height: getProportionateScreenHeight(250),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
@@ -86,34 +69,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           ),
         ),
         Positioned(
-          top: getProportionateScreenHeight(45),
-          left: getProportionateScreenWidth(35),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: getProportionateScreenHeight(180)),
-              Text(
-                "KOAS UMSU",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(35),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  height: 0.5,
-                ),
-              ),
-              Text(
-                "Assalamualaikum wr. wb., Selamat ${greeting()} \n${nama}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-                overflow: TextOverflow.clip,
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: getProportionateScreenWidth(-52.5),
+          bottom: getProportionateScreenWidth(-40),
           child: Announcement(),
         )
       ],
