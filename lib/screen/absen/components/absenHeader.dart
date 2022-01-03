@@ -40,7 +40,7 @@ class _AbsenHeaderState extends State<AbsenHeader> {
       alignment: Alignment.center,
       children: [
         Container(
-          height: getProportionateScreenHeight(200),
+          height: getProportionateScreenHeight(270),
           decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
@@ -48,7 +48,7 @@ class _AbsenHeaderState extends State<AbsenHeader> {
               bottomRight: Radius.circular(20),
             ),
             image: new DecorationImage(
-              image: ExactAssetImage('asset/images/circle.png'),
+              image: ExactAssetImage('asset/images/circle2.png'),
               fit: BoxFit.fill,
             ),
           ),
