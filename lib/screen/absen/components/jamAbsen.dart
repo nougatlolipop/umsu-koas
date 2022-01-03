@@ -38,6 +38,11 @@ class _AnnouncementState extends State<Announcement> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _announcementsList();
   }

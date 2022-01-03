@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_login.dart';
+import 'package:umsukoas/models/model_myjadwal.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
 import '../models/model_announcement.dart';
@@ -106,6 +107,33 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = Jadwal.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyJadwal> getMyJadwal(
+    String npm,
+  ) async {
+    MyJadwal model;
+    try {
+      String url = Config.url + Config.urlMyJadwal;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyJadwal.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);
