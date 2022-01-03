@@ -7,12 +7,12 @@ import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../size_config.dart';
 
-class Announcement extends StatefulWidget {
+class JamAbsen extends StatefulWidget {
   @override
-  State<Announcement> createState() => _AnnouncementState();
+  State<JamAbsen> createState() => _JamAbsenState();
 }
 
-class _AnnouncementState extends State<Announcement> {
+class _JamAbsenState extends State<JamAbsen> {
   int currentPage = 0;
   APIService apiService;
   String _timeString;
@@ -20,9 +20,11 @@ class _AnnouncementState extends State<Announcement> {
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedDateTime = _formatDateTime(now);
-    setState(() {
-      _timeString = formattedDateTime;
-    });
+    if (mounted) {
+      setState(() {
+        _timeString = formattedDateTime;
+      });
+    }
   }
 
   String _formatDateTime(DateTime dateTime) {

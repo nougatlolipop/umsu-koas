@@ -1,12 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/components/myAppBar.dart';
-import 'package:umsukoas/constants.dart';
+import 'package:umsukoas/helpers/colors.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
+import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/restapi/api_services.dart';
+
+import '../../../config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -18,25 +19,13 @@ class _BodyState extends State<Body> {
   APIService apiService;
   Jadwal modelJadwal;
   DateTime sd;
+  LoginModel loginModel;
 
   @override
   void initState() {
     _controller = CalendarController();
     apiService = new APIService();
     modelJadwal = new Jadwal();
-
-    sd = DateTime.fromMillisecondsSinceEpoch(1640592300000);
-    print(sd.year.toString() +
-        " " +
-        sd.month.toString() +
-        " " +
-        sd.day.toString() +
-        " " +
-        sd.hour.toString() +
-        " " +
-        sd.minute.toString() +
-        " " +
-        sd.second.toString());
     super.initState();
   }
 
@@ -105,7 +94,7 @@ class _BodyState extends State<Body> {
     DateTime endTime;
     // DateTime(today.year, today.month, today.day, 11, 20, 0);
 
-    await apiService.getJadwal('1908320001').then((ret) {
+    await apiService.getJadwal(Config.npm).then((ret) {
       modelJadwal = ret;
     });
     for (var i = 0; i < modelJadwal.data.length; i++) {
@@ -120,7 +109,7 @@ class _BodyState extends State<Body> {
           modelJadwal.data[i].rumahSakitNama,
           startTime,
           endTime,
-          kPrimaryColor,
+          getColorFromHex(modelJadwal.data[i].rumahSakitWarna),
           false,
         ),
       );
@@ -128,6 +117,8 @@ class _BodyState extends State<Body> {
     return meetings;
   }
 }
+
+class _getColorFromHex {}
 
 class MeetingDataSource extends CalendarDataSource {
   MeetingDataSource(List<Meeting> source) {

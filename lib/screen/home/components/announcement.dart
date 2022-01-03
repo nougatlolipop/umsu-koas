@@ -20,6 +20,7 @@ class _AnnouncementState extends State<Announcement> {
   @override
   void initState() {
     apiService = new APIService();
+    if (mounted) return;
     super.initState();
   }
 
@@ -74,9 +75,11 @@ class _AnnouncementState extends State<Announcement> {
                 viewportFraction: 1,
                 height: getProportionateScreenWidth(85),
                 onPageChanged: (value, reason) {
-                  setState(() {
-                    currentPage = value;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  }
                 },
               ),
               items: announcements.map((i) {

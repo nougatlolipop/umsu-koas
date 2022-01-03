@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/services/shared_service.dart';
+import '../../../config.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -32,7 +33,7 @@ String greeting() {
 
 class _HomeHeaderState extends State<HomeHeader> {
   LoginModel loginModel;
-  String nama;
+
   @override
   void initState() {
     getUserLogin();
@@ -46,7 +47,8 @@ class _HomeHeaderState extends State<HomeHeader> {
     loginModel =
         LoginModel.fromJson(jsonDecode(prefs.getString("login_details")));
     setState(() {
-      nama = loginModel.data[0].fullname;
+      Config.nama = loginModel.data[0].fullname;
+      Config.npm = loginModel.data[0].npm;
     });
   }
 
@@ -103,7 +105,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                 ),
               ),
               Text(
-                "Assalamualaikum wr. wb., Selamat ${greeting()} \n${nama}",
+                "Assalamualaikum wr. wb., Selamat ${greeting()} \n${Config.nama}",
                 style: TextStyle(
                   color: Colors.white,
                 ),

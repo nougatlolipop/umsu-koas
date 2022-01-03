@@ -35,33 +35,41 @@ class MyJadwal {
 class Data {
   String jadwalId;
   String rumahSakitNama;
-  String bagianNama;
+  String staseNama;
   String jadwalTanggalMulai;
   String jadwalTanggalSelesai;
+  String rumahSakitAlamat;
+  String rumahSakitTelp;
 
   Data({
     this.jadwalId,
     this.rumahSakitNama,
-    this.bagianNama,
+    this.staseNama,
     this.jadwalTanggalMulai,
     this.jadwalTanggalSelesai,
+    this.rumahSakitAlamat,
+    this.rumahSakitTelp,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
     jadwalId = json['jadwalId'];
     rumahSakitNama = json['rumahSakitNama'];
-    bagianNama = json['bagianNama'];
+    staseNama = json['staseNama'];
     jadwalTanggalMulai = json['jadwalTanggalMulai'];
     jadwalTanggalSelesai = json['jadwalTanggalSelesai'];
+    rumahSakitAlamat = json['rumahSakitAlamat'];
+    rumahSakitTelp = json['rumahSakitTelp'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['jadwalId'] = this.jadwalId;
     data['rumahSakitNama'] = this.rumahSakitNama;
-    data['bagianNama'] = this.bagianNama;
+    data['staseNama'] = this.staseNama;
     data['jadwalTanggalMulai'] = this.jadwalTanggalMulai;
     data['jadwalTanggalSelesai'] = this.jadwalTanggalSelesai;
+    data['rumahSakitAlamat'] = this.rumahSakitAlamat;
+    data['rumahSakitTelp'] = this.rumahSakitTelp;
     return data;
   }
 }

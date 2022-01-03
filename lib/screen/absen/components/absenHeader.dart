@@ -55,7 +55,7 @@ class _AbsenHeaderState extends State<AbsenHeader> {
         ),
         Positioned(
           bottom: getProportionateScreenWidth(-40),
-          child: Announcement(),
+          child: JamAbsen(),
         )
       ],
     );
