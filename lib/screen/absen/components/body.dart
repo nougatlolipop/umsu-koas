@@ -203,15 +203,17 @@ class _BodyState extends State<Body> {
                 Row(
                   children: [
                     ButtonCircle(
-                      press: () {
-                        final progress = ProgressHUD.of(context);
-                        progress?.showWithText('Proses Absen Masuk');
-                        Future.delayed(Duration(seconds: 2), () {
-                          absensi(Config.npm, 'masuk', Config.latlong,
-                              Config.alamat);
-                          progress?.dismiss();
-                        });
-                      },
+                      press: Config.alamat == ""
+                          ? null
+                          : () {
+                              final progress = ProgressHUD.of(context);
+                              progress?.showWithText('Proses Absen Masuk');
+                              Future.delayed(Duration(seconds: 2), () {
+                                absensi(Config.npm, 'masuk', Config.latlong,
+                                    Config.alamat);
+                                progress?.dismiss();
+                              });
+                            },
                       icon: Icon(
                         MdiIcons.login,
                         color: Colors.white,
@@ -231,15 +233,17 @@ class _BodyState extends State<Body> {
                       width: 5,
                     ),
                     ButtonCircle(
-                      press: () {
-                        final progress = ProgressHUD.of(context);
-                        progress?.showWithText('Proses Absen Pulang');
-                        Future.delayed(Duration(seconds: 2), () {
-                          absensi(Config.npm, 'pulang', Config.latlong,
-                              Config.alamat);
-                          progress?.dismiss();
-                        });
-                      },
+                      press: Config.alamat == ""
+                          ? null
+                          : () {
+                              final progress = ProgressHUD.of(context);
+                              progress?.showWithText('Proses Absen Pulang');
+                              Future.delayed(Duration(seconds: 2), () {
+                                absensi(Config.npm, 'pulang', Config.latlong,
+                                    Config.alamat);
+                                progress?.dismiss();
+                              });
+                            },
                       icon: Icon(
                         MdiIcons.logout,
                         color: Colors.white,
