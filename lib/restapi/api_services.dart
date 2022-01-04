@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:umsukoas/models/model_absen.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
@@ -134,6 +135,41 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = MyJadwal.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<AbsenModel> absenUser(
+    String npm,
+    String keterangan,
+    String latlong,
+    String geolokasi,
+  ) async {
+    AbsenModel model;
+    try {
+      String url = Config.url + Config.urlAbsen;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "npm": npm,
+          "keterangan": keterangan,
+          "latlong": latlong,
+          "geolokasi": geolokasi,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = AbsenModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

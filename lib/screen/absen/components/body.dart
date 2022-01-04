@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/buttonCircle.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/config.dart';
@@ -25,6 +26,29 @@ class _BodyState extends State<Body> {
     super.initState();
   }
 
+  Future<void> absensi(npm, ket, latlong, geo) {
+    apiService.absenUser(npm, ket, latlong, geo).then(
+      (ret) {
+        print(ret.toJson());
+        if (ret.status) {
+          SweetAlert.show(
+            context,
+            title: "KOAS UMSU",
+            subtitle: ret.message,
+            style: SweetAlertStyle.success,
+          );
+        } else {
+          SweetAlert.show(
+            context,
+            title: "KOAS UMSU",
+            subtitle: ret.message,
+            style: SweetAlertStyle.error,
+          );
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +63,6 @@ class _BodyState extends State<Body> {
             if (model.hasData) {
               return _buildJadwalList(model.data);
             }
-
             return Container(
               height: 350,
               child: LodingWidget(),
@@ -183,8 +206,9 @@ class _BodyState extends State<Body> {
                       press: () {
                         final progress = ProgressHUD.of(context);
                         progress?.showWithText('Proses Absen Masuk');
-                        Future.delayed(Duration(seconds: 1), () {
-                          //do your magic;
+                        Future.delayed(Duration(seconds: 2), () {
+                          absensi(Config.npm, 'masuk', Config.latlong,
+                              Config.alamat);
                           progress?.dismiss();
                         });
                       },
@@ -210,8 +234,9 @@ class _BodyState extends State<Body> {
                       press: () {
                         final progress = ProgressHUD.of(context);
                         progress?.showWithText('Proses Absen Pulang');
-                        Future.delayed(Duration(seconds: 1), () {
-                          //do your magic;
+                        Future.delayed(Duration(seconds: 2), () {
+                          absensi(Config.npm, 'pulang', Config.latlong,
+                              Config.alamat);
                           progress?.dismiss();
                         });
                       },

@@ -1,10 +1,11 @@
 class Config {
   static String url = "https://api.umsu.ac.id/";
-  static String urlMenu = "Koas/menu";
-  static String urlAnnouncements = "Koas/pengumuman";
-  static String urlLogin = 'Koas/login';
-  static String urlJadwal = 'Koas/jadwal';
+  static String urlMenu = "koas/menu";
+  static String urlAnnouncements = "koas/pengumuman";
+  static String urlLogin = 'koas/login';
+  static String urlJadwal = 'koas/jadwal';
   static String urlMyJadwal = 'koas/jadwalabsen';
+  static String urlAbsen = 'koas/absensi';
 
-  static String nama, npm;
+  static String nama, npm, latlong, alamat = "";
 }

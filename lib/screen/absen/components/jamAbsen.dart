@@ -7,6 +7,7 @@ import 'package:umsukoas/components/marqueeWidget.dart';
 import 'package:umsukoas/constants.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 
+import '../../../config.dart';
 import '../../../size_config.dart';
 
 class JamAbsen extends StatefulWidget {
@@ -20,7 +21,6 @@ class _JamAbsenState extends State<JamAbsen> {
   String _timeString;
   List<Placemark> place = [];
   Position position;
-  String alamat = "";
 
   void _getTime() {
     final DateTime now = DateTime.now();
@@ -51,7 +51,9 @@ class _JamAbsenState extends State<JamAbsen> {
     print(address);
 
     setState(() {
-      alamat = address; // update _address
+      Config.latlong =
+          position.latitude.toString() + "," + position.longitude.toString();
+      Config.alamat = address; // update _address
     });
   }
 
@@ -112,7 +114,8 @@ class _JamAbsenState extends State<JamAbsen> {
             width: getProportionateScreenWidth(280),
             child: MarqueeWidget(
               direction: Axis.horizontal,
-              child: Text(alamat, style: TextStyle(color: kPrimaryColor)),
+              child:
+                  Text(Config.alamat, style: TextStyle(color: kPrimaryColor)),
             ),
           ),
         ],
