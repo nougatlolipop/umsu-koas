@@ -28,6 +28,9 @@ dependencies:
   flutter_progress_hud: ^2.0.0
   shared_preferences:
   syncfusion_flutter_calendar: ^19.4.40
+  geolocator: ^5.3.2+2
+  location: ^4.3.0
+  geocoder: ^0.2.1
 
 dev_dependencies:
   flutter_test:

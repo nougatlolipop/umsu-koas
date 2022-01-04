@@ -39,6 +39,8 @@ class Data {
   String jadwalTanggalMulai;
   String jadwalTanggalSelesai;
   String rumahSakitWarna;
+  String jadwalJamMasuk;
+  String jadwalJamKeluar;
 
   Data({
     this.jadwalId,
@@ -47,6 +49,8 @@ class Data {
     this.jadwalTanggalMulai,
     this.jadwalTanggalSelesai,
     this.rumahSakitWarna,
+    this.jadwalJamMasuk,
+    this.jadwalJamKeluar,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -56,6 +60,8 @@ class Data {
     jadwalTanggalMulai = json['jadwalTanggalMulai'];
     jadwalTanggalSelesai = json['jadwalTanggalSelesai'];
     rumahSakitWarna = json['rumahSakitWarna'];
+    jadwalJamMasuk = json['jadwalJamMasuk'];
+    jadwalJamKeluar = json['jadwalJamKeluar'];
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +72,8 @@ class Data {
     data['jadwalTanggalMulai'] = this.jadwalTanggalMulai;
     data['jadwalTanggalSelesai'] = this.jadwalTanggalSelesai;
     data['rumahSakitWarna'] = this.rumahSakitWarna;
+    data['jadwalJamMasuk'] = this.jadwalJamMasuk;
+    data['jadwalJamKeluar'] = this.jadwalJamKeluar;
     return data;
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:umsukoas/components/marqueeWidget.dart';
 import 'package:umsukoas/constants.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 
@@ -16,6 +18,9 @@ class _JamAbsenState extends State<JamAbsen> {
   int currentPage = 0;
   APIService apiService;
   String _timeString;
+  List<Placemark> place = [];
+  Position position;
+  String alamat = "";
 
   void _getTime() {
     final DateTime now = DateTime.now();
@@ -27,6 +32,29 @@ class _JamAbsenState extends State<JamAbsen> {
     }
   }
 
+  Future<void> getCurrentLoc() async {
+    position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> newPlace = await Geolocator()
+        .placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark placeMark = newPlace[0];
+    String name = placeMark.name;
+    String locality = placeMark.locality;
+    String administrativeArea = placeMark.administrativeArea;
+    String postalCode = placeMark.postalCode;
+    String country = placeMark.country;
+    // String jalan= placeMark.;
+    String address = //"${first.addressLine}";
+
+        "${name}, ${locality}, ${administrativeArea}, ${postalCode}, ${country}";
+
+    print(address);
+
+    setState(() {
+      alamat = address; // update _address
+    });
+  }
+
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('hh:mm:ss').format(dateTime);
   }
@@ -36,6 +64,7 @@ class _JamAbsenState extends State<JamAbsen> {
     apiService = new APIService();
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    getCurrentLoc();
     super.initState();
   }
 
@@ -70,12 +99,23 @@ class _JamAbsenState extends State<JamAbsen> {
           )
         ],
       ),
-      child: Text(
-        _timeString,
-        style: TextStyle(
-            fontSize: getProportionateScreenHeight(50),
-            fontWeight: FontWeight.bold,
-            color: kPrimaryColor),
+      child: Column(
+        children: [
+          Text(
+            _timeString,
+            style: TextStyle(
+                fontSize: getProportionateScreenHeight(50),
+                fontWeight: FontWeight.bold,
+                color: kPrimaryColor),
+          ),
+          SizedBox(
+            width: getProportionateScreenWidth(280),
+            child: MarqueeWidget(
+              direction: Axis.horizontal,
+              child: Text(alamat, style: TextStyle(color: kPrimaryColor)),
+            ),
+          ),
+        ],
       ),
     );
   }

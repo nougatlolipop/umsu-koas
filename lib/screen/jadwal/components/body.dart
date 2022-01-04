@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/components/myAppBar.dart';
@@ -26,7 +27,35 @@ class _BodyState extends State<Body> {
     _controller = CalendarController();
     apiService = new APIService();
     modelJadwal = new Jadwal();
+    // test();
     super.initState();
+  }
+
+  test() {
+    String jamStr = "08:00:00";
+    String jamEnd = "16:00:00";
+    var formatter = new DateFormat('yyyy-MM-dd');
+
+    DateTime start = DateTime.fromMillisecondsSinceEpoch(1641106800000).toUtc();
+    DateTime end = DateTime.fromMillisecondsSinceEpoch(1643785200000).toUtc();
+    int selisih = end.difference(start).inDays;
+    for (var i = 0; i <= selisih; i++) {
+      String startFix = formatter
+              .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
+                  .toUtc()
+                  .add(new Duration(days: i)))
+              .toString() +
+          " " +
+          jamStr;
+      String endFix = formatter
+              .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
+                  .toUtc()
+                  .add(new Duration(days: i)))
+              .toString() +
+          " " +
+          jamEnd;
+      print(startFix + " - " + endFix);
+    }
   }
 
   @override
@@ -93,6 +122,7 @@ class _BodyState extends State<Body> {
     // DateTime(today.year, today.month, today.day, 9, 0, 0);
     DateTime endTime;
     // DateTime(today.year, today.month, today.day, 11, 20, 0);
+    var formatter = new DateFormat('yyyy-MM-dd');
 
     await apiService.getJadwal(Config.npm).then((ret) {
       modelJadwal = ret;
@@ -104,16 +134,36 @@ class _BodyState extends State<Body> {
       endTime = DateTime.fromMillisecondsSinceEpoch(
               int.parse(modelJadwal.data[i].jadwalTanggalSelesai))
           .toUtc();
-      meetings.add(
-        Meeting(
-          modelJadwal.data[i].rumahSakitNama,
-          startTime,
-          endTime,
-          getColorFromHex(modelJadwal.data[i].rumahSakitWarna),
-          false,
-        ),
-      );
+      int selisih = endTime.difference(startTime).inDays;
+      for (var j = 0; j <= selisih; j++) {
+        String startFix =
+            formatter.format(startTime.add(new Duration(days: j))).toString() +
+                " " +
+                modelJadwal.data[i].jadwalJamMasuk;
+
+        String endFix =
+            formatter.format(startTime.add(new Duration(days: j))).toString() +
+                " " +
+                modelJadwal.data[i].jadwalJamKeluar;
+        DateFormat frmt = new DateFormat("yyyy-MM-dd hh:mm:ss");
+        meetings.add(
+          Meeting(
+            modelJadwal.data[i].rumahSakitNama +
+                " " +
+                modelJadwal.data[i].jadwalJamMasuk.toString() +
+                " - " +
+                modelJadwal.data[i].jadwalJamKeluar.toString(),
+            frmt.parse(startFix),
+            frmt.parse(endFix),
+            getColorFromHex(modelJadwal.data[i].rumahSakitWarna),
+            false,
+          ),
+        );
+      }
     }
+    print(meetings.toList()[1].from.toString() +
+        " " +
+        meetings.toList()[1].to.toString());
     return meetings;
   }
 }

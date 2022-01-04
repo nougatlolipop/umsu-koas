@@ -67,7 +67,7 @@ class APIService {
     LoginModel model;
     try {
       String url = Config.url + Config.urlLogin;
-      print(url);
+      // print(url);
       var response = await Dio().post(
         url,
         data: {"npm": npm, "password": password},
@@ -94,7 +94,7 @@ class APIService {
     Jadwal model;
     try {
       String url = Config.url + Config.urlJadwal;
-      print(url);
+      // print(url);
       var response = await Dio().post(
         url,
         data: {"npm": npm},
@@ -121,7 +121,7 @@ class APIService {
     MyJadwal model;
     try {
       String url = Config.url + Config.urlMyJadwal;
-      print(url);
+      // print(url);
       var response = await Dio().post(
         url,
         data: {"npm": npm},
