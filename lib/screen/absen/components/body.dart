@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:umsukoas/components/buttonCircle.dart';
@@ -179,7 +180,14 @@ class _BodyState extends State<Body> {
                 Row(
                   children: [
                     ButtonCircle(
-                      press: () {},
+                      press: () {
+                        final progress = ProgressHUD.of(context);
+                        progress?.showWithText('Proses Absen Masuk');
+                        Future.delayed(Duration(seconds: 1), () {
+                          //do your magic;
+                          progress?.dismiss();
+                        });
+                      },
                       icon: Icon(
                         MdiIcons.login,
                         color: Colors.white,
@@ -199,7 +207,14 @@ class _BodyState extends State<Body> {
                       width: 5,
                     ),
                     ButtonCircle(
-                      press: () {},
+                      press: () {
+                        final progress = ProgressHUD.of(context);
+                        progress?.showWithText('Proses Absen Pulang');
+                        Future.delayed(Duration(seconds: 1), () {
+                          //do your magic;
+                          progress?.dismiss();
+                        });
+                      },
                       icon: Icon(
                         MdiIcons.logout,
                         color: Colors.white,

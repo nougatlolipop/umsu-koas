@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:umsukoas/components/myAppBar.dart';
 import 'components/body.dart';
 
@@ -12,7 +13,7 @@ class AbsenScreen extends StatelessWidget {
         title: Text("Kehadiran"),
         border: false,
       ),
-      body: Body(),
+      body: ProgressHUD(child: Body()),
     );
   }
 }
