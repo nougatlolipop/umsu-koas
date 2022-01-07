@@ -49,11 +49,20 @@ class _BodyState extends State<Body> {
     );
   }
 
-  prosesSave(String ket) async {
+  prosesSave(String ket, BuildContext context) async {
     final progress = ProgressHUD.of(context);
     progress?.showWithText('Proses Absen Masuk');
     Future.delayed(Duration(seconds: 2), () {
-      absensi(Config.npm, ket, Config.latlong, Config.alamat);
+      if (Config.alamat == "" || Config.latlong == "") {
+        SweetAlert.show(
+          context,
+          title: "KOAS UMSU",
+          subtitle: "Alamat belum ditemukan",
+          style: SweetAlertStyle.error,
+        );
+      } else {
+        absensi(Config.npm, ket, Config.latlong, Config.alamat);
+      }
       progress?.dismiss();
     });
   }
@@ -213,7 +222,7 @@ class _BodyState extends State<Body> {
                   children: [
                     ButtonCircle(
                       press: () {
-                        prosesSave("masuk");
+                        prosesSave("masuk", context);
                       },
                       icon: Icon(
                         MdiIcons.login,
@@ -235,7 +244,7 @@ class _BodyState extends State<Body> {
                     ),
                     ButtonCircle(
                       press: () {
-                        prosesSave("pulang");
+                        prosesSave("pulang", context);
                       },
                       icon: Icon(
                         MdiIcons.logout,
