@@ -10,7 +10,7 @@ class AbsenScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: MyAppBar(
-        title: Text("Kehadiran"),
+        title: "Kehadiran",
         border: false,
       ),
       body: ProgressHUD(child: Body()),

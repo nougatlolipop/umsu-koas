@@ -8,7 +8,7 @@ class MaintenanceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Maintenance"),
+        title: "Maintenance",
       ),
       body: Body(),
     );

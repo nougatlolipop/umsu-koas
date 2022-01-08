@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:umsukoas/components/marqueeWidget.dart';
@@ -19,8 +20,9 @@ class _JamAbsenState extends State<JamAbsen> {
   int currentPage = 0;
   APIService apiService;
   String _timeString;
-  List<Placemark> place = [];
   Position position;
+  String location = 'Null, Press Button';
+  String Address = 'search';
 
   void _getTime() {
     final DateTime now = DateTime.now();
@@ -32,29 +34,58 @@ class _JamAbsenState extends State<JamAbsen> {
     }
   }
 
-  Future<void> getCurrentLoc() async {
-    position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> newPlace = await Geolocator()
-        .placemarkFromCoordinates(position.latitude, position.longitude);
-    Placemark placeMark = newPlace[0];
-    String name = placeMark.name;
-    String locality = placeMark.locality;
-    String administrativeArea = placeMark.administrativeArea;
-    String postalCode = placeMark.postalCode;
-    String country = placeMark.country;
-    // String jalan= placeMark.;
-    String address = //"${first.addressLine}";
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
 
-        "${name}, ${locality}, ${administrativeArea}, ${postalCode}, ${country}";
-
-    print(address);
-
+  Future<void> GetAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+    Address =
+        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(() {
-      Config.latlong =
-          position.latitude.toString() + "," + position.longitude.toString();
-      Config.alamat = address; // update _address
+      Config.alamat = Address;
     });
+  }
+
+  Future<void> getCurrentLoc() async {
+    Position position = await _getGeoLocationPosition();
+    location = 'Lat: ${position.latitude} , Long: ${position.longitude}';
+    GetAddressFromLatLong(position);
+    print(location);
   }
 
   String _formatDateTime(DateTime dateTime) {

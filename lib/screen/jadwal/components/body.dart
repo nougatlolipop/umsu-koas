@@ -62,7 +62,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Jadwal"),
+        title: "Jadwal",
         action: <Widget>[
           PopupMenuButton<int>(
             onSelected: (item) {

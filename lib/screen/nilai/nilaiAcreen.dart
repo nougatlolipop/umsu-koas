@@ -8,7 +8,7 @@ class NilaiScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Nilai"),
+        title: "Nilai",
       ),
       body: Body(),
     );

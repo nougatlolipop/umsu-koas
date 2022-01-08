@@ -4,14 +4,14 @@ import 'package:umsukoas/constants.dart';
 class MyAppBar extends AppBar {
   MyAppBar({
     Key key,
-    Widget title,
+    String title,
     List<Widget> action,
     bool border = true,
   }) : super(
           key: key,
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          title: title,
+          title: Text(title),
           actions: action,
           centerTitle: true,
           flexibleSpace: Container(

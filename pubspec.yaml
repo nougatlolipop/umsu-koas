@@ -28,10 +28,17 @@ dependencies:
   flutter_progress_hud: ^2.0.0
   shared_preferences:
   syncfusion_flutter_calendar: ^19.4.40
-  geolocator: ^5.3.2+2
-  location: ^4.3.0
   zefyrka: ^1.1.1
   notus_to_html_to_notus: ^0.0.2
+  flutter_quill: ^3.0.4
+  tuple: ^2.0.0
+  file_picker: ^4.3.0
+  path_provider: ^2.0.8
+  filesystem_picker: ^2.0.0
+  path: ^1.8.0
+  universal_html: ^2.0.8
+  geolocator: ^8.0.1
+  geocoding: ^2.0.1
 
 dev_dependencies:
   flutter_test:

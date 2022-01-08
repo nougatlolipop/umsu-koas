@@ -9,7 +9,7 @@ class BeritaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Berita"),
+        title: "Berita",
       ),
       body: Body(),
     );

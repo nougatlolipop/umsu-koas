@@ -8,7 +8,7 @@ class PembimbingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Pembimbing"),
+        title: "Pembimbing",
       ),
       body: Body(),
     );

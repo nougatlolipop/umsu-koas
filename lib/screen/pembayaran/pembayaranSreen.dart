@@ -8,7 +8,7 @@ class PembayaranScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Pembayaran"),
+        title: "Pembayaran",
       ),
       body: Body(),
     );

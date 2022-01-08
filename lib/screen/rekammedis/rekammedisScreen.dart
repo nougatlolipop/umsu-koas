@@ -8,7 +8,7 @@ class RekamMedisScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Rekam Medis"),
+        title: "Rekam Medis",
       ),
       body: Body(),
     );

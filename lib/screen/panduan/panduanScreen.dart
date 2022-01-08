@@ -8,7 +8,7 @@ class PanduanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: Text("Panduan Profesi"),
+        title: "Panduan Profesi",
       ),
       body: Body(),
     );
