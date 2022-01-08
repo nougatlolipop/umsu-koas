@@ -127,43 +127,44 @@ class _BodyState extends State<Body> {
     await apiService.getJadwal(Config.npm).then((ret) {
       modelJadwal = ret;
     });
-    for (var i = 0; i < modelJadwal.data.length; i++) {
-      startTime = DateTime.fromMillisecondsSinceEpoch(
-              int.parse(modelJadwal.data[i].jadwalTanggalMulai))
-          .toUtc();
-      endTime = DateTime.fromMillisecondsSinceEpoch(
-              int.parse(modelJadwal.data[i].jadwalTanggalSelesai))
-          .toUtc();
-      int selisih = endTime.difference(startTime).inDays;
-      for (var j = 0; j <= selisih; j++) {
-        String startFix =
-            formatter.format(startTime.add(new Duration(days: j))).toString() +
-                " " +
-                modelJadwal.data[i].jadwalJamMasuk;
+    if (modelJadwal.data != null) {
+      for (var i = 0; i < modelJadwal.data.length; i++) {
+        startTime = DateTime.fromMillisecondsSinceEpoch(
+                int.parse(modelJadwal.data[i].jadwalTanggalMulai))
+            .toUtc();
+        endTime = DateTime.fromMillisecondsSinceEpoch(
+                int.parse(modelJadwal.data[i].jadwalTanggalSelesai))
+            .toUtc();
+        int selisih = endTime.difference(startTime).inDays;
+        for (var j = 0; j <= selisih; j++) {
+          String startFix = formatter
+                  .format(startTime.add(new Duration(days: j)))
+                  .toString() +
+              " " +
+              modelJadwal.data[i].jadwalJamMasuk;
 
-        String endFix =
-            formatter.format(startTime.add(new Duration(days: j))).toString() +
-                " " +
-                modelJadwal.data[i].jadwalJamKeluar;
-        DateFormat frmt = new DateFormat("yyyy-MM-dd hh:mm:ss");
-        meetings.add(
-          Meeting(
-            modelJadwal.data[i].rumahSakitNama +
-                " " +
-                modelJadwal.data[i].jadwalJamMasuk.toString() +
-                " - " +
-                modelJadwal.data[i].jadwalJamKeluar.toString(),
-            frmt.parse(startFix),
-            frmt.parse(endFix),
-            getColorFromHex(modelJadwal.data[i].rumahSakitWarna),
-            false,
-          ),
-        );
+          String endFix = formatter
+                  .format(startTime.add(new Duration(days: j)))
+                  .toString() +
+              " " +
+              modelJadwal.data[i].jadwalJamKeluar;
+          DateFormat frmt = new DateFormat("yyyy-MM-dd hh:mm:ss");
+          meetings.add(
+            Meeting(
+              modelJadwal.data[i].rumahSakitNama +
+                  " " +
+                  modelJadwal.data[i].jadwalJamMasuk.toString() +
+                  " - " +
+                  modelJadwal.data[i].jadwalJamKeluar.toString(),
+              frmt.parse(startFix),
+              frmt.parse(endFix),
+              getColorFromHex(modelJadwal.data[i].rumahSakitWarna),
+              false,
+            ),
+          );
+        }
       }
     }
-    print(meetings.toList()[1].from.toString() +
-        " " +
-        meetings.toList()[1].to.toString());
     return meetings;
   }
 }
