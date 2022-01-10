@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -176,5 +177,29 @@ class APIService {
     }
 
     return model;
+  }
+
+  Future<List<dynamic>> getBerita() async {
+    List<dynamic> data = [];
+
+    try {
+      String url = Config.urlBerita;
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = response.data;
+      }
+      print(data);
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
   }
 }

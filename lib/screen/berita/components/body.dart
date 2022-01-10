@@ -1,6 +1,14 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:readmore/readmore.dart';
+import 'package:umsukoas/restapi/api_services.dart';
+import '../../../config.dart';
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,29 +16,86 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  List<dynamic> listBerita = new List<ListBerita>();
+  APIService apiService;
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    _getBerita();
+    super.initState();
+  }
+
+  Future<void> _getBerita() async {
+    await apiService.getBerita().then((value) {
+      setState(() {
+        listBerita = value;
+      });
+    });
+    // var response = await Dio().get(Config.urlBerita);
+    // var data = response;
+    // print(data);
+  }
+
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('dd MMMM yyyy HH:mm:ss').format(dateTime);
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          beritaCard(screenWidth),
-          beritaCard(screenWidth),
-          beritaCard(screenWidth),
-          beritaCard(screenWidth),
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: listBerita.length,
+            itemBuilder: (context, index) {
+              Map wppost = listBerita[index];
+              var imageURL = wppost['_embedded']['wp:featuredmedia'][0]
+                      ['source_url']
+                  .toString();
+              var author = wppost['_embedded']['author'][0]['name'].toString();
+              return ListBerita(
+                title: wppost['title']['rendered'].toString(),
+                isi: wppost['excerpt']['rendered'].toString(),
+                createBy: author,
+                date: wppost['date'].toString(),
+                img: imageURL,
+                press: () {
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   BacaScreen.routeName,
+                  //   arguments: ParamString(
+                  //       wppost['content']['rendered'].toString(),
+                  //       wppost['title']['rendered'].toString(),
+                  //       wppost['_embedded']['author'][0]['name'].toString(),
+                  //       wppost['date'].toString()),
+                  // );
+                },
+              );
+            },
+          ),
         ],
       ),
     );
   }
+}
 
-  Container beritaCard(double screenWidth) {
+class ListBerita extends StatelessWidget {
+  String title;
+  String isi;
+  String createBy;
+  String date;
+  String img;
+  GestureTapCallback press;
+  ListBerita(
+      {this.title, this.isi, this.createBy, this.date, this.img, this.press});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      width: screenWidth * 0.9,
+      width: SizeConfig.screenWidth * 0.9,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -41,12 +106,11 @@ class _BodyState extends State<Body> {
           Stack(
             children: [
               Container(
-                height: screenWidth * 0.4,
+                height: SizeConfig.screenWidth * 0.4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: AssetImage('asset/images/circle2.png'),
-                      fit: BoxFit.cover),
+                      image: NetworkImage(img), fit: BoxFit.cover),
                 ),
               ),
               Positioned(
@@ -57,40 +121,60 @@ class _BodyState extends State<Body> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5)),
-                    child: Text(
-                      "${_formatDateTime(DateTime.now())}",
-                      style: TextStyle(fontSize: screenWidth * 0.035),
+                    child: Row(
+                      children: [
+                        Text(
+                          'By : ' + createBy + ' ',
+                        ),
+                        Icon(
+                          MdiIcons.fromString('clock-outline'),
+                          size: 15,
+                        ),
+                        Text(
+                          " ${date.substring(0, 10)}",
+                          style: TextStyle(
+                              fontSize: SizeConfig.screenWidth * 0.035),
+                        ),
+                      ],
                     ),
                   )),
             ],
           ),
           Container(
             margin: EdgeInsets.symmetric(
-                vertical: screenWidth * 0.015, horizontal: screenWidth * 0.02),
+                vertical: SizeConfig.screenWidth * 0.015,
+                horizontal: SizeConfig.screenWidth * 0.02),
             child: Text(
-              "toShow.heading",
+              title,
               style: TextStyle(
                   fontFamily: 'mulish',
-                  fontSize: screenWidth * 0.04,
+                  fontSize: SizeConfig.screenWidth * 0.04,
                   fontWeight: FontWeight.bold),
             ),
           ),
           Container(
               margin: EdgeInsets.only(
-                  left: screenWidth * 0.02,
-                  right: screenWidth * 0.02,
-                  bottom: screenWidth * 0.02),
+                  left: SizeConfig.screenWidth * 0.02,
+                  right: SizeConfig.screenWidth * 0.02,
+                  bottom: SizeConfig.screenWidth * 0.02),
               child: ReadMoreText(
-                'Id commodo occaecat sit cillum ad duis adipisicing duis cillum voluptate veniam. Occaecat eiusmod tempor Lorem non exercitation ipsum occaecat officia culpa quis. Excepteur commodo culpa ad culpa sunt quis elit duis sunt. Ipsum occaecat magna ex sit dolore consectetur amet nulla consequat officia dolor. Tempor quis minim ea veniam duis in proident proident aute eu amet laborum.Laboris amet et proident ea. Amet anim labore aliqua esse aliquip culpa ea consectetur. Minim excepteur ea Lorem adipisicing dolore aliqua do fugiat. Irure occaecat culpa et est ut cupidatat. Labore esse do do exercitation minim proident duis magna sit excepteur. Laborum exercitation ut irure minim cillum. Incididunt irure aliquip magna sit eiusmod proident sunt ut laborum esse nisi sint incididunt consequat.Sint aliqua nulla tempor in. Velit veniam et ad anim. Est pariatur consectetur esse irure consequat.',
+                parse(isi).documentElement.text,
                 trimLines: 3,
                 trimMode: TrimMode.Line,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'mulish',
-                    fontWeight: FontWeight.w500),
+                style: TextStyle(color: Colors.black, fontFamily: 'mulish'),
               )),
         ],
       ),
     );
+  }
+}
+
+Color _getColorFromHex(String hexColor) {
+  hexColor = hexColor.replaceAll("#", "");
+  if (hexColor.length == 6) {
+    hexColor = "FF" + hexColor;
+  }
+  if (hexColor.length == 8) {
+    return Color(int.parse("0x$hexColor"));
   }
 }
