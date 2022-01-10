@@ -69,25 +69,27 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AbsenHeader(),
-        FutureBuilder(
-          future: apiService.getMyJadwal(Config.npm),
-          builder: (
-            BuildContext context,
-            AsyncSnapshot<MyJadwal> model,
-          ) {
-            if (model.hasData) {
-              return _buildJadwalList(model.data);
-            }
-            return Container(
-              height: 350,
-              child: LodingWidget(),
-            );
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          AbsenHeader(),
+          FutureBuilder(
+            future: apiService.getMyJadwal(Config.npm),
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<MyJadwal> model,
+            ) {
+              if (model.hasData) {
+                return _buildJadwalList(model.data);
+              }
+              return Container(
+                height: 350,
+                child: LodingWidget(),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 

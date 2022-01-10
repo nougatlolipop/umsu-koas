@@ -72,12 +72,14 @@ class _JamAbsenState extends State<JamAbsen> {
   Future<void> GetAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
-    print(placemarks);
+
     Placemark place = placemarks[0];
     Address =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(() {
       Config.alamat = Address;
+      Config.latlong =
+          position.latitude.toString() + "," + position.longitude.toString();
     });
   }
 
@@ -85,7 +87,6 @@ class _JamAbsenState extends State<JamAbsen> {
     Position position = await _getGeoLocationPosition();
     location = 'Lat: ${position.latitude} , Long: ${position.longitude}';
     GetAddressFromLatLong(position);
-    print(location);
   }
 
   String _formatDateTime(DateTime dateTime) {

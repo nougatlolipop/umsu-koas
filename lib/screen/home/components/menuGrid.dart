@@ -137,7 +137,11 @@ class MenuUtamaItem extends StatelessWidget {
           padding: const EdgeInsets.only(top: 5.0),
           child: Text(
             title,
-            style: TextStyle(fontSize: 12.0),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: _getColorFromHex(colorBox),
+              fontWeight: FontWeight.w600,
+            ),
             textAlign: TextAlign.center,
           ),
         )
