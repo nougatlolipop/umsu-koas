@@ -39,7 +39,11 @@ dependencies:
   universal_html: ^2.0.8
   geolocator: ^8.0.1
   geocoding: ^2.0.1
+<<<<<<< HEAD
   syncfusion_flutter_pdfviewer: ^19.4.41-beta
+=======
+  readmore: ^2.1.0
+>>>>>>> ec8af66b5876bbb4456e6c21186a0d3664d9e379
 
 dev_dependencies:
   flutter_test:
