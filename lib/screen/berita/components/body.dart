@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:readmore/readmore.dart';
 import 'package:umsukoas/restapi/api_services.dart';
-import '../../../config.dart';
 import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
@@ -28,17 +27,18 @@ class _BodyState extends State<Body> {
 
   Future<void> _getBerita() async {
     await apiService.getBerita().then((value) {
-      setState(() {
-        listBerita = value;
-      });
+      if (mounted) {
+        setState(() {
+          listBerita = value;
+        });
+      }
     });
-    // var response = await Dio().get(Config.urlBerita);
-    // var data = response;
-    // print(data);
   }
 
-  String _formatDateTime(DateTime dateTime) {
-    return DateFormat('dd MMMM yyyy HH:mm:ss').format(dateTime);
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -110,7 +110,9 @@ class ListBerita extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: NetworkImage(img), fit: BoxFit.cover),
+                    image: NetworkImage(img),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Positioned(

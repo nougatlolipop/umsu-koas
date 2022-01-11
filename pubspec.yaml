@@ -42,6 +42,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^19.3.35-beta
   readmore: ^2.1.0
   html:
+  date_time_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:

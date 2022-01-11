@@ -11,14 +11,16 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        HomeHeader(),
-        SizedBox(
-          height: getProportionateScreenHeight(55),
-        ),
-        MenuGrid(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          HomeHeader(),
+          SizedBox(
+            height: getProportionateScreenHeight(55),
+          ),
+          MenuGrid(),
+        ],
+      ),
     );
   }
 }
