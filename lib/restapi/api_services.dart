@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:umsukoas/models/model_absen.dart';
+import 'package:umsukoas/models/model_doping.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
+import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
+import 'package:umsukoas/models/model_rumkit.dart';
+import 'package:umsukoas/models/model_save.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
 import '../models/model_announcement.dart';
@@ -170,6 +174,151 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = AbsenModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<List<dynamic>> getBerita() async {
+    List<dynamic> data = [];
+
+    try {
+      String url = Config.urlBerita;
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = response.data;
+      }
+      print(data);
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelRumkit>> getInitKegiatan(String npm) async {
+    List<ModelRumkit> data = [];
+
+    try {
+      String url = Config.url + Config.urlInitKegiatan;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelRumkit.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelDoping>> getDoping(String rsId) async {
+    List<ModelDoping> data = [];
+
+    try {
+      String url = Config.url + Config.urlGetDoping;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"rumahSakitId": rsId},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelDoping.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelKegiatan>> getKegiatan() async {
+    List<ModelKegiatan> data = [];
+
+    try {
+      String url = Config.url + Config.urlGetKegiatan;
+      print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelKegiatan.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<SaveModel> saveLogbook(
+    String rumkitDetId,
+    String dopingId,
+    String kegiatanId,
+    String nim,
+    String tanggal,
+    String judul,
+    String deskripsi,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlLogbook;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "rumkitDetId": rumkitDetId,
+          "dopingId": dopingId,
+          "kegiatanId": kegiatanId,
+          "nim": nim,
+          "tanggal": tanggal,
+          "judul": judul,
+          "deskripsi": deskripsi,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

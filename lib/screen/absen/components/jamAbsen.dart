@@ -120,7 +120,7 @@ class _JamAbsenState extends State<JamAbsen> {
     return Container(
       alignment: Alignment.center,
       width: getProportionateScreenWidth(313),
-      height: getProportionateScreenWidth(80),
+      height: getProportionateScreenWidth(90),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
