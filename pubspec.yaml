@@ -28,9 +28,6 @@ dependencies:
   flutter_progress_hud: ^2.0.0
   shared_preferences:
   syncfusion_flutter_calendar: ^19.4.40
-  zefyrka: ^1.1.1
-  notus_to_html_to_notus: ^0.0.2
-  flutter_quill: ^3.0.4
   tuple: ^2.0.0
   file_picker: ^4.3.0
   path_provider: ^2.0.8
@@ -43,6 +40,9 @@ dependencies:
   readmore: ^2.1.0
   html:
   date_time_picker: ^2.1.0
+  bubble_tab_indicator: ^0.1.6
+  html_editor_enhanced: ^2.4.0+1
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

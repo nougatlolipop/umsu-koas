@@ -7,6 +7,7 @@ class MyAppBar extends AppBar {
     String title,
     List<Widget> action,
     bool border = true,
+    Widget bottom,
   }) : super(
           key: key,
           elevation: 0.0,
@@ -24,5 +25,6 @@ class MyAppBar extends AppBar {
               color: kPrimaryColor,
             ),
           ),
+          bottom: bottom,
         );
 }

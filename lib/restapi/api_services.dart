@@ -8,6 +8,7 @@ import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
+import 'package:umsukoas/models/model_save.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
 import '../models/model_announcement.dart';
@@ -283,5 +284,46 @@ class APIService {
       print(e.response);
     }
     return data;
+  }
+
+  Future<SaveModel> saveLogbook(
+    String rumkitDetId,
+    String dopingId,
+    String kegiatanId,
+    String nim,
+    String tanggal,
+    String judul,
+    String deskripsi,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlLogbook;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "rumkitDetId": rumkitDetId,
+          "dopingId": dopingId,
+          "kegiatanId": kegiatanId,
+          "nim": nim,
+          "tanggal": tanggal,
+          "judul": judul,
+          "deskripsi": deskripsi,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
   }
 }
