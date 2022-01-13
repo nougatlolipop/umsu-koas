@@ -6,6 +6,7 @@ import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:readmore/readmore.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 import '../../../size_config.dart';
 
@@ -43,42 +44,53 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listBerita.length,
-            itemBuilder: (context, index) {
-              Map wppost = listBerita[index];
-              var imageURL = wppost['_embedded']['wp:featuredmedia'][0]
-                      ['source_url']
-                  .toString();
-              var author = wppost['_embedded']['author'][0]['name'].toString();
-              return ListBerita(
-                title: wppost['title']['rendered'].toString(),
-                isi: wppost['excerpt']['rendered'].toString(),
-                createBy: author,
-                date: wppost['date'].toString(),
-                img: imageURL,
-                press: () {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   BacaScreen.routeName,
-                  //   arguments: ParamString(
-                  //       wppost['content']['rendered'].toString(),
-                  //       wppost['title']['rendered'].toString(),
-                  //       wppost['_embedded']['author'][0]['name'].toString(),
-                  //       wppost['date'].toString()),
-                  // );
+    return listBerita.length > 0
+        ? SingleChildScrollView(
+            child: Column(
+            children: [
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: listBerita.length,
+                itemBuilder: (context, index) {
+                  Map wppost = listBerita[index];
+                  var imageURL = wppost['_embedded']['wp:featuredmedia'][0]
+                          ['source_url']
+                      .toString();
+                  var author =
+                      wppost['_embedded']['author'][0]['name'].toString();
+                  return ListBerita(
+                    title: wppost['title']['rendered'].toString(),
+                    isi: wppost['excerpt']['rendered'].toString(),
+                    createBy: author,
+                    date: wppost['date'].toString(),
+                    img: imageURL,
+                    press: () {
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   BacaScreen.routeName,
+                      //   arguments: ParamString(
+                      //       wppost['content']['rendered'].toString(),
+                      //       wppost['title']['rendered'].toString(),
+                      //       wppost['_embedded']['author'][0]['name'].toString(),
+                      //       wppost['date'].toString()),
+                      // );
+                    },
+                  );
                 },
-              );
-            },
-          ),
-        ],
-      ),
-    );
+              ),
+            ],
+          ))
+        : Container(
+            height: SizeConfig.screenHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                LodingWidget(),
+              ],
+            ),
+          );
   }
 }
 
@@ -110,7 +122,7 @@ class ListBerita extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(img),
+                    image: AssetImage('asset/images/circle2.png'),
                     fit: BoxFit.cover,
                   ),
                 ),

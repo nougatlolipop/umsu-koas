@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:umsukoas/config.dart';
+import 'package:umsukoas/restapi/api_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,11 +12,38 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+  APIService apiService;
+  String panduanNama = '';
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    getPanduan();
+    super.initState();
+  }
+
+  Future<void> getPanduan() async {
+    await apiService.getPanduan().then((value) {
+      if (mounted) {
+        setState(() {
+          panduanNama = value.data[0].panduanFile;
+        });
+      }
+      print(jsonEncode(value));
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(8.0),
       child: SfPdfViewer.network(
-        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+        Config.urlApp + 'dokumen/' + panduanNama,
         key: _pdfViewerKey,
       ),
     );

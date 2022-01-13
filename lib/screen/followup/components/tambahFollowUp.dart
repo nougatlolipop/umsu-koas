@@ -10,21 +10,16 @@ import '../../../config.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class TambahKegiatan extends StatefulWidget {
+class TambahFollowUp extends StatefulWidget {
   @override
-  _TambahKegiatanState createState() => _TambahKegiatanState();
+  _TambahFollowUpState createState() => _TambahFollowUpState();
 }
 
-class _TambahKegiatanState extends State<TambahKegiatan> {
+class _TambahFollowUpState extends State<TambahFollowUp> {
   APIService apiService;
-  String selectedValueRs,
-      selectedValueDoping,
-      selectedValueKegiatan,
-      waktuKegiatan;
+  String selectedValueRs, selectedValueDoping, waktuKegiatan;
   final List<DropdownMenuItem<String>> itemsRumahSakit = [];
   final List<DropdownMenuItem<String>> itemsDokter = [];
-  final List<DropdownMenuItem<String>> itemsKegiatan = [];
-  TextEditingController judul = TextEditingController();
   int maxLengthJudul = 150;
   String text = "";
   FocusNode _focusNode;
@@ -71,22 +66,6 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
             overflow: TextOverflow.ellipsis,
           ),
           value: value[i].dopingId,
-        ));
-      }
-      setState(() {});
-    });
-  }
-
-  Future<void> getKegiatan() async {
-    itemsKegiatan.clear();
-    apiService.getKegiatan().then((value) {
-      for (var i = 0; i < value.length; i++) {
-        itemsKegiatan.add(DropdownMenuItem(
-          child: Text(
-            value[i].kegiatanNama.toString(),
-            overflow: TextOverflow.ellipsis,
-          ),
-          value: value[i].kegiatanId,
         ));
       }
       setState(() {});
@@ -200,73 +179,9 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
                 setState(() {
                   selectedValueDoping = newValue;
                   print(selectedValueDoping);
-                  getKegiatan();
                 });
               },
               items: itemsDokter,
-            ),
-            Divider(),
-            DropdownButtonFormField(
-              isExpanded: true,
-              decoration: InputDecoration(
-                hintText: "Pilih Kegiatan",
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                filled: true,
-              ),
-              value: selectedValueKegiatan,
-              onChanged: (String newValue) {
-                setState(() {
-                  selectedValueKegiatan = newValue;
-                  print(selectedValueKegiatan);
-                });
-              },
-              items: itemsKegiatan,
-            ),
-            Divider(),
-            TextField(
-              controller: judul,
-              minLines: null,
-              maxLength: maxLengthJudul,
-              onChanged: (String newVal) {
-                if (newVal.length <= maxLengthJudul) {
-                  text = newVal;
-                } else {
-                  judul.value = new TextEditingValue(
-                    text: text,
-                    selection: new TextSelection(
-                        baseOffset: maxLengthJudul,
-                        extentOffset: maxLengthJudul,
-                        affinity: TextAffinity.downstream,
-                        isDirectional: false),
-                    composing: new TextRange(start: 0, end: maxLengthJudul),
-                  );
-                  judul.text = text;
-                }
-              },
-              keyboardType: TextInputType.multiline,
-              maxLines: 1,
-              decoration: InputDecoration(
-                focusColor: kPrimaryColor,
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 25.0, horizontal: 10.0),
-                hintText: "Judul Deskripsi",
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                filled: true,
-              ),
             ),
             Divider(),
             ExpandableNotifier(
@@ -287,7 +202,7 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
                         header: Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Isi Deskripsi Kegiatan",
+                              "Isi Kasus (Metode SOAP)",
                               style: TextStyle(fontSize: 18),
                             )),
                         collapsed: Text(
@@ -352,14 +267,14 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
                 final progress = ProgressHUD.of(context);
                 progress?.show();
                 Future.delayed(Duration(seconds: 1), () {
-                  saveLogbook(
-                      selectedValueRs,
-                      selectedValueDoping,
-                      selectedValueKegiatan,
-                      Config.npm,
-                      waktuKegiatan,
-                      judul.text,
-                      txt);
+                  // saveLogbook(
+                  //     selectedValueRs,
+                  //     selectedValueDoping,
+                  //     selectedValueKegiatan,
+                  //     Config.npm,
+                  //     waktuKegiatan,
+                  //     judul.text,
+                  //     txt);
                   progress?.dismiss();
                 });
               },
