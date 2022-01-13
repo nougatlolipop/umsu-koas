@@ -43,6 +43,7 @@ dependencies:
   bubble_tab_indicator: ^0.1.6
   html_editor_enhanced: ^2.4.0+1
   expandable: ^5.0.1
+  flutter_html: ^2.2.1
 
 dev_dependencies:
   flutter_test:

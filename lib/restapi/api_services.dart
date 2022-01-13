@@ -3,10 +3,14 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:umsukoas/models/model_absen.dart';
 import 'package:umsukoas/models/model_doping.dart';
+import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_login.dart';
+import 'package:umsukoas/models/model_mydoping.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
+import 'package:umsukoas/models/model_mylogbook.dart';
+import 'package:umsukoas/models/model_panduan.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
 import '../config.dart';
@@ -319,6 +323,111 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyLogbook> getMyLogbook(
+    String npm,
+  ) async {
+    MyLogbook model;
+    try {
+      String url = Config.url + Config.urlMyLogbook;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyLogbook.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyDoping> getMyDoping(
+    String npm,
+  ) async {
+    MyDoping model;
+    try {
+      String url = Config.url + Config.urlMyDoping;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyDoping.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<Panduan> getPanduan() async {
+    Panduan model;
+    try {
+      String url = Config.url + Config.urlPanduan;
+      // print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = Panduan.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<FollowUp> getFollowUp(
+    String npm,
+  ) async {
+    FollowUp model;
+    try {
+      String url = Config.url + Config.urlFollowUp;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = FollowUp.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

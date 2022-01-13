@@ -1,21 +1,21 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
+import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../config.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import 'cardKegiatan.dart';
+import 'cardFollowUp.dart';
 
-class ListKegiatan extends StatefulWidget {
+class ListFollowUp extends StatefulWidget {
   @override
-  _ListKegiatanState createState() => _ListKegiatanState();
+  _ListFollowUpState createState() => _ListFollowUpState();
 }
 
-class _ListKegiatanState extends State<ListKegiatan> {
+class _ListFollowUpState extends State<ListFollowUp> {
   APIService apiService;
 
   @override
@@ -32,13 +32,13 @@ class _ListKegiatanState extends State<ListKegiatan> {
         child: Column(
           children: [
             FutureBuilder(
-              future: apiService.getMyLogbook(Config.npm),
+              future: apiService.getFollowUp(Config.npm),
               builder: (
                 BuildContext context,
-                AsyncSnapshot<MyLogbook> model,
+                AsyncSnapshot<FollowUp> model,
               ) {
                 if (model.hasData) {
-                  return _buildMyLogbookList(model.data);
+                  return _buildFollowUpList(model.data);
                 }
                 return Container(
                   height: 350,
@@ -52,7 +52,7 @@ class _ListKegiatanState extends State<ListKegiatan> {
     );
   }
 
-  Widget _buildMyLogbookList(MyLogbook mylogbook) {
+  Widget _buildFollowUpList(FollowUp mylogbook) {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8.0)),
@@ -63,10 +63,8 @@ class _ListKegiatanState extends State<ListKegiatan> {
                 shrinkWrap: true,
                 itemCount: mylogbook.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CardKegiatan(
-                    kegiatan: mylogbook.data[index].kegiatanNama,
-                    juduldeskripsi: mylogbook.data[index].logbookJudulDeskripsi,
-                    deskripsi: mylogbook.data[index].logbookDeskripsi,
+                  return CardFollowUp(
+                    deskripsi: mylogbook.data[index].followUpKasusSOAP,
                     rumahSakit: mylogbook.data[index].rumahSakitShortname,
                     staseNama: mylogbook.data[index].staseNama,
                     namaDoping: mylogbook.data[index].dopingNamaLengkap,

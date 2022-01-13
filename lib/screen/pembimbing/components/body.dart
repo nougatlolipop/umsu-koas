@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/constants.dart';
+import 'package:umsukoas/models/model_mydoping.dart';
+import 'package:umsukoas/restapi/api_services.dart';
+
+import '../../../config.dart';
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -7,29 +14,83 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  APIService apiService;
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildCreditCard(
-                color: kPrimaryColor,
-                cardExpiration: "08/2022",
-                cardHolder: "HOUSSEM SELMI",
-                cardNumber: "3546 7532 XXXX 9742"),
-            SizedBox(
-              height: 15,
+            FutureBuilder(
+              future: apiService.getMyDoping(Config.npm),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<MyDoping> model,
+              ) {
+                if (model.hasData) {
+                  return _buildDopingList(model.data);
+                }
+                return Container(
+                  height: SizeConfig.screenHeight,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      LodingWidget(),
+                    ],
+                  ),
+                );
+              },
             ),
-            _buildCreditCard(
-                color: kPrimaryColor,
-                cardExpiration: "05/2024",
-                cardHolder: "HOUSSEM SELMI",
-                cardNumber: "9874 4785 XXXX 6548"),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDopingList(MyDoping dopings) {
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8.0)),
+      child: Container(
+        child: dopings.status
+            ? ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: dopings.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _buildCreditCard(
+                    color: kPrimaryColor,
+                    cardNumber: dopings.data[index].dopingNamaLengkap,
+                    cardHolder: dopings.data[index].rumahSakitShortname,
+                  );
+                },
+              )
+            : Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(100)),
+                  Container(
+                    child: Lottie.asset(
+                      'asset/lotties/relax.json',
+                      width: 250,
+                    ),
+                  ),
+                  Text(
+                    "Tidak ada jadwal kegiatan",
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                    ),
+                  )
+                ],
+              ),
       ),
     );
   }
@@ -38,8 +99,7 @@ class _BodyState extends State<Body> {
   Card _buildCreditCard(
       {@required Color color,
       @required String cardNumber,
-      @required String cardHolder,
-      @required String cardExpiration}) {
+      @required String cardHolder}) {
     return Card(
       elevation: 4.0,
       color: color,
@@ -68,10 +128,9 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 _buildDetailsBlock(
-                  label: 'CARDHOLDER',
+                  label: 'HOMEBASE',
                   value: cardHolder,
                 ),
-                _buildDetailsBlock(label: 'VALID THRU', value: cardExpiration),
               ],
             ),
           ],
