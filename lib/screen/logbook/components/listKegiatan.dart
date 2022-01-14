@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
@@ -17,6 +18,7 @@ class ListKegiatan extends StatefulWidget {
 
 class _ListKegiatanState extends State<ListKegiatan> {
   APIService apiService;
+  var formatter = new DateFormat('yyyy-MM-dd');
 
   @override
   void initState() {
@@ -41,7 +43,7 @@ class _ListKegiatanState extends State<ListKegiatan> {
                   return _buildMyLogbookList(model.data);
                 }
                 return Container(
-                  height: 350,
+                  height: SizeConfig.screenHeight / 1.5,
                   child: LodingWidget(),
                 );
               },
@@ -70,6 +72,11 @@ class _ListKegiatanState extends State<ListKegiatan> {
                     rumahSakit: mylogbook.data[index].rumahSakitShortname,
                     staseNama: mylogbook.data[index].staseNama,
                     namaDoping: mylogbook.data[index].dopingNamaLengkap,
+                    tanggal: formatter.format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                              int.parse(mylogbook.data[index].logbookTanggal))
+                          .toUtc(),
+                    ),
                   );
                 },
               )

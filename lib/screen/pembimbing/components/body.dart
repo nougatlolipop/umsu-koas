@@ -120,7 +120,7 @@ class _BodyState extends State<Body> {
                 '$cardNumber',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 21,
+                    fontSize: 18,
                     fontFamily: 'CourrierPrime'),
               ),
             ),
@@ -146,8 +146,8 @@ class _BodyState extends State<Body> {
       children: <Widget>[
         Image.asset(
           "asset/images/logoumsu.png",
-          height: 20,
-          width: 18,
+          height: 35,
+          width: 35,
         ),
         Container(
           height: 50,

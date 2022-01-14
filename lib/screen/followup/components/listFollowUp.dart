@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/models/model_followup.dart';
-import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../config.dart';
@@ -17,6 +17,7 @@ class ListFollowUp extends StatefulWidget {
 
 class _ListFollowUpState extends State<ListFollowUp> {
   APIService apiService;
+  var formatter = new DateFormat('yyyy-MM-dd');
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _ListFollowUpState extends State<ListFollowUp> {
                   return _buildFollowUpList(model.data);
                 }
                 return Container(
-                  height: 350,
+                  height: SizeConfig.screenHeight / 1.5,
                   child: LodingWidget(),
                 );
               },
@@ -68,25 +69,33 @@ class _ListFollowUpState extends State<ListFollowUp> {
                     rumahSakit: mylogbook.data[index].rumahSakitShortname,
                     staseNama: mylogbook.data[index].staseNama,
                     namaDoping: mylogbook.data[index].dopingNamaLengkap,
+                    tanggal: formatter.format(
+                      DateTime.fromMillisecondsSinceEpoch(int.parse(
+                              mylogbook.data[index].followUpTglPeriksa))
+                          .toUtc(),
+                    ),
                   );
                 },
               )
-            : Column(
-                children: [
-                  SizedBox(height: getProportionateScreenHeight(100)),
-                  Container(
-                    child: Lottie.asset(
-                      'asset/lotties/relax.json',
-                      width: 250,
+            : Container(
+                height: SizeConfig.screenHeight,
+                child: Column(
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(100)),
+                    Container(
+                      child: Lottie.asset(
+                        'asset/lotties/relax.json',
+                        width: 250,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Tidak ada jadwal kegiatan",
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                    ),
-                  )
-                ],
+                    Text(
+                      "Tidak ada jadwal kegiatan",
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                      ),
+                    )
+                  ],
+                ),
               ),
       ),
     );

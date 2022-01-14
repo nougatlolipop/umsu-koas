@@ -15,6 +15,7 @@ class Config {
   static String urlMyDoping = 'koas/myDoping';
   static String urlPanduan = 'koas/panduan';
   static String urlFollowUp = 'koas/followUpPasien';
+  static String urlAddFollowUp = 'koas/followUp';
   static String urlBerita =
       'https://fk.umsu.ac.id/wp-json/wp/v2/posts?_embed&categories=210&per_page=10';
   static String nama, npm, latlong, alamat = '';

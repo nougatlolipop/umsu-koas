@@ -72,11 +72,9 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
     });
   }
 
-  Future<void> saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim,
-      tanggal, judul, deskripsi) {
+  Future<void> saveFollowUp(rumkitDetId, dopingId, nim, tanggal, deskripsi) {
     apiService
-        .saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim, tanggal,
-            judul, deskripsi)
+        .saveFollowUp(rumkitDetId, dopingId, nim, tanggal, deskripsi)
         .then(
       (ret) {
         print(ret.toJson());
@@ -267,14 +265,8 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
                 final progress = ProgressHUD.of(context);
                 progress?.show();
                 Future.delayed(Duration(seconds: 1), () {
-                  // saveLogbook(
-                  //     selectedValueRs,
-                  //     selectedValueDoping,
-                  //     selectedValueKegiatan,
-                  //     Config.npm,
-                  //     waktuKegiatan,
-                  //     judul.text,
-                  //     txt);
+                  saveFollowUp(selectedValueRs, selectedValueDoping, Config.npm,
+                      waktuKegiatan, txt);
                   progress?.dismiss();
                 });
               },
