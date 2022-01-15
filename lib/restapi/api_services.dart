@@ -435,4 +435,41 @@ class APIService {
 
     return model;
   }
+
+  Future<SaveModel> saveFollowUp(
+    String rumkitDetId,
+    String dopingId,
+    String nim,
+    String tanggal,
+    String deskripsi,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlAddFollowUp;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "rumkitDetId": rumkitDetId,
+          "dopingId": dopingId,
+          "npm": nim,
+          "tanggal": tanggal,
+          "followUpKasus": deskripsi,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
 }

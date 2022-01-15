@@ -14,6 +14,7 @@ class CardKegiatan extends StatelessWidget {
     this.rumahSakit,
     this.staseNama,
     this.namaDoping,
+    this.tanggal,
   }) : super(key: key);
   final String kegiatan;
   final String juduldeskripsi;
@@ -21,6 +22,7 @@ class CardKegiatan extends StatelessWidget {
   final String rumahSakit;
   final String staseNama;
   final String namaDoping;
+  final String tanggal;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +47,26 @@ class CardKegiatan extends StatelessWidget {
                       style: TextStyle(fontSize: 18),
                     )),
                 collapsed: Text(
-                  "${staseNama} - ${kegiatan}\nPembimbing : ${namaDoping}" +
+                  "${tanggal}\n${staseNama} - ${kegiatan}\nPembimbing : ${namaDoping}" +
                       "\n\nJudul : ${juduldeskripsi}",
                   softWrap: true,
-                  maxLines: 5,
+                  maxLines: 6,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: kPrimaryColor),
                 ),
                 expanded: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Html(data: deskripsi),
+                    Text(
+                      "Judul : ${juduldeskripsi}",
+                      style: TextStyle(color: kPrimaryColor),
+                    ),
+                    Divider(),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: kPrimaryColor)),
+                      child: Html(data: deskripsi),
+                    ),
                     Divider(),
                     DefaultButton(
                       text: "Edit",

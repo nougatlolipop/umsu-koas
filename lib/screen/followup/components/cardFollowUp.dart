@@ -12,11 +12,13 @@ class CardFollowUp extends StatelessWidget {
     this.rumahSakit,
     this.staseNama,
     this.namaDoping,
+    this.tanggal,
   }) : super(key: key);
   final String deskripsi;
   final String rumahSakit;
   final String staseNama;
   final String namaDoping;
+  final String tanggal;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,9 @@ class CardFollowUp extends StatelessWidget {
                       style: TextStyle(fontSize: 18),
                     )),
                 collapsed: Text(
-                  "${staseNama}\nPembimbing : ${namaDoping}",
+                  "${tanggal}\n${staseNama}\nPembimbing : ${namaDoping}",
                   softWrap: true,
-                  maxLines: 5,
+                  maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: kPrimaryColor),
                 ),
