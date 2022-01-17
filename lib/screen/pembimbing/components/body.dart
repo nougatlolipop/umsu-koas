@@ -57,42 +57,41 @@ class _BodyState extends State<Body> {
   }
 
   Widget _buildDopingList(MyDoping dopings) {
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8.0)),
-      child: Container(
-        child: dopings.status
-            ? ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: dopings.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildCreditCard(
-                    color: kPrimaryColor,
-                    cardNumber: dopings.data[index].dopingNamaLengkap,
-                    cardHolder: dopings.data[index].rumahSakitShortname,
-                  );
-                },
-              )
-            : Column(
-                children: [
-                  SizedBox(height: getProportionateScreenHeight(100)),
-                  Container(
-                    child: Lottie.asset(
-                      'asset/lotties/relax.json',
-                      width: 250,
-                    ),
-                  ),
-                  Text(
-                    "Tidak ada jadwal kegiatan",
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                    ),
-                  )
-                ],
+    return dopings.status
+        ? Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(8.0)),
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: dopings.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _buildCreditCard(
+                  color: kPrimaryColor,
+                  cardNumber: dopings.data[index].dopingNamaLengkap,
+                  cardHolder: dopings.data[index].rumahSakitShortname,
+                );
+              },
+            ),
+          )
+        : Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(100)),
+              Container(
+                child: Lottie.asset(
+                  'asset/lotties/relax.json',
+                  width: 250,
+                ),
               ),
-      ),
-    );
+              Text(
+                "Tidak ada jadwal kegiatan",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                ),
+              )
+            ],
+          );
   }
 
   // Build the credit card widget
