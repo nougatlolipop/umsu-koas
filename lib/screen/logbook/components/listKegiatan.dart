@@ -55,49 +55,46 @@ class _ListKegiatanState extends State<ListKegiatan> {
   }
 
   Widget _buildMyLogbookList(MyLogbook mylogbook) {
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8.0)),
-      child: Container(
-        child: mylogbook.status
-            ? ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: mylogbook.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CardKegiatan(
-                    kegiatan: mylogbook.data[index].kegiatanNama,
-                    juduldeskripsi: mylogbook.data[index].logbookJudulDeskripsi,
-                    deskripsi: mylogbook.data[index].logbookDeskripsi,
-                    rumahSakit: mylogbook.data[index].rumahSakitShortname,
-                    staseNama: mylogbook.data[index].staseNama,
-                    namaDoping: mylogbook.data[index].dopingNamaLengkap,
-                    tanggal: formatter.format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                              int.parse(mylogbook.data[index].logbookTanggal))
-                          .toUtc(),
-                    ),
-                  );
-                },
-              )
-            : Column(
-                children: [
-                  SizedBox(height: getProportionateScreenHeight(100)),
-                  Container(
-                    child: Lottie.asset(
-                      'asset/lotties/relax.json',
-                      width: 250,
-                    ),
+    return mylogbook.status
+        ? Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: mylogbook.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CardKegiatan(
+                  kegiatan: mylogbook.data[index].kegiatanNama,
+                  juduldeskripsi: mylogbook.data[index].logbookJudulDeskripsi,
+                  deskripsi: mylogbook.data[index].logbookDeskripsi,
+                  rumahSakit: mylogbook.data[index].rumahSakitShortname,
+                  staseNama: mylogbook.data[index].staseNama,
+                  namaDoping: mylogbook.data[index].dopingNamaLengkap,
+                  tanggal: formatter.format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                            int.parse(mylogbook.data[index].logbookTanggal))
+                        .toUtc(),
                   ),
-                  Text(
-                    "Tidak ada jadwal kegiatan",
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                    ),
-                  )
-                ],
+                );
+              },
+            ),
+          )
+        : Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(100)),
+              Container(
+                child: Lottie.asset(
+                  'asset/lotties/relax.json',
+                  width: 250,
+                ),
               ),
-      ),
-    );
+              Text(
+                "Tidak ada jadwal kegiatan",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                ),
+              )
+            ],
+          );
   }
 }
