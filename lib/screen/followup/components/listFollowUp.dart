@@ -18,7 +18,7 @@ class ListFollowUp extends StatefulWidget {
 
 class _ListFollowUpState extends State<ListFollowUp> {
   APIService apiService;
-  var formatter = new DateFormat('yyyy-MM-dd');
+  var formatter = new DateFormat('dd-MM-yyyy');
   ScrollController _controller = new ScrollController();
 
   @override

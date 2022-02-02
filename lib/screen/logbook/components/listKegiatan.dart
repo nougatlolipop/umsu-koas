@@ -18,7 +18,7 @@ class ListKegiatan extends StatefulWidget {
 
 class _ListKegiatanState extends State<ListKegiatan> {
   APIService apiService;
-  var formatter = new DateFormat('yyyy-MM-dd');
+  var formatter = new DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
