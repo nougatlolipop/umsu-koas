@@ -6,7 +6,7 @@ import 'screen/pembayaran/pembayaranSreen.dart';
 import 'screen/absen/absenScreen.dart';
 import 'screen/jadwal/jadwalScreen.dart';
 import 'screen/logbook/logbookScreen.dart';
-import 'screen/nilai/nilaiAcreen.dart';
+import 'screen/nilai/nilaiScreen.dart';
 import 'screen/panduan/panduanScreen.dart';
 import 'screen/profile/profileScreen.dart';
 import 'screen/berita/beritaScreen.dart';

@@ -74,6 +74,9 @@ class _ListKegiatanState extends State<ListKegiatan> {
                             int.parse(mylogbook.data[index].logbookTanggal))
                         .toUtc(),
                   ),
+                  verify: mylogbook.data[index].logbookIsVerify == "1"
+                      ? true
+                      : false,
                 );
               },
             ),

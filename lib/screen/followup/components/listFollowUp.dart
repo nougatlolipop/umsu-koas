@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -55,26 +54,28 @@ class _ListFollowUpState extends State<ListFollowUp> {
     );
   }
 
-  Widget _buildFollowUpList(FollowUp mylogbook) {
-    return mylogbook.status
+  Widget _buildFollowUpList(FollowUp myfollowup) {
+    return myfollowup.status
         ? Container(
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: mylogbook.data.length,
+              itemCount: myfollowup.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return CardFollowUp(
-                  deskripsi: mylogbook.data[index].followUpKasusSOAP,
-                  rumahSakit: mylogbook.data[index].rumahSakitShortname,
-                  staseNama: mylogbook.data[index].staseNama,
-                  namaDoping: mylogbook.data[index].dopingNamaLengkap,
-                  tanggal: formatter.format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                            int.parse(mylogbook.data[index].followUpTglPeriksa))
-                        .toUtc(),
-                  ),
-                );
+                    deskripsi: myfollowup.data[index].followUpKasusSOAP,
+                    rumahSakit: myfollowup.data[index].rumahSakitShortname,
+                    staseNama: myfollowup.data[index].staseNama,
+                    namaDoping: myfollowup.data[index].dopingNamaLengkap,
+                    tanggal: formatter.format(
+                      DateTime.fromMillisecondsSinceEpoch(int.parse(
+                              myfollowup.data[index].followUpTglPeriksa))
+                          .toUtc(),
+                    ),
+                    verify: myfollowup.data[index].followUpVerify == "1"
+                        ? true
+                        : false);
               },
             ),
           )
