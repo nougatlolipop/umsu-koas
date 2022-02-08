@@ -39,7 +39,7 @@ class Data {
   String rumahSakitShortname;
   String followUpKasusSOAP;
   String dopingNamaLengkap;
-  String logbookIsVerify;
+  String followUpVerify;
 
   Data({
     this.followUpId,
@@ -48,7 +48,7 @@ class Data {
     this.rumahSakitShortname,
     this.followUpKasusSOAP,
     this.dopingNamaLengkap,
-    this.logbookIsVerify,
+    this.followUpVerify,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -58,7 +58,7 @@ class Data {
     rumahSakitShortname = json['rumahSakitShortname'];
     followUpKasusSOAP = json['followUpKasusSOAP'];
     dopingNamaLengkap = json['dopingNamaLengkap'];
-    logbookIsVerify = json['logbookIsVerify'];
+    followUpVerify = json['followUpVerify'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,7 +69,7 @@ class Data {
     data['rumahSakitShortname'] = this.rumahSakitShortname;
     data['followUpKasusSOAP'] = this.followUpKasusSOAP;
     data['dopingNamaLengkap'] = this.dopingNamaLengkap;
-    data['logbookIsVerify'] = this.logbookIsVerify;
+    data['followUpVerify'] = this.followUpVerify;
     return data;
   }
 }

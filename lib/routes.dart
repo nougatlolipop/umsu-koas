@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:umsukoas/screen/datahadir/dataHadir.dart';
 import 'package:umsukoas/screen/followup/followupScreen.dart';
 import 'package:umsukoas/screen/pembimbing/pembimbingScreen.dart';
 import 'screen/pembayaran/pembayaranSreen.dart';
 import 'screen/absen/absenScreen.dart';
 import 'screen/jadwal/jadwalScreen.dart';
 import 'screen/logbook/logbookScreen.dart';
-import 'screen/nilai/nilaiAcreen.dart';
+import 'screen/nilai/nilaiScreen.dart';
 import 'screen/panduan/panduanScreen.dart';
 import 'screen/profile/profileScreen.dart';
 import 'screen/berita/beritaScreen.dart';
@@ -26,5 +27,6 @@ final Map<String, WidgetBuilder> routes = {
   NilaiScreen.routeName: (context) => NilaiScreen(),
   PembimbingScreen.routeName: (context) => PembimbingScreen(),
   BeritaScreen.routeName: (context) => BeritaScreen(),
-  PembayaranScreen.routeName: (context) => PembayaranScreen()
+  PembayaranScreen.routeName: (context) => PembayaranScreen(),
+  DataHadir.routeName: (context) => DataHadir(),
 };

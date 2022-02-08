@@ -1,5 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
@@ -27,21 +28,27 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
   TextEditingController judul = TextEditingController();
   int maxLengthJudul = 150;
   String text = "";
-  FocusNode _focusNode;
   HtmlEditorController htmlcontroller = HtmlEditorController();
 
   @override
   void initState() {
     apiService = new APIService();
-    _focusNode = FocusNode();
     waktuKegiatan = DateTime.now().toString();
     initKegiatan();
     super.initState();
   }
 
+  void bersih() {
+    itemsRumahSakit.clear();
+    itemsDokter.clear();
+    itemsKegiatan.clear();
+    judul.clear();
+    htmlcontroller.clear();
+  }
+
   @override
   void dispose() {
-    _focusNode.dispose();
+    bersih();
     super.dispose();
   }
 
@@ -100,6 +107,8 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
             judul, deskripsi)
         .then(
       (ret) {
+        setState(() {});
+        bersih();
         print(ret.toJson());
         if (ret.status) {
           SweetAlert.show(
@@ -116,7 +125,6 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
             style: SweetAlertStyle.error,
           );
         }
-        setState(() {});
       },
     );
   }
@@ -300,21 +308,28 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
                         expanded: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: HtmlEditor(
-                                htmlToolbarOptions: HtmlToolbarOptions(
-                                  toolbarPosition:
-                                      ToolbarPosition.aboveEditor, //by default
-                                  toolbarType:
-                                      ToolbarType.nativeScrollable, //by default
-                                ),
-                                controller: htmlcontroller, //required
-                                htmlEditorOptions: HtmlEditorOptions(
-                                  hint: "Your text here...",
-                                ),
-                                otherOptions: OtherOptions(
-                                  height: getProportionateScreenHeight(500),
+                            GestureDetector(
+                              onTap: () {
+                                if (!kIsWeb) {
+                                  htmlcontroller.clearFocus();
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: HtmlEditor(
+                                  htmlToolbarOptions: HtmlToolbarOptions(
+                                    toolbarPosition: ToolbarPosition
+                                        .aboveEditor, //by default
+                                    toolbarType: ToolbarType
+                                        .nativeScrollable, //by default
+                                  ),
+                                  controller: htmlcontroller, //required
+                                  htmlEditorOptions: HtmlEditorOptions(
+                                    hint: "Your text here...",
+                                  ),
+                                  otherOptions: OtherOptions(
+                                    height: getProportionateScreenHeight(500),
+                                  ),
                                 ),
                               ),
                             ),

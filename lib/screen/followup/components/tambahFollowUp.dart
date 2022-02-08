@@ -22,21 +22,25 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
   final List<DropdownMenuItem<String>> itemsDokter = [];
   int maxLengthJudul = 150;
   String text = "";
-  FocusNode _focusNode;
   HtmlEditorController htmlcontroller = HtmlEditorController();
 
   @override
   void initState() {
     apiService = new APIService();
-    _focusNode = FocusNode();
     waktuKegiatan = DateTime.now().toString();
     initKegiatan();
     super.initState();
   }
 
+  void bersih() {
+    itemsRumahSakit.clear();
+    itemsDokter.clear();
+    htmlcontroller.clear();
+  }
+
   @override
   void dispose() {
-    _focusNode.dispose();
+    bersih();
     super.dispose();
   }
 
@@ -77,6 +81,8 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
         .saveFollowUp(rumkitDetId, dopingId, nim, tanggal, deskripsi)
         .then(
       (ret) {
+        setState(() {});
+        bersih();
         print(ret.toJson());
         if (ret.status) {
           SweetAlert.show(
@@ -93,7 +99,6 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
             style: SweetAlertStyle.error,
           );
         }
-        setState(() {});
       },
     );
   }

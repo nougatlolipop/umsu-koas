@@ -1,4 +1,3 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -18,7 +17,7 @@ class ListKegiatan extends StatefulWidget {
 
 class _ListKegiatanState extends State<ListKegiatan> {
   APIService apiService;
-  var formatter = new DateFormat('yyyy-MM-dd');
+  var formatter = new DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
@@ -75,6 +74,9 @@ class _ListKegiatanState extends State<ListKegiatan> {
                             int.parse(mylogbook.data[index].logbookTanggal))
                         .toUtc(),
                   ),
+                  verify: mylogbook.data[index].logbookIsVerify == "1"
+                      ? true
+                      : false,
                 );
               },
             ),
