@@ -7,9 +7,10 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  OneSignal.shared.init(Config.oneSignalKey, iOSSettings: null);
-  OneSignal.shared
-      .setInFocusDisplayType(OSNotificationDisplayType.notification);
+  OneSignal.shared.setAppId(Config.oneSignalKey);
+  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+    print("Accepted permission: $accepted");
+  });
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));
@@ -24,8 +25,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    OneSignal.shared
-        .setNotificationReceivedHandler((OSNotification notification) {
+    OneSignal.shared.setNotificationWillShowInForegroundHandler(
+        (OSNotificationReceivedEvent event) {
       print("notifikasi di terima");
     });
 
@@ -33,6 +34,14 @@ class _MyAppState extends State<MyApp> {
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       print("notifikasi di tap");
     });
+    getuserOneSignal();
+  }
+
+  Future<void> getuserOneSignal() async {
+    var status = await OneSignal.shared.getDeviceState();
+    String onesignalUserId = status.userId;
+    Config.playerId = onesignalUserId;
+    print(status.userId);
   }
 
   @override

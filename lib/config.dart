@@ -20,4 +20,6 @@ class Config {
       'https://fk.umsu.ac.id/wp-json/wp/v2/posts?_embed&categories=210&per_page=10';
   static String nama, npm, latlong, alamat = '';
   static String oneSignalKey = "43946382-87c5-455d-9045-a1eb1c4e1f74";
+  static String playerId = "";
+  static String urlAddUser = "koas/oneSignal";
 }

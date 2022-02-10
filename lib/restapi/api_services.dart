@@ -13,6 +13,7 @@ import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/models/model_panduan.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
+import 'package:umsukoas/models/model_user.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
 import '../models/model_announcement.dart';
@@ -465,6 +466,37 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<User> createUser(
+    String npm,
+    String onesignal,
+  ) async {
+    User model;
+    try {
+      String url = Config.url + Config.urlAddUser;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "npm": npm,
+          "playerId": onesignal,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = User.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);
