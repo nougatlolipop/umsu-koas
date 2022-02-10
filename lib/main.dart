@@ -26,13 +26,12 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     OneSignal.shared
         .setNotificationReceivedHandler((OSNotification notification) {
-      this.setState(() {});
+      print("notifikasi di terima");
     });
 
     OneSignal.shared
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       print("notifikasi di tap");
-      Navigator.pushNamed(context, "/notifikasi");
     });
   }
 
