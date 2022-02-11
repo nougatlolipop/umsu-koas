@@ -7,6 +7,7 @@ import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_login.dart';
+import 'package:umsukoas/models/model_myabsensi.dart';
 import 'package:umsukoas/models/model_mydoping.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
@@ -497,6 +498,33 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = User.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyAbsensi> getMyAbsensi(
+    String npm,
+  ) async {
+    MyAbsensi model;
+    try {
+      String url = Config.url + Config.urlMyAbsensi;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyAbsensi.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

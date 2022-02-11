@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
+import 'package:umsukoas/models/model_myabsensi.dart';
 import 'package:umsukoas/restapi/api_services.dart';
+import 'package:umsukoas/screen/datahadir/components/cardAbsensi.dart';
 
 import '../../../config.dart';
 import '../../../constants.dart';
@@ -25,73 +27,69 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   padding: EdgeInsets.all(8.0),
-    //   child: SingleChildScrollView(
-    //     child: Column(
-    //       children: [
-    //         FutureBuilder(
-    //           future: apiService.getMyLogbook(Config.npm),
-    //           builder: (
-    //             BuildContext context,
-    //             AsyncSnapshot<MyLogbook> model,
-    //           ) {
-    //             if (model.hasData) {
-    //               return _buildMyLogbookList(model.data);
-    //             }
-    //             return Container(
-    //               height: SizeConfig.screenHeight / 1.5,
-    //               child: LodingWidget(),
-    //             );
-    //           },
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder(
+              future: apiService.getMyAbsensi(Config.npm),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<MyAbsensi> model,
+              ) {
+                if (model.hasData) {
+                  return _buildMyAbsensiList(model.data);
+                }
+                return Container(
+                  height: SizeConfig.screenHeight / 1.5,
+                  child: LodingWidget(),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  // Widget _buildMyLogbookList(MyLogbook mylogbook) {
-  //   return mylogbook.status
-  //       ? Container(
-  //           child: ListView.builder(
-  //             scrollDirection: Axis.vertical,
-  //             shrinkWrap: true,
-  //             physics: NeverScrollableScrollPhysics(),
-  //             itemCount: mylogbook.data.length,
-  //             itemBuilder: (BuildContext context, int index) {
-  //               return CardKegiatan(
-  //                 kegiatan: mylogbook.data[index].kegiatanNama,
-  //                 juduldeskripsi: mylogbook.data[index].logbookJudulDeskripsi,
-  //                 deskripsi: mylogbook.data[index].logbookDeskripsi,
-  //                 rumahSakit: mylogbook.data[index].rumahSakitShortname,
-  //                 staseNama: mylogbook.data[index].staseNama,
-  //                 namaDoping: mylogbook.data[index].dopingNamaLengkap,
-  //                 tanggal: formatter.format(
-  //                   DateTime.fromMillisecondsSinceEpoch(
-  //                           int.parse(mylogbook.data[index].logbookTanggal))
-  //                       .toUtc(),
-  //                 ),
-  //               );
-  //             },
-  //           ),
-  //         )
-  //       : Column(
-  //           children: [
-  //             SizedBox(height: getProportionateScreenHeight(100)),
-  //             Container(
-  //               child: Lottie.asset(
-  //                 'asset/lotties/relax.json',
-  //                 width: 250,
-  //               ),
-  //             ),
-  //             Text(
-  //               "Tidak ada jadwal kegiatan",
-  //               style: TextStyle(
-  //                 color: kPrimaryColor,
-  //               ),
-  //             )
-  //           ],
-  //         );
-  // }
+  Widget _buildMyAbsensiList(MyAbsensi myabsensi) {
+    return myabsensi.status
+        ? Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: myabsensi.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CardAbsensi(
+                  alamat: myabsensi.data[index].absensiLokasi,
+                  keterangan: myabsensi.data[index].absensiKeterangan,
+                  tanggal: formatter.format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                            int.parse(myabsensi.data[index].absensiTanggal))
+                        .toUtc(),
+                  ),
+                );
+              },
+            ),
+          )
+        : Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(100)),
+              Container(
+                child: Lottie.asset(
+                  'asset/lotties/relax.json',
+                  width: 250,
+                ),
+              ),
+              Text(
+                "Tidak ada jadwal kegiatan",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                ),
+              )
+            ],
+          );
+  }
 }
