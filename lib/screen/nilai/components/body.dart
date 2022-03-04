@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
+import 'package:umsukoas/models/model_nilai.dart';
+import 'package:umsukoas/restapi/api_services.dart';
+import 'package:umsukoas/screen/nilai/components/sticky.dart';
+import 'package:umsukoas/screen/nilai/components/stickyGlobalRate.dart';
+import 'package:umsukoas/screen/nilai/components/stickyHasil.dart';
+
+import '../../../config.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -6,110 +17,91 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  APIService apiService;
+
+  @override
+  void initState() {
+    apiService = new APIService();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(8.0),
-          alignment: Alignment.topLeft,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              border: TableBorder.symmetric(),
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    'Kegiatan',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Bobot',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Nilai',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Hasil',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-              ],
-              rows: const <DataRow>[
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Pretest')),
-                    DataCell(Text('5%')),
-                    DataCell(Text('85')),
-                    DataCell(Text('4,25')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Tutorial Klinik')),
-                    DataCell(Text('10%')),
-                    DataCell(Text('95')),
-                    DataCell(Text('9,5')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Journal Reading')),
-                    DataCell(Text('15%')),
-                    DataCell(Text('880')),
-                    DataCell(Text('12')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Refarat')),
-                    DataCell(Text('15%')),
-                    DataCell(Text('80')),
-                    DataCell(Text('12')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Midtest')),
-                    DataCell(Text('15%')),
-                    DataCell(Text('95')),
-                    DataCell(Text('14,25')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Follow Up')),
-                    DataCell(Text('15%')),
-                    DataCell(Text('95')),
-                    DataCell(Text('14,25')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Post Test')),
-                    DataCell(Text('25%')),
-                    DataCell(Text('95')),
-                    DataCell(Text('23,75')),
-                  ],
-                ),
-              ],
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder(
+              future: apiService.getMyNilai(Config.npm),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<MyNilai> model,
+              ) {
+                if (model.hasData) {
+                  return _buildMyNilai(model.data);
+                }
+                return Container(
+                  height: SizeConfig.screenHeight / 1.5,
+                  child: LodingWidget(),
+                );
+              },
             ),
-          ),
+          ],
         ),
-        Container(
-          margin: EdgeInsets.all(8.0),
-          alignment: Alignment.topLeft,
-          child: Text('Kondite'),
-        ),
-      ],
+      ),
     );
   }
+}
+
+Widget _buildMyNilai(MyNilai myNilai) {
+  return myNilai.status
+      ? Column(
+          children: [
+            Container(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: myNilai.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Sticky(
+                    kegiatan: myNilai.data[index].kegiatan,
+                    bobot: myNilai.data[index].bobot,
+                    nilai: myNilai.data[index].nilai,
+                    hasil: myNilai.data[index].hasil,
+                  );
+                },
+              ),
+            ),
+            StickyHasil(
+              kegiatan: 'Nilai Akhir',
+              nilai: myNilai.nilaiAkhir,
+              nilaiangka: myNilai.nilaiHuruf,
+            ),
+            StickyGlobalRate(
+              kegiatan: 'Kondite',
+              hasil: myNilai.kondite,
+              sanksi: myNilai.sanksi,
+            ),
+            SizedBox(height: 20)
+          ],
+        )
+      : Column(
+          children: [
+            SizedBox(height: getProportionateScreenHeight(100)),
+            Container(
+              child: Lottie.asset(
+                'asset/lotties/relax.json',
+                width: 250,
+              ),
+            ),
+            Text(
+              "Tidak ada jadwal kegiatan",
+              style: TextStyle(
+                color: kPrimaryColor,
+              ),
+            )
+          ],
+        );
 }

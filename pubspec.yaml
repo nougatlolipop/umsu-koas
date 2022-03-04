@@ -5,7 +5,7 @@ description: A new Flutter project.
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.2+2
+version: 1.0.3+3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -38,7 +38,6 @@ dependencies:
   geocoding: ^2.0.1
   syncfusion_flutter_pdfviewer: ^19.4.41-beta
   readmore: ^2.1.0
-<<<<<<< HEAD
   html:
   date_time_picker: ^2.1.0
   bubble_tab_indicator: ^0.1.6
@@ -46,8 +45,6 @@ dependencies:
   expandable: ^5.0.1
   flutter_html: ^2.2.1
   onesignal_flutter: ^3.2.8
-=======
->>>>>>> 0a3ba670c33ecd08a38ef4a7e29d98c79d74cb56
 
 dev_dependencies:
   flutter_test:

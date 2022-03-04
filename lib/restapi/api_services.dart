@@ -10,6 +10,7 @@ import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_mydoping.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
+import 'package:umsukoas/models/model_nilai.dart';
 import 'package:umsukoas/models/model_panduan.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
@@ -265,14 +266,15 @@ class APIService {
     return data;
   }
 
-  Future<List<ModelKegiatan>> getKegiatan() async {
+  Future<List<ModelKegiatan>> getKegiatan(String npm) async {
     List<ModelKegiatan> data = [];
 
     try {
       String url = Config.url + Config.urlGetKegiatan;
       print(url);
-      var response = await Dio().get(
+      var response = await Dio().post(
         url,
+        data: {"npm": npm},
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
@@ -497,6 +499,33 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = User.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyNilai> getMyNilai(
+    String npm,
+  ) async {
+    MyNilai model;
+    try {
+      String url = Config.url + Config.urlMyNilai;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyNilai.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

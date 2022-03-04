@@ -22,4 +22,6 @@ class Config {
   static String oneSignalKey = "43946382-87c5-455d-9045-a1eb1c4e1f74";
   static String playerId = "";
   static String urlAddUser = "koas/oneSignal";
+  static String urlMyNilai = "koas/getNilaiMahasiswa";
+  static double hasilAkhir = 0;
 }

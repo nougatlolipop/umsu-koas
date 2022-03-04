@@ -86,7 +86,7 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
 
   Future<void> getKegiatan() async {
     itemsKegiatan.clear();
-    apiService.getKegiatan().then((value) {
+    apiService.getKegiatan(Config.npm).then((value) {
       for (var i = 0; i < value.length; i++) {
         itemsKegiatan.add(DropdownMenuItem(
           child: Text(
