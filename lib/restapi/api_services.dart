@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:umsukoas/models/model_absen.dart';
 import 'package:umsukoas/models/model_doping.dart';
+import 'package:umsukoas/models/model_evaluasi.dart';
 import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_login.dart';
+import 'package:umsukoas/models/model_myEvaluasi.dart';
 import 'package:umsukoas/models/model_mydoping.dart';
 import 'package:umsukoas/models/model_myjadwal.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/models/model_nilai.dart';
 import 'package:umsukoas/models/model_panduan.dart';
+import 'package:umsukoas/models/model_refleksi.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
 import 'package:umsukoas/models/model_user.dart';
@@ -526,6 +529,172 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = MyNilai.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SoalEvaluasi> getSoalEvaluasi() async {
+    SoalEvaluasi model;
+    try {
+      String url = Config.url + Config.urlSoalEvaluasi;
+      // print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SoalEvaluasi.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SoalRefleksi> getSoalEvaluasiDiri() async {
+    SoalRefleksi model;
+    try {
+      String url = Config.url + Config.urlSoalEvaluasiDiri;
+      // print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SoalRefleksi.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyEvaluasi> getMyEvaluasi(
+    String npm,
+  ) async {
+    MyEvaluasi model;
+    try {
+      String url = Config.url + Config.urlMyEvaluasi;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyEvaluasi.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SaveModel> saveEvaluasi(
+    String emailDosen,
+    String nim,
+    String evaluasiNilai,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlAddEvaluasi;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "emailDoping": emailDosen,
+          "npm": nim,
+          "evaluasiNilai": evaluasiNilai,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SaveModel> saveRefleksi(
+    String nim,
+    String refleksiNilai,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlAddRefleksi;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {
+          "npm": nim,
+          "refleksiNilai": refleksiNilai,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<MyDoping> getMyDopingEvaluasi(
+    String npm,
+  ) async {
+    MyDoping model;
+    try {
+      String url = Config.url + Config.urlMyDopingEvaluasi;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyDoping.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

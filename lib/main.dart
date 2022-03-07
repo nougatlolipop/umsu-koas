@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'KOAS UMSU',
+      title: 'Dr. Muda UMSU',
       theme: ThemeData(
         fontFamily: "Cairo",
         scaffoldBackgroundColor: kBackgroundColor,

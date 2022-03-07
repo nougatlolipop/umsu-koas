@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:umsukoas/components/myAppBar.dart';
-import 'components/body.dart';
+import 'body.dart';
 
-class PembayaranScreen extends StatelessWidget {
-  static String routeName = '/pembayaranScreen';
+class EvaluasiDosenScreen extends StatelessWidget {
+  static String routeName = '/evaluasi';
+  String namaDosen;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: "Pembayaran",
+        title: "Evaluasi",
       ),
       body: Body(),
     );

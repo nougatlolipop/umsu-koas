@@ -96,7 +96,7 @@ class _HomeHeaderState extends State<HomeHeader> {
             children: [
               SizedBox(height: getProportionateScreenHeight(180)),
               Text(
-                "KOAS UMSU",
+                "Dr. Muda UMSU",
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(35),
                   fontWeight: FontWeight.bold,

@@ -23,5 +23,11 @@ class Config {
   static String playerId = "";
   static String urlAddUser = "koas/oneSignal";
   static String urlMyNilai = "koas/getNilaiMahasiswa";
-  static double hasilAkhir = 0;
+  static String urlSoalEvaluasi = "koas/getSoalEvaluasi";
+  static String urlSoalEvaluasiDiri = "koas/getSoalEvaluasiDiri";
+  static String urlMyEvaluasi = "koas/getFormEvaluasi";
+  static String urlAddEvaluasi = "koas/addEvaluasi";
+  static String urlAddRefleksi = "koas/addRefleksi";
+  static String urlMyDopingEvaluasi = "koas/myDopingEvaluasi";
+  static var hasilEvaluasi = [];
 }

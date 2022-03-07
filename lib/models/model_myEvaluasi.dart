@@ -1,15 +1,15 @@
-class MyDoping {
+class MyEvaluasi {
   bool status;
   String message;
   List<Data> data;
 
-  MyDoping({
+  MyEvaluasi({
     this.status,
     this.message,
     this.data,
   });
 
-  MyDoping.fromJson(Map<String, dynamic> json) {
+  MyEvaluasi.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
@@ -33,30 +33,35 @@ class MyDoping {
 }
 
 class Data {
-  String dopingNamaLengkap;
-  String rumahSakitShortname;
-  String dopingId;
-  String dopingEmail;
+  String text;
+  bool available;
+  String icon;
+  String desc;
+  String press;
 
-  Data(
-      {this.dopingNamaLengkap,
-      this.rumahSakitShortname,
-      this.dopingId,
-      this.dopingEmail});
+  Data({
+    this.text,
+    this.available,
+    this.icon,
+    this.desc,
+    this.press,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
-    dopingId = json['dopingId'];
-    dopingNamaLengkap = json['dopingNamaLengkap'];
-    rumahSakitShortname = json['rumahSakitShortname'];
-    dopingEmail = json['dopingEmail'];
+    text = json['text'];
+    available = json['available'];
+    icon = json['icon'];
+    desc = json['desc'];
+    press = json['press'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['dopingNamaLengkap'] = this.dopingNamaLengkap;
-    data['rumahSakitShortname'] = this.rumahSakitShortname;
-    data['dopingId'] = this.dopingId;
-    data['dopingEmail'] = this.dopingEmail;
+    data['text'] = this.text;
+    data['available'] = this.available;
+    data['icon'] = this.icon;
+    data['desc'] = this.desc;
+    data['press'] = this.press;
     return data;
   }
 }
