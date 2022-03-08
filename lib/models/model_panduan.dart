@@ -34,20 +34,22 @@ class Panduan {
 
 class Data {
   String panduanFile;
-  String panduanFileStore;
+  String panduanNama;
 
   Data({
     this.panduanFile,
-    this.panduanFileStore,
+    this.panduanNama,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
     panduanFile = json['panduanFile'];
+    panduanNama = json['panduanNama'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['panduanFile'] = this.panduanFile;
+    data['panduanNama'] = this.panduanNama;
     return data;
   }
 }

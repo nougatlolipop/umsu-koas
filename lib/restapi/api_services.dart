@@ -7,6 +7,7 @@ import 'package:umsukoas/models/model_evaluasi.dart';
 import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
+import 'package:umsukoas/models/model_kehadiran.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_myEvaluasi.dart';
 import 'package:umsukoas/models/model_mydoping.dart';
@@ -395,7 +396,6 @@ class APIService {
     Panduan model;
     try {
       String url = Config.url + Config.urlPanduan;
-      // print(url);
       var response = await Dio().get(
         url,
         options: new Options(
@@ -695,6 +695,30 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = MyDoping.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<Kehadiran> getKehadiran(String npm) async {
+    Kehadiran model;
+    try {
+      String url = Config.url + Config.urlKehadiran;
+      var response = await Dio().post(
+        url,
+        data: {'npm': npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = Kehadiran.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

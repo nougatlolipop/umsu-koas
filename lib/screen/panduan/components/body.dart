@@ -1,9 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/config.dart';
+import 'package:umsukoas/models/model_panduan.dart';
 import 'package:umsukoas/restapi/api_services.dart';
+
+import '../../../constants.dart';
+import '../../../size_config.dart';
+import 'listPanduan.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -11,26 +16,12 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   APIService apiService;
-  String panduanNama = '';
 
   @override
   void initState() {
     apiService = new APIService();
-    getPanduan();
     super.initState();
-  }
-
-  Future<void> getPanduan() async {
-    await apiService.getPanduan().then((value) {
-      if (mounted) {
-        setState(() {
-          panduanNama = value.data[0].panduanFile;
-        });
-      }
-      print(jsonEncode(value));
-    });
   }
 
   @override
@@ -42,10 +33,73 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.0),
-      child: SfPdfViewer.network(
-        Config.urlApp + 'dokumen/' + panduanNama,
-        key: _pdfViewerKey,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder(
+              future: apiService.getPanduan(),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<Panduan> model,
+              ) {
+                if (model.hasData) {
+                  return _buildPanduanList(model.data);
+                }
+                return Container(
+                  height: SizeConfig.screenHeight / 1.5,
+                  child: LodingWidget(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+Widget _buildPanduanList(Panduan panduan) {
+  return panduan.status
+      ? Container(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: panduan.data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListPanduan(
+                fileNama: panduan.data[index].panduanNama,
+                press: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/lihatPanduanScreen',
+                    arguments: ParamString(panduan.data[index].panduanFile),
+                  );
+                },
+              );
+            },
+          ),
+        )
+      : Column(
+          children: [
+            SizedBox(height: getProportionateScreenHeight(100)),
+            Container(
+              child: Lottie.asset(
+                'asset/lotties/relax.json',
+                width: 250,
+              ),
+            ),
+            Text(
+              "Tidak ada jadwal kegiatan",
+              style: TextStyle(
+                color: kPrimaryColor,
+              ),
+            )
+          ],
+        );
+}
+
+class ParamString {
+  final String filePdf;
+  ParamString(this.filePdf);
 }

@@ -29,5 +29,6 @@ class Config {
   static String urlAddEvaluasi = "koas/addEvaluasi";
   static String urlAddRefleksi = "koas/addRefleksi";
   static String urlMyDopingEvaluasi = "koas/myDopingEvaluasi";
+  static String urlKehadiran = "koas/myAbsensi";
   static var hasilEvaluasi = [];
 }

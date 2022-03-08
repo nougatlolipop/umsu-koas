@@ -10,6 +10,7 @@ import 'screen/evaluasi/formEvaluasiDosenSceen.dart';
 import 'screen/jadwal/jadwalScreen.dart';
 import 'screen/logbook/logbookScreen.dart';
 import 'screen/nilai/nilaiScreen.dart';
+import 'screen/panduan/components/lihatPanduan.dart';
 import 'screen/panduan/panduanScreen.dart';
 import 'screen/profile/profileScreen.dart';
 import 'screen/berita/beritaScreen.dart';
@@ -34,5 +35,6 @@ final Map<String, WidgetBuilder> routes = {
   EvaluasiDosenScreen.routeName: (context) => EvaluasiDosenScreen(),
   DataHadir.routeName: (context) => DataHadir(),
   EvaluasiDiriScreen.routeName: (context) => EvaluasiDiriScreen(),
-  FormEvaluasiDosenScreen.routeName: (context) => FormEvaluasiDosenScreen()
+  FormEvaluasiDosenScreen.routeName: (context) => FormEvaluasiDosenScreen(),
+  LihatPanduan.routeName: (context) => LihatPanduan(),
 };
