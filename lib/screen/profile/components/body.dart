@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/defaultButton.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
+import 'package:umsukoas/config.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/services/shared_service.dart';
 import 'package:umsukoas/size_config.dart';
@@ -57,7 +58,7 @@ class _BodyState extends State<Body> {
                   child: DefaultButton(
                       press: () {
                         SweetAlert.show(context,
-                            subtitle: "Do you want to delete this message",
+                            subtitle: "Do you want to logout",
                             style: SweetAlertStyle.confirm,
                             showCancelButton: true, onPress: (bool isConfirm) {
                           if (isConfirm) {
@@ -82,6 +83,8 @@ class _BodyState extends State<Body> {
                       },
                       text: "Logout"),
                 ),
+                SizedBox(height: 10),
+                Text("Versi ${Config.version}")
               ],
             ),
           );

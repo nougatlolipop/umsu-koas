@@ -75,23 +75,25 @@ class _BodyState extends State<Body> {
               },
             ),
           )
-        : Column(
-            children: [
-              SizedBox(height: getProportionateScreenHeight(100)),
-              Container(
-                child: Lottie.asset(
-                  'asset/lotties/relax.json',
-                  width: 250,
+        : Center(
+          child: Column(
+              children: [
+                SizedBox(height: getProportionateScreenHeight(100)),
+                Container(
+                  child: Lottie.asset(
+                    'asset/lotties/relax.json',
+                    width: 250,
+                  ),
                 ),
-              ),
-              Text(
-                "Tidak ada jadwal kegiatan",
-                style: TextStyle(
-                  color: kPrimaryColor,
-                ),
-              )
-            ],
-          );
+                Text(
+                  "Tidak ada pembimbing",
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                  ),
+                )
+              ],
+            ),
+        );
   }
 
   // Build the credit card widget

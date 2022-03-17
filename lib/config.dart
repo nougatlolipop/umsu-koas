@@ -31,4 +31,5 @@ class Config {
   static String urlMyDopingEvaluasi = "koas/myDopingEvaluasi";
   static String urlKehadiran = "koas/myAbsensi";
   static var hasilEvaluasi = [];
+  static String appName, packageName, version, buildNumber = "";
 }

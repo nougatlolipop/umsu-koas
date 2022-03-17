@@ -91,7 +91,7 @@ class _ListFollowUpState extends State<ListFollowUp> {
                   ),
                 ),
                 Text(
-                  "Tidak ada jadwal kegiatan",
+                  "Tidak ada Follow Up",
                   style: TextStyle(
                     color: kPrimaryColor,
                   ),

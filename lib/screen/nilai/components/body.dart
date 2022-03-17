@@ -87,21 +87,23 @@ Widget _buildMyNilai(MyNilai myNilai) {
             SizedBox(height: 20)
           ],
         )
-      : Column(
-          children: [
-            SizedBox(height: getProportionateScreenHeight(100)),
-            Container(
-              child: Lottie.asset(
-                'asset/lotties/relax.json',
-                width: 250,
+      : Center(
+          child: Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(100)),
+              Container(
+                child: Lottie.asset(
+                  'asset/lotties/relax.json',
+                  width: 250,
+                ),
               ),
-            ),
-            Text(
-              "Tidak ada jadwal kegiatan",
-              style: TextStyle(
-                color: kPrimaryColor,
-              ),
-            )
-          ],
+              Text(
+                "Tidak ada penilaian",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                ),
+              )
+            ],
+          ),
         );
 }
