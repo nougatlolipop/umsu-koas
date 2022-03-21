@@ -8,10 +8,12 @@ class CardKehadiran extends StatelessWidget {
     this.keterangan,
     this.alamat,
     this.latlong,
+    this.tanggal,
   });
   String keterangan;
   String alamat;
   String latlong;
+  String tanggal;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,6 +37,12 @@ class CardKehadiran extends StatelessWidget {
               children: [
                 Text(
                   '${keterangan.toUpperCase()}',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.right,
+                ),
+                Text(
+                  '${tanggal.toUpperCase()}',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.right,

@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   APIService apiService;
-  var formatter = new DateFormat('dd-MM-yyyy');
+  var formatter = new DateFormat('dd-MM-yyyy hh:mm');
 
   @override
   void initState() {
@@ -66,6 +66,10 @@ class _BodyState extends State<Body> {
                   keterangan: kehadiran.data[index].absensiKeterangan,
                   alamat: kehadiran.data[index].absensiLokasi,
                   latlong: kehadiran.data[index].absensiLatLong,
+                  tanggal: formatter.format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        int.parse(kehadiran.data[index].absensiTanggal)),
+                  ),
                 );
               },
             ),

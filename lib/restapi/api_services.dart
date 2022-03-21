@@ -15,6 +15,7 @@ import 'package:umsukoas/models/model_myjadwal.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/models/model_nilai.dart';
 import 'package:umsukoas/models/model_panduan.dart';
+import 'package:umsukoas/models/model_panduan_app.dart';
 import 'package:umsukoas/models/model_refleksi.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
@@ -413,6 +414,32 @@ class APIService {
     }
 
     return model;
+  }
+
+  Future<List<PanduanApp>> getPanduanApp() async {
+    List<PanduanApp> data = new List<PanduanApp>();
+
+    try {
+      String url = Config.url + Config.urlPanduanApp;
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => PanduanApp.fromJson(i))
+            .toList();
+      }
+      // print(data);
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
   }
 
   Future<FollowUp> getFollowUp(

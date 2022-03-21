@@ -29,7 +29,14 @@ class AbsenScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ProgressHUD(child: Body()),
+      body: ProgressHUD(
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Body(),
+          ],
+        ),
+      )),
     );
   }
 }

@@ -69,9 +69,8 @@ class _ListFollowUpState extends State<ListFollowUp> {
                     staseNama: myfollowup.data[index].staseNama,
                     namaDoping: myfollowup.data[index].dopingNamaLengkap,
                     tanggal: formatter.format(
-                      DateTime.fromMillisecondsSinceEpoch(int.parse(
-                              myfollowup.data[index].followUpTglPeriksa))
-                          .toUtc(),
+                      DateTime.fromMillisecondsSinceEpoch(
+                          int.parse(myfollowup.data[index].followUpTglPeriksa)),
                     ),
                     verify: myfollowup.data[index].followUpVerify == "1"
                         ? true

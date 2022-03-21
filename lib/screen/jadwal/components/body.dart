@@ -31,32 +31,30 @@ class _BodyState extends State<Body> {
     super.initState();
   }
 
-  test() {
-    String jamStr = "08:00:00";
-    String jamEnd = "16:00:00";
-    var formatter = new DateFormat('yyyy-MM-dd');
+  // test() {
+  //   String jamStr = "08:00:00";
+  //   String jamEnd = "16:00:00";
+  //   var formatter = new DateFormat('yyyy-MM-dd');
 
-    DateTime start = DateTime.fromMillisecondsSinceEpoch(1641106800000).toUtc();
-    DateTime end = DateTime.fromMillisecondsSinceEpoch(1643785200000).toUtc();
-    int selisih = end.difference(start).inDays;
-    for (var i = 0; i <= selisih; i++) {
-      String startFix = formatter
-              .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
-                  .toUtc()
-                  .add(new Duration(days: i)))
-              .toString() +
-          " " +
-          jamStr;
-      String endFix = formatter
-              .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
-                  .toUtc()
-                  .add(new Duration(days: i)))
-              .toString() +
-          " " +
-          jamEnd;
-      print(startFix + " - " + endFix);
-    }
-  }
+  //   DateTime start = DateTime.fromMillisecondsSinceEpoch(1641106800000);
+  //   DateTime end = DateTime.fromMillisecondsSinceEpoch(1643785200000);
+  //   int selisih = end.difference(start).inDays;
+  //   for (var i = 0; i <= selisih; i++) {
+  //     String startFix = formatter
+  //             .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
+  //                 .add(new Duration(days: i)))
+  //             .toString() +
+  //         " " +
+  //         jamStr;
+  //     String endFix = formatter
+  //             .format(DateTime.fromMillisecondsSinceEpoch(1641106800000)
+  //                 .add(new Duration(days: i)))
+  //             .toString() +
+  //         " " +
+  //         jamEnd;
+  //     print(startFix + " - " + endFix);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,11 +128,9 @@ class _BodyState extends State<Body> {
     if (modelJadwal.data != null) {
       for (var i = 0; i < modelJadwal.data.length; i++) {
         startTime = DateTime.fromMillisecondsSinceEpoch(
-                int.parse(modelJadwal.data[i].jadwalTanggalMulai))
-            .toUtc();
+            int.parse(modelJadwal.data[i].jadwalTanggalMulai));
         endTime = DateTime.fromMillisecondsSinceEpoch(
-                int.parse(modelJadwal.data[i].jadwalTanggalSelesai))
-            .toUtc();
+            int.parse(modelJadwal.data[i].jadwalTanggalSelesai));
         int selisih = endTime.difference(startTime).inDays;
         for (var j = 0; j <= selisih; j++) {
           String startFix = formatter
@@ -152,7 +148,9 @@ class _BodyState extends State<Body> {
           meetings.add(
             Meeting(
               modelJadwal.data[i].rumahSakitNama +
-                  " " +
+                  " (" +
+                  modelJadwal.data[i].bagianNama +
+                  ") " +
                   modelJadwal.data[i].jadwalJamMasuk.toString() +
                   " - " +
                   modelJadwal.data[i].jadwalJamKeluar.toString(),

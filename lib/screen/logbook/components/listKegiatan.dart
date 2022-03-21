@@ -71,8 +71,7 @@ class _ListKegiatanState extends State<ListKegiatan> {
                   namaDoping: mylogbook.data[index].dopingNamaLengkap,
                   tanggal: formatter.format(
                     DateTime.fromMillisecondsSinceEpoch(
-                            int.parse(mylogbook.data[index].logbookTanggal))
-                        .toUtc(),
+                        int.parse(mylogbook.data[index].logbookTanggal)),
                   ),
                   verify: mylogbook.data[index].logbookIsVerify == "1"
                       ? true

@@ -56,7 +56,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     jadwalId = json['jadwalId'];
     rumahSakitNama = json['rumahSakitNama'];
-    bagianNama = json['bagianNama'];
+    bagianNama = json['staseNama'];
     jadwalTanggalMulai = json['jadwalTanggalMulai'];
     jadwalTanggalSelesai = json['jadwalTanggalSelesai'];
     rumahSakitWarna = json['rumahSakitWarna'];

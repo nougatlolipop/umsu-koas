@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umsukoas/components/myAppBar.dart';
 import 'components/body.dart';
+import 'components/panduanApp.dart';
 
 class PanduanScreen extends StatelessWidget {
   static String routeName = '/panduanScreen';
@@ -10,7 +11,14 @@ class PanduanScreen extends StatelessWidget {
       appBar: MyAppBar(
         title: "Panduan Profesi",
       ),
-      body: Body(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            PanduanApp(),
+            Body(),
+          ],
+        ),
+      ),
     );
   }
 }

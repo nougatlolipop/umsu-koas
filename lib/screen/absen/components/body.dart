@@ -51,7 +51,7 @@ class _BodyState extends State<Body> {
 
   prosesSave(String ket, BuildContext context) async {
     final progress = ProgressHUD.of(context);
-    progress?.showWithText('Proses Absen Masuk');
+    progress?.showWithText('Proses absen ${ket}');
     Future.delayed(Duration(seconds: 2), () {
       if (Config.alamat == "" || Config.latlong == "") {
         SweetAlert.show(
@@ -69,27 +69,25 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          AbsenHeader(),
-          FutureBuilder(
-            future: apiService.getMyJadwal(Config.npm),
-            builder: (
-              BuildContext context,
-              AsyncSnapshot<MyJadwal> model,
-            ) {
-              if (model.hasData) {
-                return _buildJadwalList(model.data);
-              }
-              return Container(
-                height: 350,
-                child: LodingWidget(),
-              );
-            },
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        AbsenHeader(),
+        FutureBuilder(
+          future: apiService.getMyJadwal(Config.npm),
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<MyJadwal> model,
+          ) {
+            if (model.hasData) {
+              return _buildJadwalList(model.data);
+            }
+            return Container(
+              height: 350,
+              child: LodingWidget(),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -100,6 +98,7 @@ class _BodyState extends State<Body> {
       child: Container(
         child: jadwals.status
             ? ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: jadwals.data.length,
