@@ -120,12 +120,12 @@ class _TambahFollowUpState extends State<TambahFollowUp> {
               icon: Icon(Icons.event),
               dateLabelText: 'Tanggal',
               timeLabelText: "Jam",
-              selectableDayPredicate: (date) {
-                if (date.weekday == 6 || date.weekday == 7) {
-                  return false;
-                }
-                return true;
-              },
+              // selectableDayPredicate: (date) {
+              //   if (date.weekday == 6 || date.weekday == 7) {
+              //     return false;
+              //   }
+              //   return true;
+              // },
               onChanged: (val) {
                 print(val);
                 waktuKegiatan = val;

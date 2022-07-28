@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -124,6 +126,7 @@ class _BodyState extends State<Body> {
 
     await apiService.getJadwal(Config.npm).then((ret) {
       modelJadwal = ret;
+      print(jsonEncode(modelJadwal.data));
     });
     if (modelJadwal.data != null) {
       for (var i = 0; i < modelJadwal.data.length; i++) {
@@ -131,7 +134,8 @@ class _BodyState extends State<Body> {
             int.parse(modelJadwal.data[i].jadwalTanggalMulai));
         endTime = DateTime.fromMillisecondsSinceEpoch(
             int.parse(modelJadwal.data[i].jadwalTanggalSelesai));
-        int selisih = endTime.difference(startTime).inDays;
+        int selisih = endTime.difference(startTime).inDays - 1;
+        print(selisih);
         for (var j = 0; j <= selisih; j++) {
           String startFix = formatter
                   .format(startTime.add(new Duration(days: j)))
