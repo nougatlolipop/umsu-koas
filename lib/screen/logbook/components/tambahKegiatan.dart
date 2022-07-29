@@ -197,31 +197,59 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
   Future<void> saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim,
       tanggal, judul, deskripsi) async {
     // print(_paths.first.name);
-    apiService
-        .saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim, tanggal,
-            judul, deskripsi, _paths)
-        .then(
-      (ret) {
-        bersih();
-        print(ret.toJson());
-        if (ret.status) {
-          SweetAlert.show(
-            context,
-            title: "KOAS UMSU",
-            subtitle: ret.message,
-            style: SweetAlertStyle.success,
-          );
-        } else {
-          SweetAlert.show(
-            context,
-            title: "KOAS UMSU",
-            subtitle: ret.message,
-            style: SweetAlertStyle.error,
-          );
-        }
-        _resetState();
-      },
-    );
+    if (_paths == null) {
+      apiService
+          .saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim,
+              tanggal, judul, deskripsi)
+          .then(
+        (ret) {
+          bersih();
+          print(ret.toJson());
+          if (ret.status) {
+            SweetAlert.show(
+              context,
+              title: "KOAS UMSU",
+              subtitle: ret.message,
+              style: SweetAlertStyle.success,
+            );
+          } else {
+            SweetAlert.show(
+              context,
+              title: "KOAS UMSU",
+              subtitle: ret.message,
+              style: SweetAlertStyle.error,
+            );
+          }
+          _resetState();
+        },
+      );
+    } else {
+      apiService
+          .saveLogbookWithFile(rumkitDetId, dopingId, selectedValueKegiatan,
+              nim, tanggal, judul, deskripsi, _paths)
+          .then(
+        (ret) {
+          bersih();
+          print(ret.toJson());
+          if (ret.status) {
+            SweetAlert.show(
+              context,
+              title: "KOAS UMSU",
+              subtitle: ret.message,
+              style: SweetAlertStyle.success,
+            );
+          } else {
+            SweetAlert.show(
+              context,
+              title: "KOAS UMSU",
+              subtitle: ret.message,
+              style: SweetAlertStyle.error,
+            );
+          }
+          _resetState();
+        },
+      );
+    }
   }
 
   @override

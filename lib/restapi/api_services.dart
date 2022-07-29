@@ -299,7 +299,7 @@ class APIService {
     return data;
   }
 
-  Future<SaveModel> saveLogbook(
+  Future<SaveModel> saveLogbookWithFile(
     String rumkitDetId,
     String dopingId,
     String kegiatanId,
@@ -328,6 +328,46 @@ class APIService {
       var response = await Dio().post(
         url,
         data: formData,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SaveModel> saveLogbook(
+    String rumkitDetId,
+    String dopingId,
+    String kegiatanId,
+    String nim,
+    String tanggal,
+    String judul,
+    String deskripsi,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlLogbook;
+      var response = await Dio().post(
+        url,
+        data: {
+          "rumkitDetId": rumkitDetId,
+          "dopingId": dopingId,
+          "kegiatanId": kegiatanId,
+          "nim": nim,
+          "tanggal": tanggal,
+          "judul": judul,
+          "deskripsi": deskripsi,
+        },
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
