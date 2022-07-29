@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:umsukoas/models/model_absen.dart';
 import 'package:umsukoas/models/model_doping.dart';
 import 'package:umsukoas/models/model_evaluasi.dart';
@@ -306,22 +307,27 @@ class APIService {
     String tanggal,
     String judul,
     String deskripsi,
+    List<PlatformFile> _paths,
   ) async {
     SaveModel model;
     try {
-      String url = Config.url + Config.urlLogbook;
-      // print(url);
+      String url = Config.url + Config.urlLogbookWithFile;
+      FormData formData = new FormData.fromMap({
+        "rumkitDetId": rumkitDetId,
+        "dopingId": dopingId,
+        "kegiatanId": kegiatanId,
+        "nim": nim,
+        "tanggal": tanggal,
+        "judul": judul,
+        "deskripsi": deskripsi,
+        "file": await MultipartFile.fromFile(
+          _paths.first.path,
+          filename: _paths.first.name,
+        ),
+      });
       var response = await Dio().post(
         url,
-        data: {
-          "rumkitDetId": rumkitDetId,
-          "dopingId": dopingId,
-          "kegiatanId": kegiatanId,
-          "nim": nim,
-          "tanggal": tanggal,
-          "judul": judul,
-          "deskripsi": deskripsi,
-        },
+        data: formData,
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
@@ -746,6 +752,31 @@ class APIService {
 
       if (response.statusCode == 200) {
         model = Kehadiran.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<SaveModel> deleteLogbook(String idLogbook) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlDeleteKegiatan;
+      // print('fikri $url');
+      var response = await Dio().post(
+        url,
+        data: {"id": idLogbook},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e);

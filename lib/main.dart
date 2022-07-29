@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _getPackageInfo();
-    _checkVersion(context);
+    // _checkVersion(context);
     OneSignal.shared.setNotificationWillShowInForegroundHandler(
         (OSNotificationReceivedEvent event) {
       print("notifikasi di terima");

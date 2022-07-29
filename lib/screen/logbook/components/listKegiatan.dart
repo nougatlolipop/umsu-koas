@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/loadingWidget.dart';
 import 'package:umsukoas/models/model_mylogbook.dart';
 import 'package:umsukoas/restapi/api_services.dart';
@@ -23,6 +24,21 @@ class _ListKegiatanState extends State<ListKegiatan> {
   void initState() {
     apiService = new APIService();
     super.initState();
+  }
+
+  Future<void> delete(id) async {
+    apiService.deleteLogbook(id).then(
+      (ret) {
+        // print(ret);
+        setState(() {});
+        SweetAlert.show(
+          context,
+          title: "KOAS UMSU",
+          subtitle: ret.message,
+          style: SweetAlertStyle.success,
+        );
+      },
+    );
   }
 
   @override
@@ -76,6 +92,10 @@ class _ListKegiatanState extends State<ListKegiatan> {
                   verify: mylogbook.data[index].logbookIsVerify == "1"
                       ? true
                       : false,
+                  press: () {
+                    print(mylogbook.data[index].logbookId);
+                    delete(mylogbook.data[index].logbookId);
+                  },
                 );
               },
             ),

@@ -11,6 +11,8 @@ class Config {
   static String urlGetDoping = 'koas/getDoping';
   static String urlGetKegiatan = 'koas/getKegiatan';
   static String urlLogbook = 'koas/logbook';
+  static String urlLogbookWithFile = 'koas/logbookWithFile';
+  static String urlDeleteKegiatan = 'koas/logbookDelete';
   static String urlMyLogbook = 'koas/myLogbook';
   static String urlMyDoping = 'koas/myDoping';
   static String urlPanduan = 'koas/panduan';

@@ -1,7 +1,9 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/defaultButton.dart';
+import 'package:umsukoas/restapi/api_services.dart';
 
 import '../../../constants.dart';
 
@@ -16,6 +18,7 @@ class CardKegiatan extends StatelessWidget {
     this.namaDoping,
     this.tanggal,
     this.verify,
+    this.press,
   }) : super(key: key);
   final String kegiatan;
   final String juduldeskripsi;
@@ -25,6 +28,7 @@ class CardKegiatan extends StatelessWidget {
   final String namaDoping;
   final String tanggal;
   final bool verify;
+  final Function press;
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +81,14 @@ class CardKegiatan extends StatelessWidget {
                         child: Html(data: deskripsi),
                       ),
                       Divider(),
-                      DefaultButton(
-                        text: "Edit",
-                        color: Colors.white,
-                        background: kPrimaryColor,
-                        press: () {},
-                      )
+                      verify
+                          ? Container()
+                          : DefaultButton(
+                              text: "Hapus",
+                              color: Colors.white,
+                              background: kPrimaryColor,
+                              press: press,
+                            )
                     ],
                   ),
                   builder: (_, collapsed, expanded) {

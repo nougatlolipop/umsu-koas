@@ -1,5 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:expandable/expandable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -10,6 +11,7 @@ import 'package:umsukoas/restapi/api_services.dart';
 import '../../../config.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:flutter/services.dart';
 
 class TambahKegiatan extends StatefulWidget {
   @override
@@ -29,6 +31,72 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
   int maxLengthJudul = 150;
   String text = "";
   HtmlEditorController htmlcontroller = HtmlEditorController();
+  List<PlatformFile> _paths;
+  final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  bool _isLoading = false;
+  String _fileName;
+  bool _userAborted = false;
+  String _directoryPath;
+  String _saveAsFileName;
+  String _extension;
+  FileType _pickingType = FileType.any;
+
+  void _resetState() {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+      _directoryPath = null;
+      _fileName = null;
+      _paths = null;
+      _saveAsFileName = null;
+      _userAborted = false;
+    });
+  }
+
+  void _pickFiles() async {
+    _resetState();
+    try {
+      _paths = (await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['docx', 'doc'],
+      ))
+          .files;
+    } on PlatformException catch (e) {
+      _logException('Unsupported operation' + e.toString());
+    } catch (e) {
+      _logException(e.toString());
+    }
+    print("File base:$_paths");
+    if (!mounted) return;
+    setState(() {
+      _isLoading = false;
+      _fileName = _paths != null ? _paths.map((e) => e.name).toString() : '...';
+      _userAborted = _paths == null;
+    });
+  }
+
+  void _clearCachedFiles() async {
+    _resetState();
+    try {
+      bool result = await FilePicker.platform.clearTemporaryFiles();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: result ? Colors.green : Colors.red,
+          content: Text((result
+              ? 'Temporary files removed with success.'
+              : 'Failed to clean temporary files')),
+        ),
+      );
+    } on PlatformException catch (e) {
+      _logException('Unsupported operation' + e.toString());
+    } catch (e) {
+      _logException(e.toString());
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
 
   @override
   void initState() {
@@ -44,6 +112,16 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
     itemsKegiatan.clear();
     judul.clear();
     htmlcontroller.clear();
+  }
+
+  void _logException(String message) {
+    print(message);
+    _scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+    _scaffoldMessengerKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
   }
 
   @override
@@ -100,14 +178,30 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
     });
   }
 
+  simpanLogbook(BuildContext context) async {
+    var txt = await htmlcontroller.getText();
+    if (txt.contains('src=\"data:')) {
+      txt =
+          '<text removed due to base-64 data, displaying the text could cause the app to crash>';
+    }
+    final progress = ProgressHUD.of(context);
+    progress?.show();
+    Future.delayed(Duration(seconds: 1), () {
+      saveLogbook(selectedValueRs, selectedValueDoping, selectedValueKegiatan,
+          Config.npm, waktuKegiatan, judul.text, txt);
+      progress?.dismiss();
+    });
+    //
+  }
+
   Future<void> saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim,
-      tanggal, judul, deskripsi) {
+      tanggal, judul, deskripsi) async {
+    // print(_paths.first.name);
     apiService
         .saveLogbook(rumkitDetId, dopingId, selectedValueKegiatan, nim, tanggal,
-            judul, deskripsi)
+            judul, deskripsi, _paths)
         .then(
       (ret) {
-        setState(() {});
         bersih();
         print(ret.toJson());
         if (ret.status) {
@@ -125,6 +219,7 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
             style: SweetAlertStyle.error,
           );
         }
+        _resetState();
       },
     );
   }
@@ -354,29 +449,26 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
               ),
             ),
             Divider(),
+            Text(
+              _fileName == null ? "No file selected" : _fileName,
+              style: TextStyle(color: kPrimaryColor),
+            ),
+            Divider(),
+            DefaultButton(
+              text: _fileName == null ? "Pilih Berkas" : "Batalkan",
+              background: kPrimaryColor,
+              color: Colors.white,
+              press: () async {
+                _fileName == null ? _pickFiles() : _clearCachedFiles();
+              },
+            ),
+            Divider(),
             DefaultButton(
               text: "Simpan",
               background: kPrimaryColor,
               color: Colors.white,
               press: () async {
-                var txt = await htmlcontroller.getText();
-                if (txt.contains('src=\"data:')) {
-                  txt =
-                      '<text removed due to base-64 data, displaying the text could cause the app to crash>';
-                }
-                final progress = ProgressHUD.of(context);
-                progress?.show();
-                Future.delayed(Duration(seconds: 1), () {
-                  saveLogbook(
-                      selectedValueRs,
-                      selectedValueDoping,
-                      selectedValueKegiatan,
-                      Config.npm,
-                      waktuKegiatan,
-                      judul.text,
-                      txt);
-                  progress?.dismiss();
-                });
+                simpanLogbook(context);
               },
             ),
           ],

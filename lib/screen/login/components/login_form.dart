@@ -6,7 +6,6 @@ import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/rounded_button.dart';
 import 'package:umsukoas/components/rounded_input.dart';
 import 'package:umsukoas/components/rounded_password_input.dart';
-import 'package:umsukoas/constants.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 import 'package:umsukoas/services/shared_service.dart';
 import 'package:umsukoas/size_config.dart';
@@ -40,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
   }
 
-  Future<void> userAuth(npm, pass) {
+  Future<void> userAuth(npm, pass) async {
     apiService.loginUser(npm, pass).then(
       (ret) {
         print(ret.toJson());
