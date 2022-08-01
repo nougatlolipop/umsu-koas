@@ -40,6 +40,7 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
   String _saveAsFileName;
   String _extension;
   FileType _pickingType = FileType.any;
+  bool visibleUpload = false;
 
   void _resetState() {
     if (!mounted) {
@@ -355,6 +356,9 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
               onChanged: (String newValue) {
                 setState(() {
                   selectedValueKegiatan = newValue;
+                  newValue == "7" || newValue == "8"
+                      ? visibleUpload = true
+                      : visibleUpload = false;
                   print(selectedValueKegiatan);
                 });
               },
@@ -476,20 +480,30 @@ class _TambahKegiatanState extends State<TambahKegiatan> {
                 ),
               ),
             ),
-            Divider(),
-            Text(
-              _fileName == null ? "No file selected" : _fileName,
-              style: TextStyle(color: kPrimaryColor),
-            ),
-            Divider(),
-            DefaultButton(
-              text: _fileName == null ? "Pilih Berkas" : "Batalkan",
-              background: kPrimaryColor,
-              color: Colors.white,
-              press: () async {
-                _fileName == null ? _pickFiles() : _clearCachedFiles();
-              },
-            ),
+            visibleUpload
+                ? Container(
+                    child: Column(
+                      children: <Widget>[
+                        Divider(),
+                        Text(
+                          _fileName == null ? "No file selected" : _fileName,
+                          style: TextStyle(color: kPrimaryColor),
+                        ),
+                        Divider(),
+                        DefaultButton(
+                          text: _fileName == null ? "Pilih Berkas" : "Batalkan",
+                          background: kPrimaryColor,
+                          color: Colors.white,
+                          press: () async {
+                            _fileName == null
+                                ? _pickFiles()
+                                : _clearCachedFiles();
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
             Divider(),
             DefaultButton(
               text: "Simpan",
