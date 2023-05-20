@@ -3,15 +3,12 @@ import 'package:umsukoas/components/myAppBar.dart';
 
 import 'components/body.dart';
 
-class MaintenanceScreen extends StatelessWidget {
-  static String routeName = '/maintenanceScreen';
+class PimScreen extends StatelessWidget {
+  static String routeName = '/pimScreen';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
-        title: "Maintenance",
-      ),
       body: Body(),
     );
   }

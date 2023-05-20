@@ -18,6 +18,8 @@ import 'screen/berita/beritaScreen.dart';
 import 'screen/login/loginScreen.dart';
 import 'screen/home/homeScreen.dart';
 import 'screen/welcome/welcomeScreen.dart';
+import 'screen/maintenance/maintenanceScreen.dart';
+import 'screen/pim/pimScreen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
@@ -39,4 +41,6 @@ final Map<String, WidgetBuilder> routes = {
   FormEvaluasiDosenScreen.routeName: (context) => FormEvaluasiDosenScreen(),
   LihatPanduan.routeName: (context) => LihatPanduan(),
   LihatPanduanApp.routeName: (context) => LihatPanduanApp(),
+  MaintenanceScreen.routeName: (context) => MaintenanceScreen(),
+  PimScreen.routeName: (context) => PimScreen(),
 };

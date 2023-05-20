@@ -17,12 +17,31 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final List<DropdownMenuItem<String>> itemsStase = [];
+  String selectedValueStase;
   APIService apiService;
 
   @override
   void initState() {
     apiService = new APIService();
+    initRaport();
     super.initState();
+  }
+
+  Future<void> initRaport() async {
+    itemsStase.clear();
+    apiService.getStaseNilai(Config.npm).then((value) {
+      for (var i = 0; i < value.length; i++) {
+        itemsStase.add(DropdownMenuItem(
+          child: Text(
+            value[i].staseNama.toString(),
+            overflow: TextOverflow.ellipsis,
+          ),
+          value: value[i].staseId,
+        ));
+      }
+      setState(() {});
+    });
   }
 
   @override
@@ -32,8 +51,32 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            DropdownButtonFormField(
+              isExpanded: true,
+              decoration: InputDecoration(
+                hintText: "Pilih Stase",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor, width: 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                filled: true,
+              ),
+              value: selectedValueStase,
+              onChanged: (String newValue) {
+                setState(() {
+                  selectedValueStase = newValue;
+                  print(selectedValueStase);
+                });
+              },
+              items: itemsStase,
+            ),
+            Divider(),
             FutureBuilder(
-              future: apiService.getMyNilai(Config.npm),
+              future: apiService.getMyNilai(Config.npm, selectedValueStase),
               builder: (
                 BuildContext context,
                 AsyncSnapshot<MyNilai> model,

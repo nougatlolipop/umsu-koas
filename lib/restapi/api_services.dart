@@ -8,6 +8,8 @@ import 'package:umsukoas/models/model_evaluasi.dart';
 import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
+import 'package:umsukoas/models/model_kegiatan_pim.dart';
+import 'package:umsukoas/models/model_sub_kegiatan_pim.dart';
 import 'package:umsukoas/models/model_kehadiran.dart';
 import 'package:umsukoas/models/model_login.dart';
 import 'package:umsukoas/models/model_myEvaluasi.dart';
@@ -20,6 +22,7 @@ import 'package:umsukoas/models/model_panduan_app.dart';
 import 'package:umsukoas/models/model_refleksi.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
+import 'package:umsukoas/models/model_stase.dart';
 import 'package:umsukoas/models/model_user.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
@@ -237,6 +240,33 @@ class APIService {
       if (response.statusCode == 200) {
         data = (response.data['data'] as List)
             .map((i) => ModelRumkit.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelStase>> getStaseNilai(String npm) async {
+    List<ModelStase> data = [];
+
+    try {
+      String url = Config.url + Config.urlStaseNilai;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelStase.fromJson(i))
             .toList();
       }
     } on DioError catch (e) {
@@ -583,16 +613,14 @@ class APIService {
     return model;
   }
 
-  Future<MyNilai> getMyNilai(
-    String npm,
-  ) async {
+  Future<MyNilai> getMyNilai(String npm, String stase) async {
     MyNilai model;
     try {
       String url = Config.url + Config.urlMyNilai;
       // print(url);
       var response = await Dio().post(
         url,
-        data: {"npm": npm},
+        data: {"npm": npm, "stase": stase},
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
@@ -808,6 +836,99 @@ class APIService {
       var response = await Dio().post(
         url,
         data: {"id": idLogbook},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = SaveModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<List<ModelKegiatanPim>> getKegiatanPim() async {
+    List<ModelKegiatanPim> data = [];
+
+    try {
+      String url = Config.url + Config.urlGetKegiatanPim;
+      print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelKegiatanPim.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelSubKegiatanPim>> getSubKegiatanPim(String idKategori) async {
+    List<ModelSubKegiatanPim> data = [];
+
+    try {
+      String url =
+          Config.url + Config.urlGetSubKegiatanPim + '?idKat=' + idKategori;
+      print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelSubKegiatanPim.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<SaveModel> saveKegiatanPim(
+    String npm,
+    String tanggal,
+    String semester,
+    String kategoriId,
+    String kegiatanId,
+    String judul,
+    String link,
+  ) async {
+    SaveModel model;
+    try {
+      String url = Config.url + Config.urlPim;
+      var response = await Dio().post(
+        url,
+        data: {
+          "npm": npm,
+          "tanggal": tanggal,
+          "semester": semester,
+          "kategori": kategoriId,
+          "kegiatan": kegiatanId,
+          "judul": judul,
+          "link": link
+        },
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"

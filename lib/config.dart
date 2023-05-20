@@ -8,9 +8,11 @@ class Config {
   static String urlMyJadwal = 'koas/jadwalabsen';
   static String urlAbsen = 'koas/absensi';
   static String urlInitKegiatan = 'koas/initKegiatan';
+  static String urlStaseNilai = 'koas/staseNilaiMhs';
   static String urlGetDoping = 'koas/getDoping';
   static String urlGetKegiatan = 'koas/getKegiatan';
   static String urlLogbook = 'koas/logbook';
+  static String urlPim = 'koas/pim';
   static String urlLogbookWithFile = 'koas/logbookWithFile';
   static String urlDeleteKegiatan = 'koas/logbookDelete';
   static String urlMyLogbook = 'koas/myLogbook';
@@ -33,6 +35,8 @@ class Config {
   static String urlAddRefleksi = "koas/addRefleksi";
   static String urlMyDopingEvaluasi = "koas/myDopingEvaluasi";
   static String urlKehadiran = "koas/myAbsensi";
+  static String urlGetKegiatanPim = "koas/kegiatanPim";
+  static String urlGetSubKegiatanPim = "koas/subKegiatanPim";
   static var hasilEvaluasi = [];
   static String appName, packageName, version, buildNumber = "";
 }
