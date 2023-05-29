@@ -9,6 +9,9 @@ import 'package:umsukoas/models/model_followup.dart';
 import 'package:umsukoas/models/model_jadwal.dart';
 import 'package:umsukoas/models/model_kegiatan.dart';
 import 'package:umsukoas/models/model_kegiatan_pim.dart';
+import 'package:umsukoas/models/model_nilai_pim.dart';
+import 'package:umsukoas/models/model_semester_nilai_pim.dart';
+import 'package:umsukoas/models/model_semester_pim.dart';
 import 'package:umsukoas/models/model_sub_kegiatan_pim.dart';
 import 'package:umsukoas/models/model_kehadiran.dart';
 import 'package:umsukoas/models/model_login.dart';
@@ -853,6 +856,32 @@ class APIService {
     return model;
   }
 
+  Future<List<ModelSemesterPim>> getSemesterPim(String npm) async {
+    List<ModelSemesterPim> data = [];
+
+    try {
+      String url = Config.url + Config.urlGetSemesterPim + '?npm=' + npm;
+      print(url);
+      var response = await Dio().get(
+        url,
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelSemesterPim.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
   Future<List<ModelKegiatanPim>> getKegiatanPim() async {
     List<ModelKegiatanPim> data = [];
 
@@ -944,5 +973,57 @@ class APIService {
     }
 
     return model;
+  }
+
+  Future<MyNilaiPim> getMyNilaiPim(String npm, String semester) async {
+    MyNilaiPim model;
+    try {
+      String url = Config.url + Config.urlGetNilaiPim;
+      // print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm, "semester": semester},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        model = MyNilaiPim.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return model;
+  }
+
+  Future<List<ModelSemesterNilaiPim>> getSemesterNilaiPim(String npm) async {
+    List<ModelSemesterNilaiPim> data = [];
+
+    try {
+      String url = Config.url + Config.urlSSemesterNilaiPim;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelSemesterNilaiPim.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
   }
 }

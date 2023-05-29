@@ -36,7 +36,10 @@ class Config {
   static String urlMyDopingEvaluasi = "koas/myDopingEvaluasi";
   static String urlKehadiran = "koas/myAbsensi";
   static String urlGetKegiatanPim = "koas/kegiatanPim";
+  static String urlGetSemesterPim = "koas/semesterPim";
   static String urlGetSubKegiatanPim = "koas/subKegiatanPim";
+  static String urlGetNilaiPim = "koas/pimNilai";
+  static String urlSSemesterNilaiPim = "koas/initReportPim";
   static var hasilEvaluasi = [];
   static String appName, packageName, version, buildNumber = "";
 }

@@ -7,7 +7,6 @@ import 'package:umsukoas/restapi/api_services.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../../config.dart';
-import 'package:flutter/services.dart';
 
 class TambahPIM extends StatefulWidget {
   @override
@@ -65,27 +64,24 @@ class _TambahPIMState extends State<TambahPIM> {
 
   @override
   void dispose() {
-    setState(() {});
+    // setState(() {});
     super.dispose();
   }
 
   Future<void> getSemester() async {
     itemsSemester.clear();
-    var value = [
-      {'id': '1', 'nama': 'semester 1'},
-      {'id': '2', 'nama': 'semester 2'},
-      {'id': '3', 'nama': 'semester 3'},
-      {'id': '4', 'nama': 'semester 4'},
-    ];
-    for (var i = 0; i < value.length; i++) {
-      itemsSemester.add(DropdownMenuItem(
-        child: Text(
-          value[i]['nama'],
-          overflow: TextOverflow.ellipsis,
-        ),
-        value: value[i]['id'],
-      ));
-    }
+    apiService.getSemesterPim(Config.npm).then((value) {
+      for (var i = 0; i < value.length; i++) {
+        itemsSemester.add(DropdownMenuItem(
+          child: Text(
+            'Semester ' + value[i].pimJadwalSemester,
+            overflow: TextOverflow.ellipsis,
+          ),
+          value: value[i].pimJadwalSemester,
+        ));
+      }
+      setState(() {});
+    });
   }
 
   Future<void> getKegiatan() async {

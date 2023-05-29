@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umsukoas/components/myAppBar.dart';
 import 'package:umsukoas/screen/pim/components/tambahPIM.dart';
+import 'package:umsukoas/screen/pim/components/nilaiPim.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           controller: tabController,
           children: [
             TambahPIM(),
-            Container(),
+            NilaiPim(),
           ],
         ));
   }

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class Sticky extends StatelessWidget {
-  const Sticky({
+class StickyPim extends StatelessWidget {
+  const StickyPim({
     Key key,
-    this.bobot,
+    this.total,
     this.hasil,
-    this.nilai,
+    this.skor,
     this.kegiatan,
     this.ket,
   }) : super(key: key);
-  final String bobot, nilai, hasil, kegiatan, ket;
+  final String total, skor, hasil, kegiatan, ket;
 
   @override
   Widget build(BuildContext context) {
@@ -68,18 +68,7 @@ class Sticky extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    'Bobot',
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Nilai',
+                    'Skor',
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w500,
@@ -91,6 +80,17 @@ class Sticky extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     'Hasil',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Nilai',
                     style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w500,
@@ -113,7 +113,7 @@ class Sticky extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "${bobot}%",
+                    "${total}",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -123,7 +123,7 @@ class Sticky extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    nilai,
+                    skor,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
