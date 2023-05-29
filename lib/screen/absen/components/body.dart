@@ -241,7 +241,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 20,
                     ),
                     ButtonCircle(
                       press: () {

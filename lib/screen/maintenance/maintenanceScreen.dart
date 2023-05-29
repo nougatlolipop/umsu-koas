@@ -4,6 +4,8 @@ import 'package:umsukoas/components/myAppBar.dart';
 import 'maintenance/body.dart';
 
 class MaintenanceScreen extends StatelessWidget {
+  static String routeName = '/maintenanceScreen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

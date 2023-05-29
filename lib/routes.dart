@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:umsukoas/screen/datahadir/dataHadir.dart';
-import 'package:umsukoas/screen/followup/followupScreen.dart';
-import 'package:umsukoas/screen/pembimbing/pembimbingScreen.dart';
+import 'screen/datahadir/dataHadir.dart';
+import 'screen/followup/followupScreen.dart';
+import 'screen/pembimbing/pembimbingScreen.dart';
 import 'screen/evaluasi/evaluasiDiriScreen.dart';
 import 'screen/evaluasi/evaluasiDosenScreen.dart';
 import 'screen/evaluasi/evaluasiScreen.dart';
@@ -18,6 +18,7 @@ import 'screen/berita/beritaScreen.dart';
 import 'screen/login/loginScreen.dart';
 import 'screen/home/homeScreen.dart';
 import 'screen/welcome/welcomeScreen.dart';
+import 'screen/maintenance/maintenanceScreen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
@@ -39,4 +40,5 @@ final Map<String, WidgetBuilder> routes = {
   FormEvaluasiDosenScreen.routeName: (context) => FormEvaluasiDosenScreen(),
   LihatPanduan.routeName: (context) => LihatPanduan(),
   LihatPanduanApp.routeName: (context) => LihatPanduanApp(),
+  MaintenanceScreen.routeName: (context) => MaintenanceScreen(),
 };

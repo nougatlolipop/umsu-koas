@@ -8,6 +8,7 @@ class Config {
   static String urlMyJadwal = 'koas/jadwalabsen';
   static String urlAbsen = 'koas/absensi';
   static String urlInitKegiatan = 'koas/initKegiatan';
+  static String urlStaseNilai = 'koas/staseNilaiMhs';
   static String urlGetDoping = 'koas/getDoping';
   static String urlGetKegiatan = 'koas/getKegiatan';
   static String urlLogbook = 'koas/logbook';

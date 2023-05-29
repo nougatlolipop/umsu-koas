@@ -20,6 +20,7 @@ import 'package:umsukoas/models/model_panduan_app.dart';
 import 'package:umsukoas/models/model_refleksi.dart';
 import 'package:umsukoas/models/model_rumkit.dart';
 import 'package:umsukoas/models/model_save.dart';
+import 'package:umsukoas/models/model_stase.dart';
 import 'package:umsukoas/models/model_user.dart';
 import '../config.dart';
 import '../models/model_menu.dart';
@@ -237,6 +238,33 @@ class APIService {
       if (response.statusCode == 200) {
         data = (response.data['data'] as List)
             .map((i) => ModelRumkit.fromJson(i))
+            .toList();
+      }
+    } on DioError catch (e) {
+      print(e.response);
+    }
+    return data;
+  }
+
+  Future<List<ModelStase>> getStaseNilai(String npm) async {
+    List<ModelStase> data = [];
+
+    try {
+      String url = Config.url + Config.urlStaseNilai;
+      print(url);
+      var response = await Dio().post(
+        url,
+        data: {"npm": npm},
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        data = (response.data['data'] as List)
+            .map((i) => ModelStase.fromJson(i))
             .toList();
       }
     } on DioError catch (e) {
@@ -583,16 +611,14 @@ class APIService {
     return model;
   }
 
-  Future<MyNilai> getMyNilai(
-    String npm,
-  ) async {
+  Future<MyNilai> getMyNilai(String npm, String stase) async {
     MyNilai model;
     try {
       String url = Config.url + Config.urlMyNilai;
       // print(url);
       var response = await Dio().post(
         url,
-        data: {"npm": npm},
+        data: {"npm": npm, "stase": stase},
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
