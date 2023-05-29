@@ -19,10 +19,7 @@ import 'screen/login/loginScreen.dart';
 import 'screen/home/homeScreen.dart';
 import 'screen/welcome/welcomeScreen.dart';
 import 'screen/maintenance/maintenanceScreen.dart';
-<<<<<<< HEAD
-=======
 import 'screen/pim/pimScreen.dart';
->>>>>>> e676ad7894775a7d1133a1ca6b36e6fdb3cfa510
 
 final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
@@ -45,8 +42,5 @@ final Map<String, WidgetBuilder> routes = {
   LihatPanduan.routeName: (context) => LihatPanduan(),
   LihatPanduanApp.routeName: (context) => LihatPanduanApp(),
   MaintenanceScreen.routeName: (context) => MaintenanceScreen(),
-<<<<<<< HEAD
-=======
   PimScreen.routeName: (context) => PimScreen(),
->>>>>>> e676ad7894775a7d1133a1ca6b36e6fdb3cfa510
 };
