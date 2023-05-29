@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umsukoas/components/myAppBar.dart';
 
-import 'maintenance/body.dart';
+import 'components/body.dart';
 
 class MaintenanceScreen extends StatelessWidget {
   static String routeName = '/maintenanceScreen';

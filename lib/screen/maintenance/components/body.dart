@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,6 +11,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Lottie.asset('asset/lotties/maintenance.json',
+          width: getProportionateScreenWidth(225)),
+    );
   }
 }
