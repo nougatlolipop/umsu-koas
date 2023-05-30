@@ -1,58 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/flutter_login.dart';
-import 'package:umsukoas/screen/home/homeScreen.dart';
+import 'package:flutter/services.dart';
 
-const users = const {
-  'mrivan@umsu.ac.id': 'allahuakbar1213',
-  'fikri.mfa@gmail.com': 'qwerty123',
-};
+import '../../../constants.dart';
+import '../../../size_config.dart';
+import 'login_form.dart';
 
-class Body extends StatelessWidget {
-  Duration get loginTime => Duration(milliseconds: 2250);
+class Body extends StatefulWidget {
+  @override
+  State<Body> createState() => _BodyState();
+}
 
-  Future<String> _authUser(LoginData data) {
-    debugPrint('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
-    });
+class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+  bool isLogin = true;
+  Animation<double> containerSize;
+  Duration animationDuration = Duration(milliseconds: 270);
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
-  Future<String> _signupUser(SignupData data) {
-    debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      return null;
-    });
-  }
-
-  Future<String> _recoverPassword(String name) {
-    debugPrint('Name: $name');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(name)) {
-        return 'User not exists';
-      }
-      return null;
-    });
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FlutterLogin(
-      title: 'KOAS UMSU',
-      logo: AssetImage('asset/images/logoumsu.png'),
-      onLogin: _authUser,
-      onSignup: _signupUser,
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ));
-      },
-      onRecoverPassword: _recoverPassword,
+    double defaultLoginSize =
+        SizeConfig.screenHeight - (SizeConfig.screenHeight * 0.2);
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned(
+            top: 100,
+            right: -50,
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: kPrimaryColor,
+              ),
+            ),
+          ),
+          Positioned(
+            top: -50,
+            left: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: kPrimaryColor,
+              ),
+            ),
+          ),
+          LoginForm(
+            isLogin: isLogin,
+            animationDuration: animationDuration,
+            size: SizeConfig.size,
+            defaultLoginSize: SizeConfig.screenHeight,
+          ),
+        ],
+      ),
     );
   }
 }

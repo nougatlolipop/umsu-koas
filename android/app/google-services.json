@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "583061257425",
+    "project_id": "umsu-koas",
+    "storage_bucket": "umsu-koas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583061257425:android:dec3e905afe5af293799f0",
+        "android_client_info": {
+          "package_name": "com.umsu.koas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583061257425-r92dubkte222n2ichk92154l0nquiu8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGZayH3_aqCO3PQKhw9y3vy6XoiMtvuu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583061257425-r92dubkte222n2ichk92154l0nquiu8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
