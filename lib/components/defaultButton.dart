@@ -7,9 +7,12 @@ class DefaultButton extends StatelessWidget {
     Key key,
     this.text,
     this.press,
+    this.color,
+    this.background,
   }) : super(key: key);
   final String text;
   final Function press;
+  final Color color, background;
 
   @override
   Widget build(BuildContext context) {

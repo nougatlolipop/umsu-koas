@@ -13,7 +13,7 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> contentData = [
     {
-      "title": "KOAS UMSU",
+      "title": "Dr. Muda UMSU",
       "deskripsi": "Selamat datang di aplikasi KOAS UMSU",
       "penjelasan": "Aplikasi ini diperuntukan kepada pada dokter muda di UMSU",
       "image": "asset/lotties/welcome.json"
@@ -26,7 +26,7 @@ class _BodyState extends State<Body> {
       "image": "asset/lotties/absen.json"
     },
     {
-      "title": "LOG BOOK",
+      "title": "LOGBOOK",
       "deskripsi": "Pencatatan log book lebih efektif & efisien",
       "penjelasan":
           "Kini pencatatan logbook juga bisa dilakukan dimana saja melalui ponsel masing masing",
