@@ -908,15 +908,19 @@ class APIService {
     return data;
   }
 
-  Future<List<ModelSubKegiatanPim>> getSubKegiatanPim(String idKategori) async {
+  Future<List<ModelSubKegiatanPim>> getSubKegiatanPim(String idKategori,String npm) async {
     List<ModelSubKegiatanPim> data = [];
 
     try {
       String url =
-          Config.url + Config.urlGetSubKegiatanPim + '?idKat=' + idKategori;
+          Config.url + Config.urlGetSubKegiatanPim ;
       print(url);
-      var response = await Dio().get(
+      var response = await Dio().post(
         url,
+        data: {
+          'idKat': idKategori,
+          'npm': npm,
+          },
         options: new Options(
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",

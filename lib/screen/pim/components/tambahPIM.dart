@@ -18,6 +18,7 @@ class _TambahPIMState extends State<TambahPIM> {
   String selectedValueKegiatan,
       selectedValueSemester,
       selectedValueSubKegiatan,
+      namaDosenPembimbing,
       waktuKegiatan;
   final List<DropdownMenuItem<String>> itemsKegiatan = [];
   final List<DropdownMenuItem<String>> itemsSemester = [];
@@ -42,6 +43,7 @@ class _TambahPIMState extends State<TambahPIM> {
   void initState() {
     apiService = new APIService();
     waktuKegiatan = DateTime.now().toString();
+    namaDosenPembimbing = "";
     getKegiatan();
     getSemester();
     super.initState();
@@ -102,7 +104,7 @@ class _TambahPIMState extends State<TambahPIM> {
 
   Future<void> getSubKegiatan(idKategori) async {
     itemsSubKegiatan.clear();
-    apiService.getSubKegiatanPim(idKategori).then((value) {
+    apiService.getSubKegiatanPim(idKategori, Config.npm).then((value) {
       for (var i = 0; i < value.length; i++) {
         itemsSubKegiatan.add(DropdownMenuItem(
           child: Text(
@@ -112,7 +114,11 @@ class _TambahPIMState extends State<TambahPIM> {
           value: value[i].pimKegiatanId,
         ));
       }
-      setState(() {});
+      setState(() {
+        value.length > 0
+            ? namaDosenPembimbing = value[0].dopingNamaLengkap.toString()
+            : namaDosenPembimbing = '';
+      });
     });
   }
 
@@ -240,6 +246,40 @@ class _TambahPIMState extends State<TambahPIM> {
               },
               items: itemsKegiatan,
             ),
+            (namaDosenPembimbing.toString() != "")
+                ? Container(
+                    padding:
+                        EdgeInsets.only(top: getProportionateScreenWidth(15)),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Akan Dibimbing Oleh :',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.green,
+                          ),
+                        ),
+                        Text(
+                          '${namaDosenPembimbing}',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                  padding:
+                        EdgeInsets.only(top: getProportionateScreenWidth(15)),
+                  child: Text(
+                      'Pilih Semester dan Kategori untuk memuat dosen pembimbing',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.red,
+                      ),
+                    ),
+                ),
             Divider(),
             (!isSelect)
                 ? TextField(
