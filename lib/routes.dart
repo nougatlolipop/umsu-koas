@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:umsukoas/screen/datahadir/dataHadir.dart';
-import 'package:umsukoas/screen/followup/followupScreen.dart';
-import 'package:umsukoas/screen/pembimbing/pembimbingScreen.dart';
+import 'screen/datahadir/dataHadir.dart';
+import 'screen/followup/followupScreen.dart';
+import 'screen/pembimbing/pembimbingScreen.dart';
 import 'screen/evaluasi/evaluasiDiriScreen.dart';
 import 'screen/evaluasi/evaluasiDosenScreen.dart';
 import 'screen/evaluasi/evaluasiScreen.dart';
