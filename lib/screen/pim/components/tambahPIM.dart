@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:umsukoas/components/defaultButton.dart';
+import 'package:umsukoas/models/model_sub_kegiatan_pim.dart';
 import 'package:umsukoas/restapi/api_services.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -38,13 +39,14 @@ class _TambahPIMState extends State<TambahPIM> {
   String _extension;
   FileType _pickingType = FileType.any;
   bool visibleUpload = false;
+  bool visibleDosen = false;
+  List<ModelSubKegiatanPim> jumlah = [];
 
   @override
   void initState() {
     apiService = new APIService();
     waktuKegiatan = DateTime.now().toString();
-    namaDosenPembimbing = "";
-    getKegiatan();
+    keterangan();
     getSemester();
     super.initState();
   }
@@ -102,6 +104,24 @@ class _TambahPIMState extends State<TambahPIM> {
     });
   }
 
+  Future<void> keterangan() async {
+    if (selectedValueSemester != null && jumlah.length == 0) {
+      if (selectedValueKegiatan == null) {
+        namaDosenPembimbing = 'Pilih Kategori kegiatan dulu !';
+      } else {
+        namaDosenPembimbing =
+            'Dosen Pembimbing Belum Ditugaskan, Hubungi Koodinator PIM !';
+      }
+      visibleDosen = false;
+    } else if (selectedValueSemester != null && jumlah.length > 0) {
+      namaDosenPembimbing = jumlah[0].dopingNamaLengkap.toString();
+      visibleDosen = true;
+    } else if (selectedValueSemester == null && jumlah.length == 0) {
+      namaDosenPembimbing = 'Pilih Semester dulu !';
+      visibleDosen = false;
+    }
+  }
+
   Future<void> getSubKegiatan(idKategori) async {
     itemsSubKegiatan.clear();
     apiService.getSubKegiatanPim(idKategori, Config.npm).then((value) {
@@ -115,9 +135,9 @@ class _TambahPIMState extends State<TambahPIM> {
         ));
       }
       setState(() {
-        value.length > 0
-            ? namaDosenPembimbing = value[0].dopingNamaLengkap.toString()
-            : namaDosenPembimbing = '';
+        jumlah = value;
+        keterangan();
+        print(jumlah);
       });
     });
   }
@@ -214,6 +234,8 @@ class _TambahPIMState extends State<TambahPIM> {
                 setState(() {
                   selectedValueSemester = newValue;
                   print(selectedValueSemester);
+                  getKegiatan();
+                  keterangan();
                 });
               },
               items: itemsSemester,
@@ -242,11 +264,12 @@ class _TambahPIMState extends State<TambahPIM> {
                       : isSelect = false;
                   print(selectedValueKegiatan.split(',')[0]);
                   getSubKegiatan(selectedValueKegiatan.split(',')[0]);
+                  keterangan();
                 });
               },
               items: itemsKegiatan,
             ),
-            (namaDosenPembimbing.toString() != "")
+            (visibleDosen)
                 ? Container(
                     padding:
                         EdgeInsets.only(top: getProportionateScreenWidth(15)),
@@ -270,16 +293,16 @@ class _TambahPIMState extends State<TambahPIM> {
                     ),
                   )
                 : Container(
-                  padding:
+                    padding:
                         EdgeInsets.only(top: getProportionateScreenWidth(15)),
-                  child: Text(
-                      'Pilih Semester dan Kategori untuk memuat dosen pembimbing',
+                    child: Text(
+                      '${namaDosenPembimbing}',
                       style: TextStyle(
                         fontSize: 10,
                         color: Colors.red,
                       ),
                     ),
-                ),
+                  ),
             Divider(),
             (!isSelect)
                 ? TextField(
